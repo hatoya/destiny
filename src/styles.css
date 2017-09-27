@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+body , div , dl , dt , dd , ul , ol , li , h1 , h2 , h3 , h4 , h5 , h6 , pre , form , fieldset , input , textarea , p , blockquote , th , td {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  color: black;
+  font-size: 14px;
+  line-height: 1.2;
+  word-wrap: break-word;
+  font-family: HiraginoSans, Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: white;
+}
+
+h1 , h2 , h3 , h4 , h5 , h6 {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+}

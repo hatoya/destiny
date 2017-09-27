@@ -1,0 +1,20 @@
+.character {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  &__list {
+    width: calc(100% / 3);
+    height: calc(100vw / 3 * 96 / 474);
+    color: white;
+    background-size: 100%;
+    background-position: left top;
+    background-repeat: no-repeat;
+    &__class {
+
+    }
+    &__name {
+
+    }
+  }
+}
