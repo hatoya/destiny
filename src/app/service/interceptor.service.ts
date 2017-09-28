@@ -10,7 +10,7 @@ export class InterceptorService implements HttpInterceptor {
   constructor() { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request.clone({headers: request.headers.set('X-API-Key', '26afb960ed334cc09268788c92305fd6')}).clone({url: this.baseURL + request.url}))
+    return next.handle(request.clone({url: this.baseURL + request.url}).clone({headers: request.headers.set('X-API-Key', '26afb960ed334cc09268788c92305fd6')}))
   }
 
 }
