@@ -1,0 +1,21 @@
+.character {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding: 50px 70px;
+  &__list {
+    width: calc(100% / 3 - (40px / 3));
+    height: calc(100vw / 3 * 96 / 474);
+    color: white;
+    background-size: 100%;
+    background-position: left top;
+    background-repeat: no-repeat;
+    &__class {
+
+    }
+    &__name {
+
+    }
+  }
+}

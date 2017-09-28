@@ -1,0 +1,30 @@
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 140px;
+  padding: 0 70px;
+  line-height: 140px;
+  background: #00bcd4;
+  &__content {
+    font-size: 30px;
+    font-weight: bold;
+    white-space: nowrap;
+    color: white;
+  }
+  &__plus {
+    a {
+      display: block;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      transition: 0.3s;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    i {
+      margin-right: 5px;
+    }
+  }
+}

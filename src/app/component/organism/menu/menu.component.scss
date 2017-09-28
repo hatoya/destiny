@@ -1,0 +1,31 @@
+.heading {
+  position: relative;
+  display: block;
+  padding-left: 16px;
+  font-size: 12px;
+  line-height: 24px;
+  color: white;
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.content {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  a {
+    display: block;
+    padding-left: 16px;
+    font-size: 14px;
+    line-height: 48px;
+    color: #869fb1;
+    transition: 0.3s;
+    &:hover {
+      color: #00bcd4;
+      background: #fafafa;
+    }
+  }
+  &.-on {
+    a {
+      color: #00bcd4;
+      background: #fafafa;
+    }
+  }
+}
