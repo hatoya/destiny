@@ -1,25 +1,26 @@
 import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
-import { Http, Headers } from '@angular/http'
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 
 @Injectable()
 export class ApiService {
 
-  private headers: Headers = new Headers
+  private headers = new HttpHeaders({'X-API-Key': '26afb960ed334cc09268788c92305fd6'})
   private baseURL: string = 'https://www.bungie.net/Platform'
 
-  constructor(private http: Http) {
-    this.headers.append('X-API-Key', '26afb960ed334cc09268788c92305fd6')
-  }
+  constructor(private http: HttpClient) { }
 
   // '4611686018443892267'
   getProfile(member_id: string): Observable<any> {
-    return this.http.get(this.baseURL + '/Destiny2/2/Profile/' + member_id + '/', {headers: this.headers, params: {components: '100'}})
+    const params = new HttpParams().set('components', '100')
+    return this.http.get(this.baseURL + '/Destiny2/2/Profile/' + member_id + '/', {headers: this.headers, params: params})
+
   }
 
   // '4611686018443892267'
   getCharacters(member_id: string): Observable<any> {
-    return this.http.get(this.baseURL + '/Destiny2/2/Profile/' + member_id + '/', {headers: this.headers, params: {components: '200'}})
+    const params = new HttpParams().set('components', '200')
+    return this.http.get(this.baseURL + '/Destiny2/2/Profile/' + member_id + '/', {headers: this.headers, params: params})
   }
 
   // '4611686018443892267', '2305843009261054278'

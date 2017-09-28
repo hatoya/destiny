@@ -14,7 +14,7 @@ export class IndexComponent implements OnInit {
 
   ngOnInit() {
     this.api.getCharacters('4611686018443892267').subscribe(content => {
-      let characterObject = JSON.parse(content['_body'])['Response']['characters']['data']
+      let characterObject = content['Response']['characters']['data']
       for(let key of Object.keys(characterObject)) this.characters.push(characterObject[key])
     })
   }

@@ -1,7 +1,7 @@
 import 'rxjs/Rx'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
-import { HttpModule } from '@angular/http'
+import { HttpClientModule } from '@angular/common/http'
 
 // Routing
 import { appRouting } from './app.routing'
@@ -18,7 +18,7 @@ import { HeadingComponent } from './component/atom/heading/heading.component'
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     appRouting
   ],
   declarations: [
