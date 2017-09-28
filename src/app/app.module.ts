@@ -1,13 +1,14 @@
 import 'rxjs/Rx'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 // Routing
 import { appRouting } from './app.routing'
 
 // Service
 import { ApiService } from './service/api.service'
+import { InterceptorService } from './service/interceptor.service'
 
 // Component
 import { AppComponent } from './app.component';
@@ -28,7 +29,12 @@ import { HeadingComponent } from './component/atom/heading/heading.component'
     HeadingComponent
   ],
   providers: [
-    ApiService
+    ApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
