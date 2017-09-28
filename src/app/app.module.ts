@@ -1,8 +1,13 @@
+import 'rxjs/Rx'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HttpModule } from '@angular/http'
 
+// Routing
 import { appRouting } from './app.routing'
+
+// Service
+import { ApiService } from './service/api.service'
 
 // Component
 import { AppComponent } from './app.component';
@@ -22,7 +27,9 @@ import { HeadingComponent } from './component/atom/heading/heading.component'
     MenuComponent,
     HeadingComponent
   ],
-  providers: [],
+  providers: [
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
