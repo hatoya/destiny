@@ -14,7 +14,6 @@ export class ApiService {
   getProfile(member_id: string): Observable<any> {
     const params = new HttpParams().set('components', '100')
     return this.http.get(this.baseURL + '/Destiny2/2/Profile/' + member_id + '/', {headers: this.headers, params: params})
-
   }
 
   // '4611686018443892267'
