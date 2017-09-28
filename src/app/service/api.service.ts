@@ -7,6 +7,13 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  // '5c22563a790cbf510817db9d93d5ab2d'
+  getToken(code: string) {
+    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
+    const params = new HttpParams().set('grant_type', 'authorization_code').set('code', code).set('client_id', '21686').set('client_secret', 'TOjL8I3PBBNganZVpn2ajBkqWIy44Vn7DphQAVHJpWc')
+    return this.http.post('/app/oauth/token/', {}, {headers: headers, params: params})
+  }
+
   // '4611686018443892267'
   getProfile(member_id: string): Observable<any> {
     const params = new HttpParams().set('components', '100')
