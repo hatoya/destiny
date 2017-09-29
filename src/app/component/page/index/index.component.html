@@ -1,9 +1,0 @@
-<ul class="character">
-  <li class="character__list" [ngStyle]="{'background-image': 'url(//www.bungie.net' + character.emblemBackgroundPath + ')'}" *ngFor="let character of characters">
-    <a href="" class="character__list__wrapper">
-      <p class="character__list__wrapper__class"><span *ngIf="character.classType === 0">Titan</span><span *ngIf="character.classType === 1">Hunter</span><span *ngIf="character.classType === 2">Warlock</span></p>
-      <p class="character__list__wrapper__level">20</p>
-      <p class="character__list__wrapper__light">◇{{character.light}}</p>
-    </a>
-  </li>
-</ul>

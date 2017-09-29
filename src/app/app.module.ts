@@ -9,6 +9,7 @@ import { appRouting } from './app.routing'
 // Service
 import { StateService } from './service/state.service'
 import { ApiService } from './service/api.service'
+import { StorageService } from './service/storage.service'
 import { InterceptorService } from './service/interceptor.service'
 
 // Component
@@ -33,6 +34,7 @@ import { CharacterIndexComponent } from './component/page/character-index/charac
   ],
   providers: [
     StateService,
+    StorageService,
     ApiService,
     {
       provide: HTTP_INTERCEPTORS,
