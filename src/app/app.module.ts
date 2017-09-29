@@ -15,7 +15,8 @@ import { InterceptorService } from './service/interceptor.service'
 import { AppComponent } from './app.component';
 import { IndexComponent } from './component/page/index/index.component';
 import { MenuComponent } from './component/organism/menu/menu.component';
-import { HeadingComponent } from './component/atom/heading/heading.component'
+import { HeadingComponent } from './component/atom/heading/heading.component';
+import { CharacterIndexComponent } from './component/page/character-index/character-index.component'
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { HeadingComponent } from './component/atom/heading/heading.component'
     AppComponent,
     IndexComponent,
     MenuComponent,
-    HeadingComponent
+    HeadingComponent,
+    CharacterIndexComponent
   ],
   providers: [
     StateService,
