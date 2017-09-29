@@ -9,9 +9,8 @@ export class ApiService {
 
   // '5c22563a790cbf510817db9d93d5ab2d'
   getToken(code: string) {
-    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})
-    const params = new HttpParams().set('grant_type', 'authorization_code').set('code', code).set('client_id', '21686').set('client_secret', 'TOjL8I3PBBNganZVpn2ajBkqWIy44Vn7DphQAVHJpWc')
-    return this.http.post('/app/oauth/token/', {}, {headers: headers, params: params})
+    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic MjE2ODY6VE9qTDhJM1BCQk5nYW5aVnBuMmFqQmtxV0l5NDRWbjdEcGhRQVZISnBXYw=='})
+    return this.http.post('/app/oauth/token/', 'grant_type=authorization_code&code=' + code, {headers: headers})
   }
 
   // '4611686018443892267'
@@ -28,7 +27,8 @@ export class ApiService {
 
   // '4611686018443892267', '2305843009261054278'
   getCharacter(member_id: string, character_id: string) {
-    return this.http.get('/Destiny2/2/Profile/' + member_id + '/Character/' + character_id + '/')
+    const params = new HttpParams().set('components', '200')
+    return this.http.get('/Destiny2/2/Profile/' + member_id + '/Character/' + character_id + '/', {params: params})
   }
 
   // 1851423

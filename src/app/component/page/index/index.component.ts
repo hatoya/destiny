@@ -17,8 +17,7 @@ export class IndexComponent implements OnInit {
       let characterObject = content['Response']['characters']['data']
       for(let key of Object.keys(characterObject)) this.characters.push(characterObject[key])
     })
-    // this.api.getProfile('4611686018443892267').subscribe(content => console.log(content))
-    this.api.getToken('5c22563a790cbf510817db9d93d5ab2d').subscribe(content => console.log(content))
+    // this.api.getCharacter('4611686018443892267', '2305843009261054278').subscribe(content => console.log(content))
   }
 
 }
