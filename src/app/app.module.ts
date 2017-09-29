@@ -7,6 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { appRouting } from './app.routing'
 
 // Service
+import { StateService } from './service/state.service'
 import { ApiService } from './service/api.service'
 import { InterceptorService } from './service/interceptor.service'
 
@@ -29,6 +30,7 @@ import { HeadingComponent } from './component/atom/heading/heading.component'
     HeadingComponent
   ],
   providers: [
+    StateService,
     ApiService,
     {
       provide: HTTP_INTERCEPTORS,
