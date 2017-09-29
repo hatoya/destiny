@@ -5,12 +5,12 @@ export class StorageService {
 
   constructor() { }
 
-  get() {
-
+  get(target: string): any {
+    return JSON.parse(localStorage.getItem(target))
   }
 
-  set() {
-
+  set(target: string, item: object): void {
+    localStorage.setItem(target, JSON.stringify(item))
   }
 
   delete() {
