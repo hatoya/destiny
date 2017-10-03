@@ -13,6 +13,10 @@ export class ApiService {
     return this.http.post('/app/oauth/token/', 'grant_type=authorization_code&code=' + code, {headers: headers})
   }
 
+  getUser() {
+    return this.http.get('/User/GetMembershipsForCurrentUser/')
+  }
+
   // '4611686018443892267'
   getProfile(member_id: string): Observable<any> {
     const params = new HttpParams().set('components', '100')

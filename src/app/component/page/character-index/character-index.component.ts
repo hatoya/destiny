@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../../../service/api.service'
+import { StorageService } from '../../../service/storage.service'
 
 @Component({
   selector: 'app-character-index',
@@ -10,12 +11,15 @@ export class CharacterIndexComponent implements OnInit {
 
   public characters: any[] = []
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private storage: StorageService) { }
 
   ngOnInit() {
-    this.api.getCharacters('4611686018443892267').subscribe(content => {
-      let characterObject = content['Response']['characters']['data']
-      for(let key of Object.keys(characterObject)) this.characters.push(characterObject[key])
+    this.api.getCharacters('4611686018443892267').subscribe({
+      next: content => {
+        let characterObject = content['Response']['characters']['data']
+        for(let key of Object.keys(characterObject)) this.characters.push(characterObject[key])
+      },
+      error: error => console.log(error)
     })
   }
 

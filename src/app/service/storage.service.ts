@@ -9,7 +9,7 @@ export class StorageService {
     return JSON.parse(localStorage.getItem(target))
   }
 
-  set(target: string, item: object): void {
+  set(target: string, item: any): void {
     localStorage.setItem(target, JSON.stringify(item))
   }
 
