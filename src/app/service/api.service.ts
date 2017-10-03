@@ -1,11 +1,12 @@
 import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
+import { StorageService } from './storage.service'
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private storage: StorageService) { }
 
   getToken(code: string) {
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic MjE2ODY6VE9qTDhJM1BCQk5nYW5aVnBuMmFqQmtxV0l5NDRWbjdEcGhRQVZISnBXYw=='})
@@ -26,9 +27,9 @@ export class ApiService {
     return this.http.get('/Destiny2/2/Profile/' + member_id + '/', {params: params})
   }
 
-  getCharacter(member_id: string, character_id: string) {
+  getCharacter(character_id: string) {
     const params = new HttpParams().set('components', '200')
-    return this.http.get('/Destiny2/2/Profile/' + member_id + '/Character/' + character_id + '/', {params: params})
+    return this.http.get('/Destiny2/2/Profile/' + this.storage.get('bungie_oauth')['destiny_id'] + '/Character/' + character_id + '/', {params: params})
   }
 
   // 1851423

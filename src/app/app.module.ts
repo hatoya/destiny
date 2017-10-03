@@ -17,7 +17,8 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './component/page/index/index.component';
 import { MenuComponent } from './component/organism/menu/menu.component';
 import { HeadingComponent } from './component/atom/heading/heading.component';
-import { CharacterIndexComponent } from './component/page/character-index/character-index.component'
+import { CharacterIndexComponent } from './component/page/character-index/character-index.component';
+import { CharacterDetailComponent } from './component/page/character-detail/character-detail.component'
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { CharacterIndexComponent } from './component/page/character-index/charac
     IndexComponent,
     MenuComponent,
     HeadingComponent,
-    CharacterIndexComponent
+    CharacterIndexComponent,
+    CharacterDetailComponent
   ],
   providers: [
     StateService,
