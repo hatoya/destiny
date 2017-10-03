@@ -15,6 +15,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+      this.state.url = event['url']
       if(this.route.queryParams['_value']['code']) this.getToken()
     })
   }
