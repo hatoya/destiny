@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core'
 export class StateService {
 
   public url: string = ''
+  public heading: string = ''
 
   constructor() { }
 

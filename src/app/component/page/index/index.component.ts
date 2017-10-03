@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { StateService } from '../../../service/state.service'
 
 @Component({
   selector: 'app-index',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core'
 })
 export class IndexComponent implements OnInit {
 
-  constructor() { }
+  constructor(private state: StateService) {
+    this.state.heading = 'Dashboard'
+  }
 
   ngOnInit() {
   }
