@@ -27,7 +27,14 @@ export class AppComponent {
         this.storage.set('bungie_oauth', content)
       },
       error: error => console.log(error),
-      complete: () => this.router.navigate(['/'])
+      complete: () => {
+        this.router.navigate(['/'])
+        this.api.getUser(this.storage.get('bungie_oauth')['membership_id']).subscribe(content => {
+          let oauth = this.storage.get('bungie_oauth')
+          oauth['destiny_id'] = content['Response']['destinyMemberships'][0]['membershipId']
+          this.storage.set('bungie_oauth', oauth)
+        })
+      }
     })
   }
 
