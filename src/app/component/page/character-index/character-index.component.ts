@@ -14,7 +14,7 @@ export class CharacterIndexComponent implements OnInit {
   constructor(private api: ApiService, private storage: StorageService) { }
 
   ngOnInit() {
-    this.api.getCharacters(this.storage.get('bungie_oauth')['destiny_id']).subscribe({
+    this.api.getCharacters().subscribe({
       next: content => {
         let characterObject = content['Response']['characters']['data']
         for(let key of Object.keys(characterObject)) this.characters.push(characterObject[key])

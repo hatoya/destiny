@@ -14,6 +14,7 @@ export class AppComponent {
   constructor(private router: Router, private route: ActivatedRoute, private state: StateService, private api: ApiService, private storage: StorageService) { }
 
   ngOnInit() {
+    this.api.getStats().subscribe(content => this.state.stats = content['Response'])
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       this.state.url = event['url']
       if(this.route.queryParams['_value']['code']) this.getToken()
@@ -30,7 +31,7 @@ export class AppComponent {
       error: error => console.log(error),
       complete: () => {
         this.router.navigate(['/'])
-        this.api.getUser(this.storage.get('bungie_oauth')['membership_id']).subscribe(content => {
+        this.api.getUser().subscribe(content => {
           let oauth = this.storage.get('bungie_oauth')
           oauth['destiny_id'] = content['Response']['destinyMemberships'][0]['membershipId']
           this.storage.set('bungie_oauth', oauth)
