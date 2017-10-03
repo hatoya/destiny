@@ -18,7 +18,8 @@ import { IndexComponent } from './component/page/index/index.component';
 import { MenuComponent } from './component/organism/menu/menu.component';
 import { HeadingComponent } from './component/atom/heading/heading.component';
 import { CharacterIndexComponent } from './component/page/character-index/character-index.component';
-import { CharacterDetailComponent } from './component/page/character-detail/character-detail.component'
+import { CharacterDetailComponent } from './component/page/character-detail/character-detail.component';
+import { CharacterComponent } from './component/organism/character/character.component'
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { CharacterDetailComponent } from './component/page/character-detail/char
     MenuComponent,
     HeadingComponent,
     CharacterIndexComponent,
-    CharacterDetailComponent
+    CharacterDetailComponent,
+    CharacterComponent
   ],
   providers: [
     StateService,
