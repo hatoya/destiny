@@ -1,0 +1,8 @@
+<div class="clan" *ngIf="!state.is_load">
+  <p class="clan__name">{{clan['name']}}</p>
+  <ul class="clan__member">
+    <li class="clan__member__list" *ngFor="let member of members">
+      <p class="clan__member__list__name">{{member.destinyUserInfo.displayName}}</p>
+    </li>
+  </ul>
+</div>

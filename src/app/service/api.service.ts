@@ -37,8 +37,14 @@ export class ApiService {
   }
 
   // 1851423
-  getClanReword(clan_id: string) {
-    return this.http.get('/Destiny2/Clan/' + clan_id + '/WeeklyRewardState/')
+  getClan(clan_id: string) {
+    return this.http.get('/GroupV2/' + clan_id + '/')
+  }
+
+  // 1851423
+  getClanMembers(clan_id: string) {
+    const params = new HttpParams().set('currentPage', '1')
+    return this.http.get('/GroupV2/' + clan_id + '/Members/', {params: params})
   }
 
   getVendors(character_id: string) {
@@ -48,6 +54,10 @@ export class ApiService {
 
   getStats() {
     return this.http.get('/Destiny2/Stats/Definition/')
+  }
+
+  getMilestones() {
+    return this.http.get('/Destiny2/Milestones/')
   }
 
 }

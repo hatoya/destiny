@@ -21,6 +21,7 @@ import { CharacterIndexComponent } from './component/page/character-index/charac
 import { CharacterDetailComponent } from './component/page/character-detail/character-detail.component';
 import { CharacterComponent } from './component/organism/character/character.component';
 import { LoadComponent } from './component/organism/load/load.component';
+import { ClanIndexComponent } from './component/page/clan-index/clan-index.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { LoadComponent } from './component/organism/load/load.component';
     CharacterIndexComponent,
     CharacterDetailComponent,
     CharacterComponent,
-    LoadComponent
+    LoadComponent,
+    ClanIndexComponent
   ],
   providers: [
     StateService,
