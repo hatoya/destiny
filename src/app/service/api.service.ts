@@ -27,12 +27,12 @@ export class ApiService {
   }
 
   getCharacters(): Observable<any> {
-    const params = new HttpParams().set('components', '200')
+    const params = new HttpParams().set('components', '200,205')
     return this.http.get('/Destiny2/2/Profile/' + this.destiny_id + '/', {params: params})
   }
 
   getCharacter(character_id: string) {
-    const params = new HttpParams().set('components', '200')
+    const params = new HttpParams().set('components', '200,205')
     return this.http.get('/Destiny2/2/Profile/' + this.storage.get('bungie_oauth')['destiny_id'] + '/Character/' + character_id + '/', {params: params})
   }
 

@@ -20,7 +20,7 @@ import { HeadingComponent } from './component/atom/heading/heading.component';
 import { CharacterIndexComponent } from './component/page/character-index/character-index.component';
 import { CharacterDetailComponent } from './component/page/character-detail/character-detail.component';
 import { CharacterComponent } from './component/organism/character/character.component';
-import { LoadComponent } from './component/organism/load/load.component'
+import { LoadComponent } from './component/organism/load/load.component';
 
 @NgModule({
   imports: [

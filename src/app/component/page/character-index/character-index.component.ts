@@ -18,7 +18,10 @@ export class CharacterIndexComponent implements OnInit {
     this.api.getCharacters().subscribe({
       next: content => {
         let characterObject = content['Response']['characters']['data']
-        for(let key of Object.keys(characterObject)) this.characters.push(characterObject[key])
+        for(let key of Object.keys(characterObject)) {
+          characterObject[key]['items'] = content['Response']['characterEquipment']['data'][key]['items']
+          this.characters.push(characterObject[key])
+        }
       },
       error: error => console.log(error),
       complete: () => this.state.is_load = false
