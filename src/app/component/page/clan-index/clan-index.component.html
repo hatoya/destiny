@@ -1,8 +1,9 @@
-<div class="clan" *ngIf="!state.is_load">
+<div class="clan" [ngStyle]="{'background-image': 'url(https://www.bungie.net/' + clan['bannerPath'] + ')'}">
+  <img [attr.src]="'https://www.bungie.net' + clan['avatarPath']" alt="" class="clan__icon">
   <p class="clan__name">{{clan['name']}}</p>
-  <ul class="clan__member">
-    <li class="clan__member__list" *ngFor="let member of members">
-      <p class="clan__member__list__name">{{member.destinyUserInfo.displayName}}</p>
-    </li>
-  </ul>
 </div>
+<ul class="member">
+  <li class="member__list" *ngFor="let member of members">
+    <p class="member__list__name">{{member.destinyUserInfo.displayName}}</p>
+  </li>
+</ul>
