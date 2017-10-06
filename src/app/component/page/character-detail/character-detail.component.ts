@@ -14,7 +14,11 @@ export class CharacterDetailComponent implements OnInit {
 
   constructor(private router: Router, private api: ApiService, private state: StateService) {
     this.state.heading = 'Character'
-    this.api.getCharacter(this.router.url.split('/')[2]).subscribe(content => this.characters.push(content['Response']['character']['data']))
+    this.api.getCharacter(this.router.url.split('/')[2]).subscribe({
+      next: content => this.characters.push(content['Response']['character']['data']),
+      error: error => console.log(error),
+      complete: () => this.state.is_load = false
+    })
   }
 
   ngOnInit() {

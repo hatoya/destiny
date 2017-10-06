@@ -13,6 +13,7 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.state.is_load = false
   }
 
 }

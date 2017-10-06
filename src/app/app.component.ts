@@ -17,6 +17,7 @@ export class AppComponent {
     this.api.getStats().subscribe(content => this.state.stats = content['Response'])
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       this.state.url = event['url']
+      this.state.is_load = true
       if(this.route.queryParams['_value']['code']) this.getToken()
     })
   }
