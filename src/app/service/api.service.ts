@@ -60,4 +60,8 @@ export class ApiService {
     return this.http.get('/Destiny2/Milestones/')
   }
 
+  getGGElo(id: string) {
+    return this.http.get('https://api.guardian.gg/v2/players/' + id + '?lc=ja')
+  }
+
 }

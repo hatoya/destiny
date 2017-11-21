@@ -1,9 +1,22 @@
-<div class="clan" [ngStyle]="{'background-image': 'url(https://www.bungie.net/' + clan['bannerPath'] + ')'}">
+<!-- <div class="clan" [ngStyle]="{'background-image': 'url(https://www.bungie.net/' + clan['bannerPath'] + ')'}">
   <img [attr.src]="'https://www.bungie.net' + clan['avatarPath']" alt="" class="clan__icon">
   <p class="clan__name">{{clan['name']}}</p>
-</div>
-<ul class="member">
-  <li class="member__list" *ngFor="let member of members">
-    <p class="member__list__name">{{member.destinyUserInfo.displayName}}</p>
-  </li>
-</ul>
+</div> -->
+<table class="table">
+  <tbody>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>ELO</th>
+      <th>KD</th>
+      <th>KDA</th>
+    </tr>
+    <tr *ngFor="let member of members;let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{member.destinyUserInfo.displayName}}</td>
+      <td>{{member.nine.elo | number:'1.0-0'}}</td>
+      <td>{{member.nine.kills / member.nine.deaths | number:'1.2-2'}}</td>
+      <td>{{(member.nine.kills + member.nine.assists) / member.nine.deaths | number:'1.2-2'}}</td>
+    </tr>
+  </tbody>
+</table>

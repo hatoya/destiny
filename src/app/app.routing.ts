@@ -9,29 +9,7 @@ import { ClanIndexComponent } from './component/page/clan-index/clan-index.compo
 const routes: Routes = [
   {
     path: '',
-    component: IndexComponent
-  },
-  {
-    path: 'character',
-    children: [
-      {
-        path: '',
-        component: CharacterIndexComponent
-      },
-      {
-        path: ':id',
-        component: CharacterDetailComponent
-      }
-    ]
-  },
-  {
-    path: 'clan',
-    children: [
-      {
-        path: '',
-        component: ClanIndexComponent
-      }
-    ]
+    component: ClanIndexComponent
   }
 ]
 

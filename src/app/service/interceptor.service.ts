@@ -13,11 +13,13 @@ export class InterceptorService implements HttpInterceptor {
   constructor(private route: ActivatedRoute, private storage: StorageService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let oauth = this.storage.get('bungie_oauth')
-    // console.log(oauth)
-    // console.log(oauth['expires_date'] - new Date().getTime())
-    let headers: HttpHeaders = request.headers.has('authorization') ? request.headers.set('X-API-Key', this.apiKey) : request.headers.set('X-API-Key', this.apiKey).set('Authorization', 'Basic ' + this.storage.get('bungie_oauth')['access_token'])
-    return next.handle(request.clone({url: this.baseURL + request.url}).clone({headers: headers}))
+    if (request['url'].includes('http')) {
+      return next.handle(request)
+    } else {
+      let oauth = this.storage.get('bungie_oauth')
+      let headers: HttpHeaders = request.headers.has('authorization') ? request.headers.set('X-API-Key', this.apiKey) : request.headers.set('X-API-Key', this.apiKey).set('Authorization', 'Basic ' + this.storage.get('bungie_oauth')['access_token'])
+      return next.handle(request.clone({ url: this.baseURL + request.url }).clone({ headers: headers }))
+    }
   }
 
 }
