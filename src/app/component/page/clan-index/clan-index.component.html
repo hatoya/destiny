@@ -7,16 +7,18 @@
     <tr>
       <th></th>
       <th>Name</th>
-      <th>ELO</th>
+      <th>GG elo</th>
+      <th>Tracker elo</th>
       <th>KD</th>
       <th>KDA</th>
     </tr>
     <tr *ngFor="let member of members;let i = index">
       <td>{{i + 1}}</td>
       <td>{{member.destinyUserInfo.displayName}}</td>
-      <td>{{member.nine.elo | number:'1.0-0'}}</td>
-      <td>{{member.nine.kills / member.nine.deaths | number:'1.2-2'}}</td>
-      <td>{{(member.nine.kills + member.nine.assists) / member.nine.deaths | number:'1.2-2'}}</td>
+      <td><span *ngIf="member.gg"><i class="gg" [ngClass]="{'-unranked': member.gg.elo === 0, '-bronze': 0 < member.gg.elo && member.gg.elo < 1100, '-silver': 1100 <= member.gg.elo && member.gg.elo < 1300, '-gold': 1300 <= member.gg.elo && member.gg.elo < 1500, '-platinum': 1500 <= member.gg.elo && member.gg.elo < 1700, '-diamond': 1700 <= member.gg.elo, '-master': false}"></i>{{member.gg.elo | number:'1.0-0'}}</span></td>
+      <td><span *ngIf="member.tracker"><i class="tracker" [ngClass]="{'-unranked': member.tracker.currentElo === 0, '-bronze': 0 < member.tracker.currentElo && member.tracker.currentElo < 1100, '-silver': 1100 <= member.tracker.currentElo && member.tracker.currentElo < 1300, '-gold': 1300 <= member.tracker.currentElo && member.tracker.currentElo < 1500, '-platinum': 1500 <= member.tracker.currentElo && member.tracker.currentElo < 1700, '-diamond': 1700 <= member.tracker.currentElo, '-master': false}"></i>{{member.tracker.currentElo | number:'1.0-0'}}</span></td>
+      <td><span *ngIf="member.gg">{{member.gg.kills / member.gg.deaths | number:'1.2-2'}}</span></td>
+      <td><span *ngIf="member.gg">{{(member.gg.kills + member.gg.assists) / member.gg.deaths | number:'1.2-2'}}</span></td>
     </tr>
   </tbody>
 </table>

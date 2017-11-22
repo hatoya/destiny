@@ -64,4 +64,8 @@ export class ApiService {
     return this.http.get('https://api.guardian.gg/v2/players/' + id + '?lc=ja')
   }
 
+  getTrackerElo(id: string) {
+    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id)
+  }
+
 }
