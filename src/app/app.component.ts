@@ -11,7 +11,7 @@ import { ApiService } from './service/api.service'
 })
 export class AppComponent {
 
-  constructor(private router: Router, private route: ActivatedRoute, private state: StateService, private api: ApiService, private storage: StorageService) { }
+  constructor(private router: Router, private route: ActivatedRoute, public state: StateService, private api: ApiService, private storage: StorageService) { }
 
   ngOnInit() {
     // this.api.getStats().subscribe(content => this.state.stats = content['Response'])

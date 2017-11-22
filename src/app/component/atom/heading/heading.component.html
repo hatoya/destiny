@@ -1,5 +1,3 @@
 <div class="heading">
   <p class="heading__content">{{content}}</p>
-  <p class="heading__plus" *ngIf="is_post"><a [routerLink]="['/admin', 'post', content | lowercase, 'create']"><i class="fa fa-plus-circle" aria-hidden="true"></i>Create Post</a></p>
-  <p class="heading__plus" *ngIf="is_media"><a [routerLink]="['/admin', 'media', 'create']"><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Media</a></p>
 </div>
