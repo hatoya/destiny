@@ -9,7 +9,7 @@ export class ApiService {
   private destiny_id: string = ''
 
   constructor(private http: HttpClient, private storage: StorageService) {
-    this.destiny_id = this.storage.get('bungie_oauth')['destiny_id']
+    // this.destiny_id = this.storage.get('bungie_oauth')['destiny_id']
   }
 
   getToken(code: string) {
