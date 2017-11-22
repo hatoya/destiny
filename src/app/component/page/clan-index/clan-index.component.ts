@@ -19,8 +19,11 @@ export class ClanIndexComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.getClanMembers('2027026').do(content => console.log(content['Response']['results'])).subscribe({
-      next: content => this.members = content['Response']['results'],
+    this.api.getClanMembers('2027026').subscribe({
+      next: content => {
+        const contents: any[] = Object.keys(content).map(value => content[value])
+        this.members = contents
+      },
       complete: () => {
         this.state.is_load = false
         this.getElo()
@@ -29,15 +32,11 @@ export class ClanIndexComponent implements OnInit {
   }
 
   getElo() {
-    this.members.map(member => {
-      this.api.getGGElo(member['destinyUserInfo']['membershipId']).subscribe(content => {
-        member['gg'] = content['player']['stats'] ? (content['player']['stats'].filter(stat => stat['mode'] === 39).length ? content['player']['stats'].filter(stat => stat['mode'] === 39)[0] : {elo: 0}) : {elo: 0}
-      })
-      this.api.getTrackerElo(member['destinyUserInfo']['membershipId']).subscribe(content => {
-        const contents: any = Object.keys(content).map(value => content[value])
-        member['tracker'] = contents.filter(stat => stat['mode'] === 39).length ? contents.filter(stat => stat['mode'] === 39)[0] : {currentElo: 0}
-      })
-    })
+    // this.members.map(member => this.api.getElo(member).subscribe(elo => member['elo'] = elo))
+  }
+
+  sortMembers() {
+    this.members.sort((member1, member2) => 1)
   }
 
 }

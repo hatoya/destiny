@@ -43,8 +43,7 @@ export class ApiService {
 
   // 1851423
   getClanMembers(clan_id: string) {
-    const params = new HttpParams().set('currentPage', '1')
-    return this.http.get('/GroupV2/' + clan_id + '/Members/', {params: params})
+    return this.http.get('https://api.guardian.gg/v2/clan/' + clan_id + '/members?lc=ja')
   }
 
   getVendors(character_id: string) {
@@ -60,12 +59,11 @@ export class ApiService {
     return this.http.get('/Destiny2/Milestones/')
   }
 
-  getGGElo(id: string) {
-    return this.http.get('https://api.guardian.gg/v2/players/' + id + '?lc=ja')
-  }
-
-  getTrackerElo(id: string) {
-    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id)
+  getTrackerElo(id: string): Observable<number> {
+    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id).map(content => {
+      const contents: any = Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39)
+      return contents.length ? contents[0]['currentElo'] : 0
+    })
   }
 
 }
