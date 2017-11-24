@@ -13,6 +13,7 @@ export class ClanIndexComponent implements OnInit {
   public clan: any = {}
   public members: any[] = []
   public contents: any
+  public target: string = 'gg'
 
   constructor(public state: StateService, private api: ApiService) {
     this.state.heading = 'Clan'
@@ -38,10 +39,8 @@ export class ClanIndexComponent implements OnInit {
 
   getRatio() {
     this.members.map(member => {
-      member['ratio'] = {
-        kd: member['stats'][39] ? member['stats'][39]['kills'] / member['stats'][39]['deaths'] : 0,
-        kda: member['stats'][39] ? (member['stats'][39]['kills'] + member['stats'][39]['assists']) / member['stats'][39]['deaths'] : 0
-      }
+      member['kd'] = member['stats'][39] ? member['stats'][39]['kills'] / member['stats'][39]['deaths'] : 0
+      member['kda'] = member['stats'][39] ? (member['stats'][39]['kills'] + member['stats'][39]['assists']) / member['stats'][39]['deaths'] : 0
     })
   }
 

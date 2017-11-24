@@ -22,6 +22,7 @@ import { CharacterDetailComponent } from './component/page/character-detail/char
 import { CharacterComponent } from './component/organism/character/character.component';
 import { LoadComponent } from './component/organism/load/load.component';
 import { ClanIndexComponent } from './component/page/clan-index/clan-index.component';
+import { TableOrderPipe } from './pipe/table-order.pipe';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { ClanIndexComponent } from './component/page/clan-index/clan-index.compo
     CharacterDetailComponent,
     CharacterComponent,
     LoadComponent,
-    ClanIndexComponent
+    ClanIndexComponent,
+    TableOrderPipe
   ],
   providers: [
     StateService,
