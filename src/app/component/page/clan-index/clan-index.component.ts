@@ -14,6 +14,7 @@ export class ClanIndexComponent implements OnInit {
   public members: any[] = []
   public contents: any
   public target: string = 'gg'
+  public order: string = 'desc'
 
   constructor(public state: StateService, private api: ApiService) {
     this.state.heading = 'Clan'
@@ -44,8 +45,9 @@ export class ClanIndexComponent implements OnInit {
     })
   }
 
-  sortMembers() {
-    this.members.sort((member1, member2) => 1)
+  changeOrder(target: string) {
+    this.order = this.target === target && this.order === 'desc' ? 'asc' : 'desc'
+    this.target = target
   }
 
 }

@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core'
 })
 export class TableOrderPipe implements PipeTransform {
 
-  transform(contents: any[], target: string): any[] {
-    return contents.sort((member1, member2) => member1[target] < member2[target] ? 1 : -1)
+  transform(contents: any[], option: any): any[] {
+    return contents.sort((member1, member2) => (member1[option['target']] < member2[option['target']] ? 1 : -1) * (option['order'] === 'desc' ? 1 : -1))
   }
 
 }
