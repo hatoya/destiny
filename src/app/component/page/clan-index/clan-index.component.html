@@ -9,12 +9,16 @@
       <th>Name</th>
       <th>GG elo</th>
       <th>Tracker elo</th>
+      <th>KD</th>
+      <th>KDA</th>
     </tr>
     <tr *ngFor="let member of members;let i = index">
       <td>{{i + 1}}</td>
       <td>{{member.member.destinyUserInfo.displayName}}</td>
-      <td><span *ngIf="member.elo"><i class="gg" [ngClass]="{'-unranked': member.elo.gg === 0, '-bronze': 0 < member.elo.gg && member.elo.gg < 1100, '-silver': 1100 <= member.elo.gg && member.elo.gg < 1300, '-gold': 1300 <= member.elo.gg && member.elo.gg < 1500, '-platinum': 1500 <= member.elo.gg && member.elo.gg < 1700, '-diamond': 1700 <= member.elo.gg, '-master': false}"></i>{{member.elo.gg | number:'1.0-0'}}</span></td>
-      <td><span *ngIf="member.elo"><i class="tracker" [ngClass]="{'-unranked': member.elo.tracker === 0, '-bronze': 0 < member.elo.tracker && member.elo.tracker < 1100, '-silver': 1100 <= member.elo.tracker && member.elo.tracker < 1300, '-gold': 1300 <= member.elo.tracker && member.elo.tracker < 1500, '-platinum': 1500 <= member.elo.tracker && member.elo.tracker < 1700, '-diamond': 1700 <= member.elo.tracker, '-master': false}"></i>{{member.elo.tracker | number:'1.0-0'}}</span></td>
+      <td><span *ngIf="member.gg >= 0"><i class="gg" [ngClass]="{'-unranked': member.gg === 0, '-bronze': 0 < member.gg && member.gg < 1100, '-silver': 1100 <= member.gg && member.gg < 1300, '-gold': 1300 <= member.gg && member.gg < 1500, '-platinum': 1500 <= member.gg && member.gg < 1700, '-diamond': 1700 <= member.gg, '-master': false}"></i>{{member.gg | number:'1.0-0'}}</span></td>
+      <td><span *ngIf="member.tracker >= 0"><i class="tracker" [ngClass]="{'-unranked': member.tracker === 0, '-bronze': 0 < member.tracker && member.tracker < 1100, '-silver': 1100 <= member.tracker && member.tracker < 1300, '-gold': 1300 <= member.tracker && member.tracker < 1500, '-platinum': 1500 <= member.tracker && member.tracker < 1700, '-diamond': 1700 <= member.tracker, '-master': false}"></i>{{member.tracker | number:'1.0-0'}}</span></td>
+      <td><span *ngIf="member.ratio">{{member.ratio.kd | number:'1.2-2'}}</span></td>
+      <td><span *ngIf="member.ratio">{{member.ratio.kda | number:'1.2-2'}}</span></td>
     </tr>
   </tbody>
 </table>
