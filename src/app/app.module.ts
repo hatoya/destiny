@@ -21,6 +21,7 @@ import { CharacterComponent } from './component/organism/character/character.com
 import { LoadComponent } from './component/organism/load/load.component';
 import { TableOrderPipe } from './pipe/table-order.pipe';
 import { HeaderComponent } from './component/organism/header/header.component';
+import { PartyIndexComponent } from './component/page/party-index/party-index.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { HeaderComponent } from './component/organism/header/header.component';
     CharacterComponent,
     LoadComponent,
     TableOrderPipe,
-    HeaderComponent
+    HeaderComponent,
+    PartyIndexComponent
   ],
   providers: [
     StateService,
