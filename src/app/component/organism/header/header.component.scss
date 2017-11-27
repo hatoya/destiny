@@ -1,0 +1,137 @@
+@import "../../../../mixin.scss";
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 50px;
+  padding: 0 16px;
+  background: #00bcd4;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  z-index: 1000;
+  &__content {
+    display: flex;
+    align-items: center;
+    a {
+      display: inline-block;
+      line-height: 40px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+    }
+    i {
+      padding-right: 5px;
+    }
+    &__login {
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    &__user {
+      display: flex;
+      align-items: center;
+      position: relative;
+      height: 50px;
+      cursor: pointer;
+      &__image {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 50%;
+      }
+      &__name {
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+      }
+      &__menu {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        width: 150px;
+        background: white;
+        border: 1px solid rgba(black, 0.12);
+        box-shadow: 0 3px 1px -2px rgba(black, 0.2), 0 2px 2px 0 rgba(black, 0.14), 0 1px 5px 0 rgba(black, 0.12);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+        &__list {
+          padding-left: 16px;
+          font-size: 12px;
+          line-height: 40px;
+          color: #869fb1;
+          transition: 0.3s;
+          &:not(:first-child) {
+            border-top: 1px solid rgba(black, 0.12);
+          }
+          &:hover {
+            color: #00bcd4;
+            background: #fafafa;
+          }
+        }
+      }
+      &:hover &__menu {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+    &__controller {
+      display: none;
+    }
+  }
+  @include sp-only {
+    &__content {
+      a {
+        font-size: 16px;
+      }
+      &__controller {
+        display: block;
+        position: relative;
+        width: 22px;
+        height: 16px;
+        &__list {
+          position: absolute;
+          top: calc(50% - 1px);
+          left: 0;
+          width: 22px;
+          height: 2px;
+          background: white;
+          transition: 0.3s;
+          &:nth-of-type(1) {
+            transform: translate(0, -7px);
+          }
+          &:nth-of-type(3) {
+            transform: translate(0, 7px);
+          }
+        }
+        &.-on {
+          .header__content__controller {
+            &__list {
+              &:nth-of-type(1) {
+                transform: rotate(45deg);
+              }
+              &:nth-of-type(2) {
+                opacity: 0;
+                transform: translate(5px, 0);
+              }
+              &:nth-of-type(3) {
+                transform: rotate(-45deg);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

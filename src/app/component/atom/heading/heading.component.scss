@@ -1,3 +1,5 @@
+@import "../../../../mixin.scss";
+
 .heading {
   display: flex;
   align-items: center;
@@ -25,6 +27,13 @@
     }
     i {
       margin-right: 5px;
+    }
+  }
+  @include sp-only {
+    height: 100px;
+    padding: 0 20px;
+    &__content {
+      font-size: 20px;
     }
   }
 }

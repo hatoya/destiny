@@ -1,24 +1,14 @@
-<header class="header">
-  <p class="header__content"><a [routerLink]="['/']"><i class="fa fa-paper-plane" aria-hidden="true"></i>Destiny pera</a></p>
-  <div class="header__content">
-    <!-- <div class="header__content__user" *ngIf="state.user">
-      <div class="header__content__user__image" [ngStyle]="{'background-image': 'url(' + state.user.photoURL + ')'}"></div>
-      <p class="header__content__user__name">{{state.user.displayName}}</p>
-      <ul class="header__content__user__menu">
-          <li class="header__content__user__menu__list" (click)="logout()">LOGOUT</li>
-      </ul>
-    </div> -->
-    <!-- <a href="https://www.bungie.net/ja/oauth/authorize?client_id=21686&response_type=code" class="header__content__login" >LOGIN</a> -->
-  </div>
-</header>
+<app-header></app-header>
 <div class="column">
   <div class="column__content -menu">
     <organism-menu></organism-menu>
   </div>
   <div class="column__content">
     <atom-heading [content]="state.heading"></atom-heading>
-    <router-outlet></router-outlet>
-    <organism-load></organism-load>
+    <div class="column__content__wrapper">
+      <router-outlet></router-outlet>
+      <organism-load></organism-load>
+    </div>
   </div>
   <!-- <div class="column__content -loading"><i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i></div> -->
 </div>
