@@ -1,0 +1,85 @@
+.party {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: 50px 70px;
+  &__list {
+    width: calc(50% - 10px);
+    padding: 20px;
+    background: white;
+    border: 1px solid rgba(black, 0.12);
+    &:nth-of-type(2n-1) {
+      margin-right: 20px;
+    }
+    &:nth-of-type(n+3) {
+      margin-top: 20px;
+    }
+    &__tag {
+      display: flex;
+      &__list {
+        margin-right: 5px;
+        padding: 0 10px;
+        font-size: 13px;
+        line-height: 20px;
+        color: white;
+        background: #00bcd4;
+      }
+    }
+    &__title {
+      margin-top: 10px;
+      font-size: 20px;
+      line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &__description {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+    &__team {
+      margin-top: 10px;
+      &__list {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+        padding: 0 10px;
+        line-height: 50px;
+        background: #fafafa;
+        border: 1px solid rgba(black, 0.12);
+        &__name {
+          font-size: 14px;
+        }
+        &__elo {
+          i {
+            display: inline-block;
+            vertical-align: middle;
+            width: calc(122px / 4);
+            height: calc(101px / 4);
+            margin-right: 5px;
+            margin-left: 10px;
+            background-image: url(../../../../assets/gg_diamond.png);
+            background-size: cover;
+          }
+        }
+      }
+    }
+    &__average {
+      margin-top: 10px;
+      padding: 0 10px;
+      text-align: right;
+      line-height: 1;
+      i {
+        display: inline-block;
+        vertical-align: middle;
+        width: calc(122px / 4);
+        height: calc(101px / 4);
+        margin-right: 5px;
+        margin-left: 10px;
+        background-image: url(../../../../assets/gg_diamond.png);
+        background-size: cover;
+      }
+    }
+  }
+}
