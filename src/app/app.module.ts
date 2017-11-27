@@ -17,11 +17,8 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './component/page/index/index.component';
 import { MenuComponent } from './component/organism/menu/menu.component';
 import { HeadingComponent } from './component/atom/heading/heading.component';
-import { CharacterIndexComponent } from './component/page/character-index/character-index.component';
-import { CharacterDetailComponent } from './component/page/character-detail/character-detail.component';
 import { CharacterComponent } from './component/organism/character/character.component';
 import { LoadComponent } from './component/organism/load/load.component';
-import { ClanIndexComponent } from './component/page/clan-index/clan-index.component';
 import { TableOrderPipe } from './pipe/table-order.pipe';
 
 @NgModule({
@@ -35,11 +32,8 @@ import { TableOrderPipe } from './pipe/table-order.pipe';
     IndexComponent,
     MenuComponent,
     HeadingComponent,
-    CharacterIndexComponent,
-    CharacterDetailComponent,
     CharacterComponent,
     LoadComponent,
-    ClanIndexComponent,
     TableOrderPipe
   ],
   providers: [

@@ -1,0 +1,20 @@
+<table class="table">
+  <tbody>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th class="-active" (click)="changeOrder('gg')">GG elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'gg' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'gg' && order === 'asc'"></i></th>
+      <th class="-active" (click)="changeOrder('tracker')">Tracker elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'tracker' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'tracker' && order === 'asc'"></i></th>
+      <th class="-active" (click)="changeOrder('kd')">KD<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kd' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kd' && order === 'asc'"></i></th>
+      <th class="-active" (click)="changeOrder('kda')">KDA<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kda' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kda' && order === 'asc'"></i></th>
+    </tr>
+    <tr *ngFor="let member of members | tableOrder:{target: target, order: order};let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{member.member.destinyUserInfo.displayName}}</td>
+      <td><span *ngIf="member.gg >= 0"><i class="gg" [ngClass]="{'-unranked': member.gg === 0, '-bronze': 0 < member.gg && member.gg < 1100, '-silver': 1100 <= member.gg && member.gg < 1300, '-gold': 1300 <= member.gg && member.gg < 1500, '-platinum': 1500 <= member.gg && member.gg < 1700, '-diamond': 1700 <= member.gg, '-master': false}"></i>{{member.gg | number:'1.0-0'}}</span></td>
+      <td><span *ngIf="member.tracker >= 0"><i class="tracker" [ngClass]="{'-unranked': member.tracker === 0, '-bronze': 0 < member.tracker && member.tracker < 1100, '-silver': 1100 <= member.tracker && member.tracker < 1300, '-gold': 1300 <= member.tracker && member.tracker < 1500, '-platinum': 1500 <= member.tracker && member.tracker < 1700, '-diamond': 1700 <= member.tracker, '-master': false}"></i>{{member.tracker | number:'1.0-0'}}</span></td>
+      <td><span *ngIf="member.kd >= 0">{{member.kd | number:'1.2-2'}}</span></td>
+      <td><span *ngIf="member.kda >= 0">{{member.kda | number:'1.2-2'}}</span></td>
+    </tr>
+  </tbody>
+</table>
