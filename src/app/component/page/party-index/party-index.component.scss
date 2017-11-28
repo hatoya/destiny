@@ -1,3 +1,5 @@
+@import "../../../../mixin.scss";
+
 .party {
   display: flex;
   flex-wrap: wrap;
@@ -79,6 +81,15 @@
         margin-left: 10px;
         background-image: url(../../../../assets/gg_diamond.png);
         background-size: cover;
+      }
+    }
+  }
+  @include sp-only {
+    margin: 0;
+    &__list {
+      width: 100%;
+      &:not(:first-child) {
+        margin-top: 20px;
       }
     }
   }

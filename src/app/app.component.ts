@@ -18,6 +18,7 @@ export class AppComponent {
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       this.state.url = event['url']
       this.state.is_load = true
+      this.state.is_navigation = false
       // if(this.route.queryParams['_value']['code']) this.getToken()
     })
   }
