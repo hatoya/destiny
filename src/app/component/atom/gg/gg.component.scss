@@ -1,0 +1,29 @@
+.gg {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(122px / 2);
+  height: calc(101px / 2);
+  margin-right: 10px;
+  background-size: cover;
+  &.-unranked {
+    background-image: url(../../../../assets/gg_unranked.png);
+  }
+  &.-bronze {
+    background-image: url(../../../../assets/gg_bronze.png);
+  }
+  &.-silver {
+    background-image: url(../../../../assets/gg_silver.png);
+  }
+  &.-gold {
+    background-image: url(../../../../assets/gg_gold.png);
+  }
+  &.-platinum {
+    background-image: url(../../../../assets/gg_platinum.png);
+  }
+  &.-diamond {
+    background-image: url(../../../../assets/gg_diamond.png);
+  }
+  &.-master {
+    background-image: url(../../../../assets/gg_master.png);
+  }
+}
