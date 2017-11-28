@@ -1,0 +1,21 @@
+box: hatoya/docker-firebase
+
+test:
+  steps:
+    - npm-install
+    - script:
+      name: npm run test
+      code: npm run build
+
+deploy:
+  steps:
+    - script:
+      name: npm run build
+      code: npm run build
+    - devillex/firebase-deploy@1.1.0:
+      project: $FIREBASE_PROJECT_NAME
+      token: $FIREBASE_TOKEN
+  after-steps:
+    - maestrohealthcaretechnologies/slack-notify@0.3.0:
+      url: $SLACK_WEBHOOK_URL
+      icon-url: https://secure.gravatar.com/avatar/33a5bfbcf8a2b90f40e849b6f1fa5eeb
