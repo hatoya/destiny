@@ -45,6 +45,7 @@
         width: 100vw;
         padding: 20px;
         overflow: scroll;
+        -webkit-overflow-scrolling : touch;
       }
       &.-menu {
         display: none;
