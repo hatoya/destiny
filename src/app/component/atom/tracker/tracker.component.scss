@@ -5,6 +5,12 @@
   width: 40px;
   height: 40px;
   background-size: cover;
+  &.-party {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    margin-left: 10px;
+  }
   &.-unranked {
     background-image: url(../../../../assets/gg_unranked.png);
   }
