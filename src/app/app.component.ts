@@ -16,6 +16,7 @@ export class AppComponent {
   ngOnInit() {
     // this.api.getStats().subscribe(content => this.state.stats = content['Response'])
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+      window.scrollTo(0, 0)
       this.state.url = event['url']
       this.state.is_load = true
       this.state.is_navigation = false
