@@ -12,7 +12,7 @@
     ],
     "headers": [
       {
-        "source": "service-worker.js",
+        "source": "ngsw-worker.js",
         "headers": [
           {
             "key": "Cache-Control",
