@@ -41,6 +41,7 @@
   @include sp-only {
     &__content {
       width: 100vw;
+      overflow: auto;
       &__wrapper {
         width: 100vw;
         padding: 20px;
