@@ -4,7 +4,7 @@ test:
   steps:
     - npm-install
     - script:
-      name: npm run test
+      name: npm run build
       code: npm run build
 
 deploy:
