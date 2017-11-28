@@ -2,6 +2,7 @@ import 'rxjs/Rx'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { ServiceWorkerModule } from '@angular/service-worker'
 
 // Routing
 import { appRouting } from './app.routing'
@@ -29,7 +30,8 @@ import { TrackerComponent } from './component/atom/tracker/tracker.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    appRouting
+    appRouting,
+    ServiceWorkerModule.register('/ngsw-worker.js')
   ],
   declarations: [
     AppComponent,

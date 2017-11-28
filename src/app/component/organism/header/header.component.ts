@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StateService } from '../../../service/state.service'
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public state: StateService) { }
 
   ngOnInit() {
+  }
+
+  switchNavigation() {
+    this.state.is_navigation = !this.state.is_navigation
   }
 
 }

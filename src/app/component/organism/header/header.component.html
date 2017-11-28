@@ -1,7 +1,7 @@
 <header class="header">
   <p class="header__content"><a [routerLink]="['/']"><i class="fa fa-paper-plane" aria-hidden="true"></i>Destiny</a></p>
   <div class="header__content">
-    <ul class="header__content__controller">
+    <ul class="header__content__controller" [class.-on]="state.is_navigation" (click)="switchNavigation()">
       <li class="header__content__controller__list"></li>
       <li class="header__content__controller__list"></li>
       <li class="header__content__controller__list"></li>
