@@ -41,13 +41,10 @@
   @include sp-only {
     &__content {
       width: 100vw;
-      overflow: auto;
       &__wrapper {
-        display: inline-table;
         width: 100vw;
-        height: calc(100vh - 50px);
         padding: 20px;
-        overflow: scroll;
+        overflow-x: scroll;
         -webkit-overflow-scrolling : touch
       }
       &.-menu {
