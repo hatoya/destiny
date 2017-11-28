@@ -30,9 +30,6 @@
       }
     }
   ],
-  "addons": [
-    "../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"
-  ],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
@@ -59,6 +56,10 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "component": {}
+    "component": {
+    }
+  },
+  "warnings": {
+    "typescriptMismatch": false
   }
 }
