@@ -9,9 +9,6 @@ test:
 
 deploy:
   steps:
-    - script:
-      name: npm run build
-      code: npm run build
     - devillex/firebase-deploy@1.1.0:
       project: $FIREBASE_PROJECT_NAME
       token: $FIREBASE_TOKEN
