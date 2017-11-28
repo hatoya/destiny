@@ -13,20 +13,17 @@
     font-weight: bold;
     white-space: nowrap;
     color: white;
-  }
-  &__plus {
-    a {
+    &.-party {
       display: block;
+      padding: 0 16px;
       font-size: 20px;
-      font-weight: bold;
-      color: white;
-      transition: 0.3s;
-      &:hover {
-        opacity: 0.8;
+      line-height: 40px;
+      color: #00bcd4;
+      background: white;
+      border-radius: 20px;
+      i {
+        padding-right: 5px;
       }
-    }
-    i {
-      margin-right: 5px;
     }
   }
   @include sp-only {

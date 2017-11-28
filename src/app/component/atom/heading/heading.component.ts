@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core'
+import { StateService } from '../../../service/state.service'
 
 @Component({
   selector: 'atom-heading',
@@ -9,7 +10,7 @@ export class HeadingComponent implements OnInit {
 
   @Input() content: string = ''
 
-  constructor() { }
+  constructor(public state: StateService) { }
 
   ngOnInit() {
   }
