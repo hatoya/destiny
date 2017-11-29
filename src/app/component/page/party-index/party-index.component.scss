@@ -65,22 +65,10 @@
             background-size: cover;
           }
         }
-      }
-    }
-    &__average {
-      margin-top: 10px;
-      padding: 0 10px;
-      text-align: right;
-      line-height: 1;
-      i {
-        display: inline-block;
-        vertical-align: middle;
-        width: calc(122px / 4);
-        height: calc(101px / 4);
-        margin-right: 5px;
-        margin-left: 10px;
-        background-image: url(../../../../assets/gg_diamond.png);
-        background-size: cover;
+        &.-average {
+          background: white;
+          border-color: rgba(black, 0);
+        }
       }
     }
   }
