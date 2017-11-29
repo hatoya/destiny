@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core'
 })
 export class TrackerComponent implements OnInit {
 
-  @Input() style: string = 'normal'
+  @Input() type: string = 'normal'
   @Input() elo: number = 0
 
   constructor() { }
