@@ -33,8 +33,8 @@ export class IndexComponent implements OnInit {
 
   getElo() {
     this.members.map(member => {
-      member['gg'] = member['stats'][39] ? member['stats'][39]['elo'] : 0,
-        this.api.getTrackerElo(member['member']['destinyUserInfo']['membershipId']).subscribe(elo => member['tracker'] = elo)
+      member['gg'] = member['stats'][39] ? member['stats'][39]['elo'] : 0
+      this.api.getTrackerElo(member['member']['destinyUserInfo']['membershipId']).subscribe(elo => member['tracker'] = elo)
     })
   }
 
