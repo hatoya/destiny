@@ -4,6 +4,12 @@ import { NgModule } from '@angular/core'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ServiceWorkerModule } from '@angular/service-worker'
 
+import { environment } from '../environments/environment';
+
+// AngularFire
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 // Routing
 import { appRouting } from './app.routing'
 
@@ -31,7 +37,9 @@ import { TrackerComponent } from './component/atom/tracker/tracker.component';
     BrowserModule,
     HttpClientModule,
     appRouting,
-    ServiceWorkerModule.register('/ngsw-worker.js')
+    ServiceWorkerModule.register('/ngsw-worker.js'),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
   ],
   declarations: [
     AppComponent,
