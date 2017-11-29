@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router'
+import { SwUpdate } from '@angular/service-worker'
 import { StateService } from './service/state.service'
 import { StorageService } from './service/storage.service'
 import { ApiService } from './service/api.service'
@@ -11,10 +12,11 @@ import { ApiService } from './service/api.service'
 })
 export class AppComponent {
 
-  constructor(private router: Router, private route: ActivatedRoute, public state: StateService, private api: ApiService, private storage: StorageService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private swUpdate: SwUpdate, public state: StateService, private api: ApiService, private storage: StorageService) { }
 
   ngOnInit() {
     // this.api.getStats().subscribe(content => this.state.stats = content['Response'])
+    this.swUpdate.checkForUpdate()
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       window.scrollTo(0, 0)
       this.state.url = event['url']
