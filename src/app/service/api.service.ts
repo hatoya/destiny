@@ -46,6 +46,22 @@ export class ApiService {
     return this.http.get('https://api.guardian.gg/v2/clan/' + clan_id + '/members?lc=ja')
   }
 
+  getPlayer(id: string) {
+    return this.http.get('https://api.guardian.gg/v2/players/' + id + '?lc=ja').map(content => {
+      return [{
+        member: {
+          destinyUserInfo: {
+            membershipId: content['player']['membershipId'],
+            displayName: content['player']['name']
+          }
+        },
+        stats: {
+          39: content['player']['stats'].filter(stat => stat['mode'] === 39)[0]
+        }
+      }]
+    })
+  }
+
   getVendors(character_id: string) {
     const params = new HttpParams().set('components', '400')
     return this.http.get('/Destiny2/2/Profile/' + this.destiny_id + '/Character/' + character_id + '/Vendors/', {params: params})
