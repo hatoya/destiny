@@ -8,7 +8,7 @@ import { environment } from '../environments/environment';
 
 // AngularFire
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 // Routing
 import { appRouting } from './app.routing'
@@ -40,7 +40,7 @@ import { DiffComponent } from './component/atom/diff/diff.component';
     appRouting,
     ServiceWorkerModule.register('/ngsw-worker.js'),
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
+    AngularFirestoreModule
   ],
   declarations: [
     AppComponent,

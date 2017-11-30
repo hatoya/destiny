@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable'
 import { Component, OnInit } from '@angular/core'
+import { AngularFirestore } from 'angularfire2/firestore'
 import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
 
@@ -16,7 +17,7 @@ export class IndexComponent implements OnInit {
   public target: string = 'gg'
   public order: string = 'desc'
 
-  constructor(public state: StateService, private api: ApiService) {
+  constructor(private fireStore: AngularFirestore, public state: StateService, private api: ApiService) {
     this.state.heading = 'Dashboard'
   }
 
@@ -27,6 +28,7 @@ export class IndexComponent implements OnInit {
         this.state.is_load = false
         this.getElo()
         this.getRatio()
+        this.getDiff()
       }
     })
   }
@@ -45,9 +47,28 @@ export class IndexComponent implements OnInit {
     })
   }
 
+  getDiff() {
+    this.members.map(member => {
+      this.fireStore.collection('user').valueChanges().subscribe(users => {
+        const diff: any = users.filter(user => user['name'] === member.member.destinyUserInfo.displayName)[0]
+        member['diff'] = {
+          gg: parseInt(member.gg) - parseInt(diff['nine']['elo']['gg']),
+          tracker: parseInt(member.tracker) - parseInt(diff['nine']['elo']['tracker'])
+        }
+      })
+    })
+    console.log(this.members)
+  }
+
   changeOrder(target: string) {
     this.order = this.target === target && this.order === 'desc' ? 'asc' : 'desc'
     this.target = target
+  }
+
+  save() {
+    this.members.forEach(member => {
+      this.fireStore.collection('user').doc(member.member.destinyUserInfo.displayName).set({name: member.member.destinyUserInfo.displayName, nine: {elo: {gg: member.gg, tracker: member.tracker}, ratio: {kd: member.kd, kda: member.kda}}})
+    })
   }
 
 }
