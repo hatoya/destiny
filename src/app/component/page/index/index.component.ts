@@ -21,8 +21,8 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.getClanMembers('2027026').subscribe({
-      next: content => this.members = Object.keys(content).map(value => content[value]),
+    Observable.merge(this.api.getClanMembers('2027026'), this.api.getPlayer('4611686018434797507')).subscribe({
+      next: content => Object.keys(content).map(value => this.members.push(content[value])),
       complete: () => {
         this.state.is_load = false
         this.getElo()
