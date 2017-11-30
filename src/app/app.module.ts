@@ -31,6 +31,7 @@ import { HeaderComponent } from './component/organism/header/header.component';
 import { PartyIndexComponent } from './component/page/party-index/party-index.component';
 import { GgComponent } from './component/atom/gg/gg.component';
 import { TrackerComponent } from './component/atom/tracker/tracker.component';
+import { DiffComponent } from './component/atom/diff/diff.component';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { TrackerComponent } from './component/atom/tracker/tracker.component';
     HeaderComponent,
     PartyIndexComponent,
     GgComponent,
-    TrackerComponent
+    TrackerComponent,
+    DiffComponent
   ],
   providers: [
     StateService,
