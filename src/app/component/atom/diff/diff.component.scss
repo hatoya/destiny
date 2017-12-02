@@ -1,0 +1,14 @@
+.diff {
+  font-size: 12px;
+  padding-left: 5px;
+  &.-plus {
+    color: #4caf50;
+    &::before {
+      content: "+";
+      display: inline-block;
+    }
+  }
+  &.-minus {
+    color: rgba(red, 0.6);
+  }
+}
