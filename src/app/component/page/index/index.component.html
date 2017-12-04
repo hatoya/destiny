@@ -4,16 +4,16 @@
     <tr>
       <th></th>
       <th>Name</th>
-      <th class="-active" (click)="changeOrder('gg')">GG elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'gg' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'gg' && order === 'asc'"></i></th>
-      <th class="-active" (click)="changeOrder('tracker')">Tracker elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'tracker' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'tracker' && order === 'asc'"></i></th>
+      <th class="-active" (click)="changeOrder('elo_gg')">GG elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'elo_gg' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'elo_gg' && order === 'asc'"></i></th>
+      <th class="-active" (click)="changeOrder('elo_tracker')">Tracker elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'elo_tracker' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'elo_tracker' && order === 'asc'"></i></th>
       <th class="-active" (click)="changeOrder('kd')">KD<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kd' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kd' && order === 'asc'"></i></th>
       <th class="-active" (click)="changeOrder('kda')">KDA<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kda' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kda' && order === 'asc'"></i></th>
     </tr>
     <tr *ngFor="let member of members | tableOrder:{target: target, order: order};let i = index">
       <td>{{i + 1}}</td>
-      <td>{{member.member.destinyUserInfo.displayName}}</td>
-      <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.member.destinyUserInfo.membershipId + '/' + member.member.destinyUserInfo.displayName" target="_blank" *ngIf="member.gg >= 0"><app-gg [elo]="member.gg"></app-gg>{{member.gg | number:'1.0-0'}}<app-diff [elo]="member.diff.gg" *ngIf="member.diff"></app-diff></a></td>
-      <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.member.destinyUserInfo.displayName" target="_blank" *ngIf="member.tracker >= 0"><app-tracker [elo]="member.tracker"></app-tracker>{{member.tracker | number:'1.0-0'}}<app-diff [elo]="member.diff.tracker" *ngIf="member.diff"></app-diff></a></td>
+      <td>{{member.name}}</td>
+      <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank" *ngIf="member.elo_gg >= 0"><app-gg [elo]="member.elo_gg"></app-gg>{{member.elo_gg | number:'1.0-0'}}<app-diff [elo]="member.diff_gg"></app-diff></a></td>
+      <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank" *ngIf="member.elo_tracker >= 0"><app-tracker [elo]="member.elo_tracker"></app-tracker>{{member.elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.diff_tracker"></app-diff></a></td>
       <td><span *ngIf="member.kd >= 0">{{member.kd | number:'1.2-2'}}</span></td>
       <td><span *ngIf="member.kda >= 0">{{member.kda | number:'1.2-2'}}</span></td>
     </tr>
