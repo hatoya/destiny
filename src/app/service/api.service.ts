@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { StorageService } from './storage.service'
+import { Player } from '../model/player.model'
 
 @Injectable()
 export class ApiService {
@@ -42,23 +43,26 @@ export class ApiService {
   }
 
   // 1851423
-  getClanMembers(clan_id: string) {
-    return this.http.get('https://api.guardian.gg/v2/clan/' + clan_id + '/members?lc=ja')
+  getClanMembers(clan_id: string): Observable<Player> {
+    return this.http.get('https://api.guardian.gg/v2/clan/' + clan_id + '/members?lc=ja').map(content => Object.keys(content).map(value => content[value])).flatMap(member => member).map(content => {
+      let player: Player = new Player(content['member']['destinyUserInfo']['membershipId'], content['member']['destinyUserInfo']['displayName'])
+      let nine: any = content['stats'][39]
+      player.elo_gg = nine ? nine['elo'] : 0
+      player.kd = nine ? nine['kills'] / nine['deaths'] : 0
+      player.kda = nine ? (nine['kills'] + nine['assists']) / nine['deaths'] : 0
+      return player
+    })
   }
 
-  getPlayer(id: string) {
+  getPlayer(id: string): Observable<Player> {
     return this.http.get('https://api.guardian.gg/v2/players/' + id + '?lc=ja').map(content => {
-      return [{
-        member: {
-          destinyUserInfo: {
-            membershipId: content['player']['membershipId'],
-            displayName: content['player']['name']
-          }
-        },
-        stats: {
-          39: content['player']['stats'].filter(stat => stat['mode'] === 39)[0]
-        }
-      }]
+      let player: Player = new Player(content['player']['membershipId'], content['player']['name'])
+      let nine: any = content['player']['stats'].filter(stat => stat['mode'] === 39)[0]
+      player.elo_gg = nine['elo']
+      player.kd = nine['kills'] / nine['deaths']
+      player.kda = (nine['kills'] + nine['assists']) / nine['deaths']
+      player.rank_gg = content['playerRanks'][39]
+      return player
     })
   }
 
@@ -75,11 +79,8 @@ export class ApiService {
     return this.http.get('/Destiny2/Milestones/')
   }
 
-  getTrackerElo(id: string): Observable<number> {
-    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id).map(content => {
-      const contents: any = Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39)
-      return contents.length ? contents[0]['currentElo'] : 0
-    })
+  getTracker(id: string): Observable<any> {
+    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id).map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39))
   }
 
 }

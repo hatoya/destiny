@@ -1,1 +1,1 @@
-<span class="diff -plus" [ngClass]="{'-plus': elo > 0, '-minus': elo < 0}" *ngIf="elo">{{elo | number:'1.0-0'}}</span>
+<span class="diff -plus" [ngClass]="{'-plus': elo >= 1, '-minus': elo <= -1}" *ngIf="elo">{{elo | number:'1.0-0'}}</span>

@@ -9,6 +9,7 @@ export class TrackerComponent implements OnInit {
 
   @Input() type: string = 'normal'
   @Input() elo: number = 0
+  @Input() rank: number = 0
 
   constructor() { }
 

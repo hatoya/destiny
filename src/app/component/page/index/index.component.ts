@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { AngularFirestore } from 'angularfire2/firestore'
 import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
+import { Player } from '../../../model/player.model'
 
 @Component({
   selector: 'app-index',
@@ -12,9 +13,9 @@ import { ApiService } from '../../../service/api.service'
 export class IndexComponent implements OnInit {
 
   public clan: any = {}
-  public members: any[] = []
+  public members: Player[] = []
   public contents: any
-  public target: string = 'gg'
+  public target: string = 'elo_gg'
   public order: string = 'desc'
 
   constructor(private fireStore: AngularFirestore, public state: StateService, private api: ApiService) {
@@ -23,41 +24,42 @@ export class IndexComponent implements OnInit {
 
   ngOnInit() {
     Observable.merge(this.api.getClanMembers('2027026'), this.api.getPlayer('4611686018434797507')).subscribe({
-      next: content => Object.keys(content).map(value => this.members.push(content[value])),
+      next: content => this.members.push(content),
       complete: () => {
         this.state.is_load = false
-        this.getElo()
-        this.getRatio()
+        this.getGgElo()
+        this.getTrackerElo()
         this.getDiff()
       }
     })
   }
 
-  getElo() {
-    this.members.map(member => {
-      member['gg'] = member['stats'][39] ? member['stats'][39]['elo'] : 0
-      this.api.getTrackerElo(member['member']['destinyUserInfo']['membershipId']).subscribe(elo => member['tracker'] = elo)
+  getGgElo() {
+    this.members.filter(member => member.elo_gg >= 1700).map(member => {
+      this.api.getPlayer(member.id).subscribe(content => {
+        member.rank_gg = content.rank_gg
+      })
+      return member
     })
   }
 
-  getRatio() {
+  getTrackerElo() {
     this.members.map(member => {
-      member['kd'] = member['stats'][39] ? member['stats'][39]['kills'] / member['stats'][39]['deaths'] : 0
-      member['kda'] = member['stats'][39] ? (member['stats'][39]['kills'] + member['stats'][39]['assists']) / member['stats'][39]['deaths'] : 0
+      this.api.getTracker(member.id).subscribe(content => {
+        member.elo_tracker = content.length ? content[0]['currentElo'] : 0
+        member.rank_tracker = content.length ? content[0]['playerank']['rank'] : 0
+      })
     })
   }
 
   getDiff() {
     this.members.map(member => {
       this.fireStore.collection('user').valueChanges().subscribe(users => {
-        const diff: any = users.filter(user => user['name'] === member.member.destinyUserInfo.displayName)[0]
-        member['diff'] = {
-          gg: parseInt(member.gg) - parseInt(diff['nine']['elo']['gg']),
-          tracker: parseInt(member.tracker) - parseInt(diff['nine']['elo']['tracker'])
-        }
+        const diff: any = users.filter(user => user['name'] === member.name)[0]
+        member.diff_gg = member.elo_gg - diff['nine']['elo']['gg']
+        member.diff_tracker = member.elo_tracker - parseInt(diff['nine']['elo']['tracker'])
       })
     })
-    console.log(this.members)
   }
 
   changeOrder(target: string) {
@@ -67,7 +69,7 @@ export class IndexComponent implements OnInit {
 
   save() {
     this.members.forEach(member => {
-      this.fireStore.collection('user').doc(member.member.destinyUserInfo.displayName).set({name: member.member.destinyUserInfo.displayName, nine: {elo: {gg: member.gg, tracker: member.tracker}, ratio: {kd: member.kd, kda: member.kda}}})
+      this.fireStore.collection('user').doc(member.name).set({name: member.name, nine: {elo: {gg: member.elo_gg, tracker: member.elo_tracker}, ratio: {kd: member.kd, kda: member.kda}}})
     })
   }
 
