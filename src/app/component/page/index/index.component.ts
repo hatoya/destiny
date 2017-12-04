@@ -29,17 +29,31 @@ export class IndexComponent implements OnInit {
         this.state.is_load = false
         this.getGgElo()
         this.getTrackerElo()
+        this.getDiff()
       }
     })
   }
 
   getGgElo() {
-    this.members.map(member => member)
+    this.members.filter(member => member.elo_gg >= 1700).map(member => {
+      this.api.getPlayer(member.id).subscribe(content => {
+        member.rank_gg = content.rank_gg
+      })
+      return member
+    })
   }
 
   getTrackerElo() {
     this.members.map(member => {
-      this.api.getTrackerElo(member.id).subscribe(elo => member.elo_tracker = elo)
+      this.api.getTracker(member.id).subscribe(content => {
+        member.elo_tracker = content.length ? content[0]['currentElo'] : 0
+        member.rank_tracker = content.length ? content[0]['playerank']['rank'] : 0
+      })
+    })
+  }
+
+  getDiff() {
+    this.members.map(member => {
       this.fireStore.collection('user').valueChanges().subscribe(users => {
         const diff: any = users.filter(user => user['name'] === member.name)[0]
         member.diff_gg = member.elo_gg - diff['nine']['elo']['gg']

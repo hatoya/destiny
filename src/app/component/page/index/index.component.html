@@ -12,8 +12,8 @@
     <tr *ngFor="let member of members | tableOrder:{target: target, order: order};let i = index">
       <td>{{i + 1}}</td>
       <td>{{member.name}}</td>
-      <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank" *ngIf="member.elo_gg >= 0"><app-gg [elo]="member.elo_gg"></app-gg>{{member.elo_gg | number:'1.0-0'}}<app-diff [elo]="member.diff_gg"></app-diff></a></td>
-      <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank" *ngIf="member.elo_tracker >= 0"><app-tracker [elo]="member.elo_tracker"></app-tracker>{{member.elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.diff_tracker"></app-diff></a></td>
+      <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank" *ngIf="member.elo_gg >= 0"><app-gg [elo]="member.elo_gg" [rank]="member.rank_gg"></app-gg>{{member.elo_gg | number:'1.0-0'}}<app-diff [elo]="member.diff_gg"></app-diff></a></td>
+      <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank" *ngIf="member.elo_tracker >= 0"><app-tracker [elo]="member.elo_tracker" [rank]="member.rank_tracker"></app-tracker>{{member.elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.diff_tracker"></app-diff></a></td>
       <td><span *ngIf="member.kd >= 0">{{member.kd | number:'1.2-2'}}</span></td>
       <td><span *ngIf="member.kda >= 0">{{member.kda | number:'1.2-2'}}</span></td>
     </tr>

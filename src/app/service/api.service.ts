@@ -79,11 +79,8 @@ export class ApiService {
     return this.http.get('/Destiny2/Milestones/')
   }
 
-  getTrackerElo(id: string): Observable<number> {
-    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id).map(content => {
-      const contents: any = Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39)
-      return contents.length ? contents[0]['currentElo'] : 0
-    })
+  getTracker(id: string): Observable<any> {
+    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id).map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39))
   }
 
 }
