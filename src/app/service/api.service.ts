@@ -49,7 +49,8 @@ export class ApiService {
       let nine: any = content['stats'][39]
       player.elo_gg = nine ? nine['elo'] : 0
       player.kd = nine ? nine['kills'] / nine['deaths'] : 0
-      player.kda = nine ? (nine['kills'] + nine['assists']) / nine['deaths'] : 0
+      player.kda = nine ? (nine['kills'] + (nine['assists'] / 2)) / nine['deaths'] : 0
+      player.kad = nine ? (nine['kills'] + nine['assists']) / nine['deaths'] : 0
       return player
     })
   }
@@ -60,7 +61,8 @@ export class ApiService {
       let nine: any = content['player']['stats'].filter(stat => stat['mode'] === 39)[0]
       player.elo_gg = nine['elo']
       player.kd = nine['kills'] / nine['deaths']
-      player.kda = (nine['kills'] + nine['assists']) / nine['deaths']
+      player.kda = (nine['kills'] + (nine['assists'] / 2)) / nine['deaths']
+      player.kad = (nine['kills'] + nine['assists']) / nine['deaths']
       player.rank_gg = content['playerRanks'][39]
       return player
     })
