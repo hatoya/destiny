@@ -19,6 +19,7 @@ export class AppComponent {
     this.swUpdate.checkForUpdate()
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       window.scrollTo(0, 0)
+      this.state.errors = []
       this.state.url = event['url']
       this.state.is_load = true
       this.state.is_navigation = false

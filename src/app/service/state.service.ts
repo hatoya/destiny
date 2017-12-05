@@ -8,6 +8,7 @@ export class StateService {
   public stats: any = {}
   public is_navigation: boolean = false
   public is_load: boolean = true
+  public errors: string[] = []
 
   constructor() { }
 

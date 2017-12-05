@@ -11,6 +11,15 @@
     height: 100%;
     overflow: scroll;
     z-index: 1;
+    &__error {
+      width: calc(100% - 140px);
+      margin: 50px auto 0;
+      &__list {
+        &:not(:first-child) {
+          margin-top: 20px;
+        }
+      }
+    }
     &.-menu {
       width: 240px;
       height: 100%;
@@ -42,6 +51,15 @@
     &__content {
       width: 100vw;
       overflow: visible;
+      &__error {
+        width: calc(100% - 40px);
+        margin-top: 20px;
+        &__list {
+          &:not(:first-child) {
+            margin-top: 10px;
+          }
+        }
+      }
       &__wrapper {
         width: 100vw;
         padding: 20px;
