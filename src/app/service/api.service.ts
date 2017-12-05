@@ -51,6 +51,7 @@ export class ApiService {
       player.kd = nine ? nine['kills'] / nine['deaths'] : 0
       player.kda = nine ? (nine['kills'] + (nine['assists'] / 2)) / nine['deaths'] : 0
       player.kad = nine ? (nine['kills'] + nine['assists']) / nine['deaths'] : 0
+      player.match = nine ? nine['gamesPlayed'] : 0
       return player
     })
   }
@@ -64,6 +65,7 @@ export class ApiService {
       player.kda = (nine['kills'] + (nine['assists'] / 2)) / nine['deaths']
       player.kad = (nine['kills'] + nine['assists']) / nine['deaths']
       player.rank_gg = content['playerRanks'][39]
+      player.match = nine['gamesPlayed']
       return player
     })
   }

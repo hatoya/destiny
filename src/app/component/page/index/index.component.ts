@@ -46,8 +46,8 @@ export class IndexComponent implements OnInit {
   getTrackerElo() {
     this.members.map(member => {
       this.api.getTracker(member.id).subscribe(content => {
-        member.elo_tracker = content.length ? content[0]['currentElo'] : 0
-        member.rank_tracker = content.length ? content[0]['playerank']['rank'] : 0
+        member.elo_tracker = content.length ? (content[0]['currentElo'] ? content[0]['currentElo'] : 0) : 0
+        member.rank_tracker = content.length ? (content[0]['playerank']['rank'] ? content[0]['playerank']['rank'] : 0) : 0
       })
     })
   }

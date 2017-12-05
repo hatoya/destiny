@@ -11,6 +11,7 @@ export class Player {
   public kd: number = 0
   public kda: number = 0
   public kad: number = 0
+  public match: number = 0
 
   constructor(id?: string, name?: string) {
     this.id = id
