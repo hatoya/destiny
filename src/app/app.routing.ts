@@ -7,11 +7,13 @@ import { PartyIndexComponent } from './component/page/party-index/party-index.co
 const routes: Routes = [
   {
     path: '',
-    component: IndexComponent
+    component: IndexComponent,
+    pathMatch: 'full'
   },
   {
     path: 'party',
-    component: PartyIndexComponent
+    component: PartyIndexComponent,
+    pathMatch: 'full'
   }
 ]
 
