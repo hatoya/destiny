@@ -32,6 +32,7 @@ import { PartyIndexComponent } from './component/page/party-index/party-index.co
 import { GgComponent } from './component/atom/gg/gg.component';
 import { TrackerComponent } from './component/atom/tracker/tracker.component';
 import { DiffComponent } from './component/atom/diff/diff.component';
+import { ErrorComponent } from './component/atom/error/error.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { DiffComponent } from './component/atom/diff/diff.component';
     PartyIndexComponent,
     GgComponent,
     TrackerComponent,
-    DiffComponent
+    DiffComponent,
+    ErrorComponent
   ],
   providers: [
     StateService,

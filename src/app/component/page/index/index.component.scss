@@ -11,6 +11,7 @@
     border-top: 1px solid rgba(black, 0.12);
   }
   th {
+    width: 100px;
     padding: 0 12px;
     font-size: 12px;
     line-height: 50px;
@@ -29,10 +30,6 @@
     }
     &:nth-of-type(4) {
       width: 120px;
-    }
-    &:nth-of-type(5),
-    &:nth-of-type(6) {
-      width: 100px;
     }
     i {
       margin-left: 10px;

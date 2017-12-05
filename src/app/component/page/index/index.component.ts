@@ -25,6 +25,10 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     Observable.merge(this.api.getClanMembers('2027026'), this.api.getPlayer('4611686018434797507')).subscribe({
       next: content => this.members.push(content),
+      error: () => {
+        this.state.is_load = false
+        if (!this.state.errors.includes('GurdianGG API is dead.')) this.state.errors.push('GurdianGG API is dead.')
+      },
       complete: () => {
         this.state.is_load = false
         this.getGgElo()
@@ -45,9 +49,14 @@ export class IndexComponent implements OnInit {
 
   getTrackerElo() {
     this.members.map(member => {
-      this.api.getTracker(member.id).subscribe(content => {
-        member.elo_tracker = content.length ? content[0]['currentElo'] : 0
-        member.rank_tracker = content.length ? content[0]['playerank']['rank'] : 0
+      this.api.getTracker(member.id).subscribe({
+        next: content => {
+          member.elo_tracker = content.length ? (content[0]['currentElo'] ? content[0]['currentElo'] : 0) : 0
+          member.rank_tracker = content.length ? (content[0]['playerank']['rank'] ? content[0]['playerank']['rank'] : 0) : 0
+        },
+        error: () => {
+          if (!this.state.errors.includes('Tracker API is dead.')) this.state.errors.push('Tracker API is dead.')
+        }
       })
     })
   }
