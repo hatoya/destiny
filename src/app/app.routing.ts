@@ -11,12 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'party',
-    children: [
-      {
-        path: '',
-        component: PartyIndexComponent
-      }
-    ]
+    component: PartyIndexComponent
   }
 ]
 
