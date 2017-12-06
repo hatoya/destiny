@@ -34,9 +34,12 @@ export class IndexComponent implements OnInit {
         this.sort()
         this.getGgElo()
         this.getTrackerElo()
-        this.getDiff()
       }
     })
+  }
+
+  sort() {
+    this.members = this.members.sort((member1, member2) => (member1[this.target] < member2[this.target] ? 1 : -1) * (this.order === 'desc' ? 1 : -1))
   }
 
   getGgElo() {
@@ -57,7 +60,8 @@ export class IndexComponent implements OnInit {
         },
         error: () => {
           if (!this.state.errors.includes('Tracker API is dead.')) this.state.errors.push('Tracker API is dead.')
-        }
+        },
+        complete: () => this.getDiff()
       })
     })
   }
@@ -75,10 +79,6 @@ export class IndexComponent implements OnInit {
     this.order = this.target === target && this.order === 'desc' ? 'asc' : 'desc'
     this.target = target
     this.sort()
-  }
-
-  sort() {
-    this.members = this.members.sort((member1, member2) => (member1[this.target] < member2[this.target] ? 1 : -1) * (this.order === 'desc' ? 1 : -1))
   }
 
   save() {
