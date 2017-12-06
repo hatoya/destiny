@@ -62,11 +62,10 @@ export class IndexComponent implements OnInit {
   }
 
   getDiff() {
-    this.members.map(member => {
-      this.fireStore.collection('user').valueChanges().subscribe(users => {
-        const diff: any = users.filter(user => user['name'] === member.name)[0]
-        member.diff_gg = member.elo_gg - diff['nine']['elo']['gg']
-        member.diff_tracker = member.elo_tracker - parseInt(diff['nine']['elo']['tracker'])
+    this.fireStore.collection('user').valueChanges().flatMap(user => user).subscribe(user => {
+      this.members.filter(member => member.name === user['name']).map(member => {
+        member.diff_gg = member.elo_gg - user['nine']['elo']['gg']
+        member.diff_tracker = member.elo_tracker - user['nine']['elo']['tracker']
       })
     })
   }
