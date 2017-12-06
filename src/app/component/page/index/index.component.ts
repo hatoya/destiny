@@ -44,10 +44,12 @@ export class IndexComponent implements OnInit {
 
   getGgElo() {
     this.members.filter(member => member.elo_gg >= 1700).map(member => {
-      this.api.getPlayer(member.id).subscribe(content => {
-        member.rank_gg = content.rank_gg
+      this.api.getPlayer(member.id).subscribe({
+        next: content => {
+          member.rank_gg = content.rank_gg
+        },
+        complete: () => member
       })
-      return member
     })
   }
 
