@@ -26,7 +26,6 @@ import { MenuComponent } from './component/organism/menu/menu.component';
 import { HeadingComponent } from './component/atom/heading/heading.component';
 import { CharacterComponent } from './component/organism/character/character.component';
 import { LoadComponent } from './component/organism/load/load.component';
-import { TableOrderPipe } from './pipe/table-order.pipe';
 import { HeaderComponent } from './component/organism/header/header.component';
 import { PartyIndexComponent } from './component/page/party-index/party-index.component';
 import { GgComponent } from './component/atom/gg/gg.component';
@@ -50,7 +49,6 @@ import { ErrorComponent } from './component/atom/error/error.component';
     HeadingComponent,
     CharacterComponent,
     LoadComponent,
-    TableOrderPipe,
     HeaderComponent,
     PartyIndexComponent,
     GgComponent,
