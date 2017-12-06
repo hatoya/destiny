@@ -11,7 +11,7 @@
       <th class="-active" (click)="changeOrder('kad')">KA/D<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kad' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kad' && order === 'asc'"></i></th>
       <th class="-active" (click)="changeOrder('match')">Match<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'match' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'match' && order === 'asc'"></i></th>
     </tr>
-    <tr *ngFor="let member of members | tableOrder:{target: target, order: order};let i = index">
+    <tr *ngFor="let member of members;let i = index">
       <td>{{i + 1}}</td>
       <td>{{member.name}}</td>
       <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank"><app-gg [elo]="member.elo_gg" [rank]="member.rank_gg"></app-gg>{{member.elo_gg | number:'1.0-0'}}<app-diff [elo]="member.diff_gg"></app-diff></a></td>

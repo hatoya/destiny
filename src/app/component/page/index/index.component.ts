@@ -31,6 +31,7 @@ export class IndexComponent implements OnInit {
       },
       complete: () => {
         this.state.is_load = false
+        this.sort()
         this.getGgElo()
         this.getTrackerElo()
         this.getDiff()
@@ -73,6 +74,11 @@ export class IndexComponent implements OnInit {
   changeOrder(target: string) {
     this.order = this.target === target && this.order === 'desc' ? 'asc' : 'desc'
     this.target = target
+    this.sort()
+  }
+
+  sort() {
+    this.members = this.members.sort((member1, member2) => (member1[this.target] < member2[this.target] ? 1 : -1) * (this.order === 'desc' ? 1 : -1))
   }
 
   save() {
