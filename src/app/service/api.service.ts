@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
+import { AngularFirestore } from 'angularfire2/firestore'
 import { StorageService } from './storage.service'
 import { Player } from '../model/player.model'
 
@@ -9,7 +10,7 @@ export class ApiService {
 
   private destiny_id: string = ''
 
-  constructor(private http: HttpClient, private storage: StorageService) {
+  constructor(private http: HttpClient, private fireStore: AngularFirestore, private storage: StorageService) {
     // this.destiny_id = this.storage.get('bungie_oauth')['destiny_id']
   }
 
@@ -85,6 +86,14 @@ export class ApiService {
 
   getTracker(id: string): Observable<any> {
     return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id).map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39))
+  }
+
+  getFireUsers(): Observable<any> {
+    return this.fireStore.collection('user').valueChanges()
+  }
+
+  setFireUsers(member: Player) {
+    this.fireStore.collection('user').doc(member.name).set(Object.assign({}, member))
   }
 
 }
