@@ -59,29 +59,28 @@ export class IndexComponent implements OnInit {
   }
 
   getTrackerElo() {
-    this.members.map(member => {
-      this.api.getTracker(member.id).subscribe({
-        next: content => {
-          member.elo_tracker = content.length ? (content[0]['currentElo'] ? content[0]['currentElo'] : 0) : 0
-          member.rank_tracker = content.length ? (content[0]['playerank']['rank'] ? content[0]['playerank']['rank'] : 0) : 0
-        },
-        error: () => {
-          if (!this.state.errors.includes('Tracker API is dead.')) this.state.errors.push('Tracker API is dead.')
-        },
-        complete: () => this.getDiff()
-      })
+    Observable.from(this.members).subscribe({
+      next: member => {
+        this.api.getTracker(member.id).subscribe({
+          next: content => {
+            member.elo_tracker = content.length ? (content[0]['currentElo'] ? content[0]['currentElo'] : 0) : 0
+            member.rank_tracker = content.length ? (content[0]['playerank']['rank'] ? content[0]['playerank']['rank'] : 0) : 0
+          },
+          error: () => {
+            if (!this.state.errors.includes('Tracker API is dead.')) this.state.errors.push('Tracker API is dead.')
+          }
+        })
+      },
+      complete: () => this.getDiff()
     })
   }
 
   getDiff() {
-    this.fireSubscription = this.api.getFireUsers().flatMap(user => user).subscribe({
-      next: user => {
-        this.members.filter(member => member.name === user['name']).map(member => {
-          member.diff_gg = member.elo_gg - user['elo_gg']
-          member.diff_tracker = member.elo_tracker - user['elo_tracker']
-        })
-      },
-      complete: () => console.log('complete')
+    this.fireSubscription = this.api.getFireUsers().flatMap(user => user).subscribe(user => {
+      this.members.filter(member => member.name === user['name']).map(member => {
+        member.diff_gg = member.elo_gg - user['elo_gg']
+        member.diff_tracker = member.elo_tracker - user['elo_tracker']
+      })
     })
   }
 
