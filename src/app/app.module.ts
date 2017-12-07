@@ -38,7 +38,7 @@ import { ErrorComponent } from './component/atom/error/error.component';
     BrowserModule,
     HttpClientModule,
     appRouting,
-    ServiceWorkerModule.register('/ngsw-worker.js'),
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
