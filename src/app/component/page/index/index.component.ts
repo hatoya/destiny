@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable'
-import { Component, OnInit } from '@angular/core'
-import { AngularFirestore } from 'angularfire2/firestore'
+import { Subscription } from 'rxjs/Subscription'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
 import { Player } from '../../../model/player.model'
@@ -17,8 +17,9 @@ export class IndexComponent implements OnInit {
   public contents: any
   public target: string = 'elo_gg'
   public order: string = 'desc'
+  public fireSubscription: Subscription
 
-  constructor(private fireStore: AngularFirestore, public state: StateService, private api: ApiService) {
+  constructor(public state: StateService, private api: ApiService) {
     this.state.heading = 'Dashboard'
   }
 
@@ -38,16 +39,22 @@ export class IndexComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    this.fireSubscription.unsubscribe()
+  }
+
   sort() {
     this.members = this.members.sort((member1, member2) => (member1[this.target] < member2[this.target] ? 1 : -1) * (this.order === 'desc' ? 1 : -1))
   }
 
   getGgElo() {
     this.members.filter(member => member.elo_gg >= 1700).map(member => {
-      this.api.getPlayer(member.id).subscribe(content => {
-        member.rank_gg = content.rank_gg
+      this.api.getPlayer(member.id).subscribe({
+        next: content => {
+          member.rank_gg = content.rank_gg
+        },
+        complete: () => member
       })
-      return member
     })
   }
 
@@ -67,11 +74,14 @@ export class IndexComponent implements OnInit {
   }
 
   getDiff() {
-    this.fireStore.collection('user').valueChanges().flatMap(user => user).subscribe(user => {
-      this.members.filter(member => member.name === user['name']).map(member => {
-        member.diff_gg = member.elo_gg - user['nine']['elo']['gg']
-        member.diff_tracker = member.elo_tracker - user['nine']['elo']['tracker']
-      })
+    this.fireSubscription = this.api.getFireUsers().flatMap(user => user).subscribe({
+      next: user => {
+        this.members.filter(member => member.name === user['name']).map(member => {
+          member.diff_gg = member.elo_gg - user['elo_gg']
+          member.diff_tracker = member.elo_tracker - user['elo_tracker']
+        })
+      },
+      complete: () => console.log('complete')
     })
   }
 
@@ -82,9 +92,7 @@ export class IndexComponent implements OnInit {
   }
 
   save() {
-    this.members.forEach(member => {
-      this.fireStore.collection('user').doc(member.name).set({name: member.name, nine: {elo: {gg: member.elo_gg, tracker: member.elo_tracker}, ratio: {kd: member.kd, kda: member.kda}}})
-    })
+    this.members.forEach(member => this.api.setFireUsers(member))
   }
 
 }
