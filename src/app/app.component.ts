@@ -1,3 +1,4 @@
+import { environment } from '../environments/environment'
 import { Component, OnInit } from '@angular/core'
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router'
 import { SwUpdate } from '@angular/service-worker'
@@ -16,7 +17,7 @@ export class AppComponent {
 
   ngOnInit() {
     // this.api.getStats().subscribe(content => this.state.stats = content['Response'])
-    this.swUpdate.checkForUpdate()
+    if(environment.production) this.swUpdate.checkForUpdate()
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
       window.scrollTo(0, 0)
       this.state.errors = []
