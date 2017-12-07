@@ -59,16 +59,11 @@ export class IndexComponent implements OnInit {
   }
 
   getTrackerElo() {
-    Observable.from(this.members).subscribe({
-      next: member => {
-        this.api.getTracker(member.id).subscribe({
-          next: content => {
-            member.elo_tracker = content.length ? (content[0]['currentElo'] ? content[0]['currentElo'] : 0) : 0
-            member.rank_tracker = content.length ? (content[0]['playerank']['rank'] ? content[0]['playerank']['rank'] : 0) : 0
-          },
-          error: () => {
-            if (!this.state.errors.includes('Tracker API is dead.')) this.state.errors.push('Tracker API is dead.')
-          }
+    Observable.merge(...this.members.map(member => this.api.getTracker(member.id))).filter(contents => contents.length).map(contents => contents[0]).subscribe({
+      next: content => {
+        this.members.filter(member => member.name === content['displayName']).map(member => {
+          member.elo_tracker = content['currentElo'] ? content['currentElo'] : 0
+          member.rank_tracker = content['playerank']['rank'] ? content['playerank']['rank'] : 0
         })
       },
       complete: () => this.getDiff()
