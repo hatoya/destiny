@@ -15,11 +15,13 @@ export class PartyIndexComponent implements OnInit {
 
   constructor(private state: StateService, private api: ApiService) {
     this.state.heading = 'Party'
-    this.fireSubscriptin = this.api.getFireParties().subscribe(contents => this.parties = contents)
+    this.fireSubscriptin = this.api.getFireParties().subscribe(contents => {
+      this.parties = contents
+      this.state.is_load = false
+    })
   }
 
   ngOnInit() {
-    this.state.is_load = false
   }
 
   ngOnDestroy() {

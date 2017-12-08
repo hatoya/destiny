@@ -100,4 +100,8 @@ export class ApiService {
     return this.fireStore.collection('party').valueChanges()
   }
 
+  getFireParty(id: string) {
+    return this.fireStore.collection('party').doc(id).valueChanges()
+  }
+
 }

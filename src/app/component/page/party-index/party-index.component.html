@@ -1,5 +1,5 @@
-<ul class="party">
-  <li class="party__list" *ngFor="let party of parties">
+<div class="party">
+  <a [routerLink]="['/', 'party', party.id]" class="party__list" *ngFor="let party of parties">
     <ul class="party__list__tag">
       <li class="party__list__tag__list" *ngFor="let tag of party.tags">{{tag}}</li>
     </ul>
@@ -15,5 +15,5 @@
         <p class="party__list__team__list__elo"><app-gg type="party" [elo]="2000"></app-gg>1800<app-tracker type="party" [elo]="2000"></app-tracker>2000</p>
       </li>
     </ul>
-  </li>
-</ul>
+  </a>
+</div>

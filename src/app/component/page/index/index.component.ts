@@ -17,7 +17,7 @@ export class IndexComponent implements OnInit {
   public contents: any
   public target: string = 'elo_gg'
   public order: string = 'desc'
-  public fireSubscription: Subscription
+  public fireSubscription: Subscription = new Subscription
 
   constructor(public state: StateService, private api: ApiService) {
     this.state.heading = 'Dashboard'
