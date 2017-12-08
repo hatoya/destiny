@@ -96,4 +96,8 @@ export class ApiService {
     this.fireStore.collection('user').doc(member.name).set(Object.assign({}, member))
   }
 
+  getFireParties() {
+    return this.fireStore.collection('party').valueChanges()
+  }
+
 }

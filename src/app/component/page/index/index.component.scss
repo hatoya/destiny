@@ -1,8 +1,6 @@
 @import "../../../../mixin.scss";
 
 .table {
-  display: inline-block;
-  padding: 10px;
   &__content {
     width: calc(100% - 140px);
     margin: 50px auto;
@@ -14,7 +12,7 @@
       border-top: 1px solid rgba(black, 0.12);
     }
     th {
-      width: 100px;
+      width: 50px;
       padding: 0 12px;
       font-size: 12px;
       line-height: 50px;
@@ -26,7 +24,7 @@
         background: none;
       }
       &:nth-of-type(1) {
-        width: 50px;
+        width: 40px;
       }
       &:nth-of-type(3) {
         width: 140px;
@@ -57,6 +55,8 @@
     }
   }
   @include sp-only {
+    display: inline-block;
+    padding: 10px;
     &__content {
       width: 100%;
       margin: 0;

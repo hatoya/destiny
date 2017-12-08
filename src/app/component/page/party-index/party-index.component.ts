@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core'
+import { Subscription } from 'rxjs/Subscription'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { StateService } from '../../../service/state.service'
+import { ApiService } from '../../../service/api.service'
 
 @Component({
   selector: 'app-party-index',
@@ -8,12 +10,20 @@ import { StateService } from '../../../service/state.service'
 })
 export class PartyIndexComponent implements OnInit {
 
-  constructor(private state: StateService) {
+  public parties: any[] = []
+  public fireSubscriptin: Subscription
+
+  constructor(private state: StateService, private api: ApiService) {
     this.state.heading = 'Party'
+    this.fireSubscriptin = this.api.getFireParties().subscribe(contents => this.parties = contents)
   }
 
   ngOnInit() {
     this.state.is_load = false
+  }
+
+  ngOnDestroy() {
+    this.fireSubscriptin.unsubscribe()
   }
 
 }
