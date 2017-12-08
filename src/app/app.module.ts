@@ -32,6 +32,7 @@ import { GgComponent } from './component/atom/gg/gg.component';
 import { TrackerComponent } from './component/atom/tracker/tracker.component';
 import { DiffComponent } from './component/atom/diff/diff.component';
 import { ErrorComponent } from './component/atom/error/error.component';
+import { PartyDetailComponent } from './component/page/party-detail/party-detail.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { ErrorComponent } from './component/atom/error/error.component';
     GgComponent,
     TrackerComponent,
     DiffComponent,
-    ErrorComponent
+    ErrorComponent,
+    PartyDetailComponent
   ],
   providers: [
     StateService,
