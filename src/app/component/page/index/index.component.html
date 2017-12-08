@@ -1,25 +1,27 @@
 <!-- <p class="save" (click)="save()">SAVE</p> -->
-<table class="table">
-  <tbody>
-    <tr>
-      <th></th>
-      <th>Name</th>
-      <th class="-active" (click)="changeOrder('elo_gg')">GG elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'elo_gg' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'elo_gg' && order === 'asc'"></i></th>
-      <th class="-active" (click)="changeOrder('elo_tracker')">Tracker elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'elo_tracker' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'elo_tracker' && order === 'asc'"></i></th>
-      <th class="-active" (click)="changeOrder('kd')">KD<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kd' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kd' && order === 'asc'"></i></th>
-      <th class="-active" (click)="changeOrder('kda')">KDA<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kda' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kda' && order === 'asc'"></i></th>
-      <th class="-active" (click)="changeOrder('kad')">KA/D<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kad' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kad' && order === 'asc'"></i></th>
-      <th class="-active" (click)="changeOrder('match')">Match<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'match' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'match' && order === 'asc'"></i></th>
-    </tr>
-    <tr *ngFor="let member of members;let i = index">
-      <td>{{i + 1}}</td>
-      <td>{{member.name}}</td>
-      <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank"><app-gg [elo]="member.elo_gg" [rank]="member.rank_gg"></app-gg>{{member.elo_gg | number:'1.0-0'}}<app-diff [elo]="member.diff_gg"></app-diff></a></td>
-      <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank"><app-tracker [elo]="member.elo_tracker" [rank]="member.rank_tracker"></app-tracker>{{member.elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.diff_tracker"></app-diff></a></td>
-      <td>{{member.kd | number:'1.2-2'}}</td>
-      <td>{{member.kda | number:'1.2-2'}}</td>
-      <td>{{member.kad | number:'1.2-2'}}</td>
-      <td>{{member.match}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table">
+  <table class="table__content">
+    <tbody>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th class="-active" (click)="changeOrder('elo_gg')">GG elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'elo_gg' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'elo_gg' && order === 'asc'"></i></th>
+        <th class="-active" (click)="changeOrder('elo_tracker')">Tracker elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'elo_tracker' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'elo_tracker' && order === 'asc'"></i></th>
+        <th class="-active" (click)="changeOrder('kd')">KD<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kd' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kd' && order === 'asc'"></i></th>
+        <th class="-active" (click)="changeOrder('kda')">KDA<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kda' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kda' && order === 'asc'"></i></th>
+        <th class="-active" (click)="changeOrder('kad')">KA/D<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kad' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kad' && order === 'asc'"></i></th>
+        <th class="-active" (click)="changeOrder('match')">Match<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'match' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'match' && order === 'asc'"></i></th>
+      </tr>
+      <tr *ngFor="let member of members;let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{member.name}}</td>
+        <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank"><app-gg [elo]="member.elo_gg" [rank]="member.rank_gg"></app-gg>{{member.elo_gg | number:'1.0-0'}}<app-diff [elo]="member.diff_gg"></app-diff></a></td>
+        <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank"><app-tracker [elo]="member.elo_tracker" [rank]="member.rank_tracker"></app-tracker>{{member.elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.diff_tracker"></app-diff></a></td>
+        <td>{{member.kd | number:'1.2-2'}}</td>
+        <td>{{member.kda | number:'1.2-2'}}</td>
+        <td>{{member.kad | number:'1.2-2'}}</td>
+        <td>{{member.match}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -64,10 +64,6 @@
         width: 100vw;
         overflow-x: scroll;
         -webkit-overflow-scrolling : touch;
-        &__wrapper {
-          display: inline-block;
-          padding: 10px;
-        }
       }
       &.-menu {
         position: fixed;
