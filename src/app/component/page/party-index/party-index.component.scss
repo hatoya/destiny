@@ -18,6 +18,7 @@
     }
     &__tag {
       display: flex;
+      flex-wrap: wrap;
       &__list {
         margin-right: 5px;
         padding: 0 10px;
@@ -76,6 +77,7 @@
     margin: 0;
     &__list {
       width: 100%;
+      padding: 10px;
       &:not(:first-child) {
         margin-top: 20px;
       }

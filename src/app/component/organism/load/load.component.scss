@@ -15,10 +15,11 @@
     font-size: 45px;
   }
   @include sp-only {
-    position: absolute;
+    position: fixed;
     top: 50px;
     left: 0;
     width: 100vw;
     height: calc(100vh - 50px);
+    z-index: 100;
   }
 }
