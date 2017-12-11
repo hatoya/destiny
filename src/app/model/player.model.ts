@@ -6,6 +6,7 @@ export class Player {
   public elo_tracker: number = 0
   public diff_gg: number = 0
   public diff_tracker: number = 0
+  public diff_match: number = 0
   public rank_gg: number = 0
   public rank_tracker: number = 0
   public kd: number = 0

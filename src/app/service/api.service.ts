@@ -85,15 +85,15 @@ export class ApiService {
   }
 
   getTracker(id: string): Observable<any> {
-    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id).map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39))
+    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id + '?season=2').map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39))
   }
 
   getFireUsers(): Observable<any> {
     return this.fireStore.collection('user').valueChanges()
   }
 
-  setFireUsers(member: Player) {
-    this.fireStore.collection('user').doc(member.name).set(Object.assign({}, member))
+  setFireUser(member: any) {
+    this.fireStore.collection('user').doc(member['name']).set(Object.assign({}, member))
   }
 
   getFireParties() {
