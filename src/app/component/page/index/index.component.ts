@@ -75,6 +75,7 @@ export class IndexComponent implements OnInit {
       this.members.filter(member => member.name === user['name']).map(member => {
         member.diff_gg = member.elo_gg - user['elo_gg']
         member.diff_tracker = member.elo_tracker - user['elo_tracker']
+        member.diff_match = member.match - user['match']
       })
     })
   }
@@ -86,7 +87,16 @@ export class IndexComponent implements OnInit {
   }
 
   save() {
-    this.members.forEach(member => this.api.setFireUsers(member))
+    this.members.forEach(member => this.api.setFireUser(member))
+  }
+
+  season() {
+    this.api.getFireUsers().flatMap(content => content).subscribe(user => {
+      if (user['elo_tracker']) {
+        user['elo_tracker'] = (user['elo_tracker'] + 1200) / 2
+        this.api.setFireUser(user)
+      }
+    })
   }
 
 }
