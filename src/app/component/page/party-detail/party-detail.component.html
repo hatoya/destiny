@@ -1,0 +1,41 @@
+<div class="party">
+  <div class="party__content">
+    <form class="party__content__form">
+      <input type="text" placeholder="Send a message." class="party__content__form__text">
+      <button class="party__content__form__submit">Submit</button>
+    </form>
+    <ul class="party__content__comment">
+      <li class="party__content__comment__list" *ngFor="let message of messages">
+        <div class="party__content__comment__list__wrapper">
+          <div class="party__content__comment__list__wrapper__info">
+            <p class="party__content__comment__list__wrapper__info__name">{{message.name}}</p>
+            <p class="party__content__comment__list__wrapper__info__time">{{message.created_at | date:'yyyy/MM/dd HH:mm:ss'}}</p>
+          </div>
+          <p class="party__content__comment__list__wrapper__content">{{message.content}}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <ul class="party__info">
+    <li class="party__info__list">
+      <p class="party__info__list__heading">Category</p>
+      <p class="party__info__list__content">{{party.category}}</p>
+    </li>
+    <li class="party__info__list">
+      <p class="party__info__list__heading">Description</p>
+      <p class="party__info__list__content">{{party.description}}</p>
+    </li>
+    <li class="party__info__list">
+      <p class="party__info__list__heading">Member</p>
+      <ul class="party__info__list__member">
+        <li class="party__info__list__member__list" *ngFor="let member of party.members">{{member.name}}</li>
+      </ul>
+    </li>
+    <li class="party__info__list">
+      <p class="party__info__list__heading">Tag</p>
+      <ul class="party__info__list__tag">
+        <li class="party__info__list__tag__list" *ngFor="let tag of party.tags">{{tag}}</li>
+      </ul>
+    </li>
+  </ul>
+</div>

@@ -10,8 +10,9 @@ import { ApiService } from '../../../service/api.service'
 })
 export class PartyDetailComponent implements OnInit {
 
-  public party: any = {}
   public fireSubscription: Subscription = new Subscription
+  public party: any = {}
+  public messages: any[] = []
 
   constructor(private state: StateService, private api: ApiService) { }
 
@@ -21,6 +22,7 @@ export class PartyDetailComponent implements OnInit {
       this.state.heading = content['title'] + ' - Party'
       this.party = content
     })
+    this.api.getFireMessages(this.state.url.split('/')[2]).subscribe(content => this.messages = content)
   }
 
   ngOnDestroy() {
