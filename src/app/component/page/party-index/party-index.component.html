@@ -1,19 +1,20 @@
 <div class="party">
   <a [routerLink]="['/', 'party', party.id]" class="party__list" *ngFor="let party of parties">
     <ul class="party__list__tag">
+      <li class="party__list__tag__list -category">{{party.category}}</li>
       <li class="party__list__tag__list" *ngFor="let tag of party.tags">{{tag}}</li>
     </ul>
     <p class="party__list__title">{{party.title}}</p>
     <p class="party__list__description">{{party.description}}</p>
     <ul class="party__list__team">
       <li class="party__list__team__list" *ngFor="let member of party.members">
-        <p class="party__list__team__list__name">{{member}}</p>
-        <p class="party__list__team__list__elo"><app-gg type="party" [elo]="2000"></app-gg>1800<app-tracker type="party" [elo]="2000"></app-tracker>2000</p>
+        <p class="party__list__team__list__name">{{member.name}}</p>
+        <p class="party__list__team__list__elo"><app-gg type="party" [elo]="member.elo_gg"></app-gg>{{member.elo_gg}}<app-tracker type="party" [elo]="member.elo_tracker"></app-tracker>{{member.elo_tracker}}</p>
       </li>
-      <li class="party__list__team__list -average">
+      <!-- <li class="party__list__team__list -average">
         <p class="party__list__team__list__name">Average</p>
         <p class="party__list__team__list__elo"><app-gg type="party" [elo]="2000"></app-gg>1800<app-tracker type="party" [elo]="2000"></app-tracker>2000</p>
-      </li>
+      </li> -->
     </ul>
   </a>
 </div>
