@@ -104,4 +104,8 @@ export class ApiService {
     return this.fireStore.collection('party').doc(id).valueChanges()
   }
 
+  getFireMessages(id: string) {
+    return this.fireStore.collection('party/' + id + '/message').valueChanges()
+  }
+
 }
