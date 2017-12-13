@@ -1,8 +1,8 @@
 <div class="party">
   <div class="party__content">
-    <form class="party__content__form">
-      <input type="text" placeholder="Send a message." class="party__content__form__text">
-      <button class="party__content__form__submit">Submit</button>
+    <form class="party__content__form" [formGroup]="postForm" (ngSubmit)="sendMessage()">
+      <input type="text" placeholder="Send a message." class="party__content__form__text" [(ngModel)]="model.content" formControlName="content">
+      <button class="party__content__form__submit" [disabled]="postForm.status === 'INVALID'">Submit</button>
     </form>
     <ul class="party__content__comment">
       <li class="party__content__comment__list" *ngFor="let message of messages">
@@ -28,7 +28,10 @@
     <li class="party__info__list">
       <p class="party__info__list__heading">Member</p>
       <ul class="party__info__list__member">
-        <li class="party__info__list__member__list" *ngFor="let member of party.members">{{member.name}}</li>
+        <li class="party__info__list__member__list" *ngFor="let member of party.members">
+          <p class="party__info__list__member__list__name">{{member.name}}</p>
+          <div class="party__info__list__member__list__elo"></div>
+        </li>
       </ul>
     </li>
     <li class="party__info__list">

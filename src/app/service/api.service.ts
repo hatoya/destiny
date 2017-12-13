@@ -108,4 +108,8 @@ export class ApiService {
     return this.fireStore.collection('party/' + id + '/message').valueChanges()
   }
 
+  postFireMessage(id: string, data: any) {
+    this.fireStore.collection('party/' + id + '/message').add(data)
+  }
+
 }
