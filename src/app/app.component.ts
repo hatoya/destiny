@@ -6,6 +6,8 @@ import { StateService } from './service/state.service'
 import { StorageService } from './service/storage.service'
 import { ApiService } from './service/api.service'
 
+declare let gtag: any
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,6 +26,7 @@ export class AppComponent {
       this.state.url = event['url']
       this.state.is_load = true
       this.state.is_navigation = false
+      gtag('config', 'UA-53477209-3', {'page_path': this.state.url})
       // if(this.route.queryParams['_value']['code']) this.getToken()
     })
   }
