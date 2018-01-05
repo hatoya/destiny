@@ -1,5 +1,7 @@
 import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription'
+import fa from '@fortawesome/fontawesome'
+import { faUser } from '@fortawesome/fontawesome-free-solid'
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
@@ -21,6 +23,7 @@ export class IndexComponent implements OnInit {
 
   constructor(public state: StateService, private api: ApiService) {
     this.state.heading = 'Dashboard'
+    console.log(fa.icon(faUser).html[0])
   }
 
   ngOnInit() {
