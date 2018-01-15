@@ -1,6 +1,7 @@
 import 'rxjs/Rx'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
+import { DatePipe } from '@angular/common'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ServiceWorkerModule } from '@angular/service-worker'
@@ -62,6 +63,7 @@ import { PartyDetailComponent } from './component/page/party-detail/party-detail
     PartyDetailComponent
   ],
   providers: [
+    DatePipe,
     StateService,
     StorageService,
     ApiService,
