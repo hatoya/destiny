@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
+import { DatePipe } from '@angular/common'
 import { AngularFirestore } from 'angularfire2/firestore'
 import { StorageService } from './storage.service'
 import { Player } from '../model/player.model'
@@ -10,7 +11,7 @@ export class ApiService {
 
   private destiny_id: string = ''
 
-  constructor(private http: HttpClient, private fireStore: AngularFirestore, private storage: StorageService) {
+  constructor(private http: HttpClient, private datePipe: DatePipe, private fireStore: AngularFirestore, private storage: StorageService) {
     // this.destiny_id = this.storage.get('bungie_oauth')['destiny_id']
   }
 
@@ -69,6 +70,14 @@ export class ApiService {
       player.match = nine['gamesPlayed']
       return player
     })
+  }
+
+  getGgHistory(id: string, start: Date, end: Date): Observable<any> {
+    return this.http.get('https://api.guardian.gg/v2/players/' + id + '/performance/0/' + this.datePipe.transform(start, 'yyyy-MM-dd') + '/' + this.datePipe.transform(end, 'yyyy-MM-dd') + '?lc=ja')
+  }
+
+  getTrackerHistory(id: string): Observable<any> {
+    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/history/2/' + id + '/39/')
   }
 
   getVendors(character_id: string) {

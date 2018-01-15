@@ -18,9 +18,19 @@ export class IndexComponent implements OnInit {
   public target: string = 'elo_gg'
   public order: string = 'desc'
   public fireSubscription: Subscription = new Subscription
+  public today: Date = new Date()
+  public start: Date = new Date()
+  public end: Date = new Date()
 
   constructor(public state: StateService, private api: ApiService) {
     this.state.heading = 'Dashboard'
+    if (this.today.getDay() < 5) {
+      this.start = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 7 - 3 - this.today.getDay())
+      this.end = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay())
+    } else {
+      this.start = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay())
+      this.end = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
+    }
   }
 
   ngOnInit() {
@@ -35,6 +45,7 @@ export class IndexComponent implements OnInit {
         this.sort()
         this.getGgElo()
         this.getTrackerElo()
+        this.getDiff()
       }
     })
   }
@@ -59,23 +70,21 @@ export class IndexComponent implements OnInit {
   }
 
   getTrackerElo() {
-    Observable.merge(...this.members.map(member => this.api.getTracker(member.id))).filter(contents => contents.length).map(contents => contents[0]).subscribe({
-      next: content => {
-        this.members.filter(member => member.name === content['displayName']).map(member => {
-          member.elo_tracker = content['currentElo'] ? content['currentElo'] : 0
-          member.rank_tracker = content['playerank']['rank'] ? content['playerank']['rank'] : 0
-        })
-      },
-      complete: () => this.getDiff()
+    this.members.map(member => {
+      this.api.getTrackerHistory(member.id).subscribe(content => {
+        if (content['data'].length) member.elo_tracker = content['data'][content['data'].length - 1]['currentElo']
+        if (content['data'].length > 1) {
+          const contents = content['data'].filter(data => new Date(data['period']).getTime() >= this.start.getTime() && new Date(data['period']).getTime() <= this.end.getTime())
+          if (contents.length) member.diff_tracker = content['data'][content['data'].length - 1]['currentElo'] - contents[contents.length - 1]['currentElo']
+        }
+      })
     })
   }
 
   getDiff() {
-    this.fireSubscription = this.api.getFireUsers().flatMap(user => user).subscribe(user => {
-      this.members.filter(member => member.name === user['name']).map(member => {
-        member.diff_gg = member.elo_gg - user['elo_gg']
-        member.diff_tracker = member.elo_tracker - user['elo_tracker']
-        member.diff_match = member.match - user['match']
+    this.members.map(member => {
+      this.api.getGgHistory(member.id, this.start, this.end).subscribe(contents => {
+        contents.filter(content => content['mode'] === 39).map(content => member.diff_gg = member.elo_gg - content['elo'])
       })
     })
   }
