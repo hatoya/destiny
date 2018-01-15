@@ -66,8 +66,8 @@ export class IndexComponent implements OnInit {
       this.api.getTrackerHistory(member.id).subscribe(content => {
         if (content['data'].length) member.elo_tracker = content['data'][content['data'].length - 1]['currentElo']
         if (content['data'].length > 1) {
-          const data = content['data'].filter(data => new Date(data['period']).getTime() >= this.start.getTime() && new Date(data['period']).getTime() <= this.end.getTime())
-          if (data.length) member.diff_tracker = content['data'][content['data'].length - 1]['currentElo'] - data[data.length - 1]['currentElo']
+          const contents = content['data'].filter(data => new Date(data['period']).getTime() >= this.start.getTime() && new Date(data['period']).getTime() <= this.end.getTime())
+          if (contents.length) member.diff_tracker = content['data'][content['data'].length - 1]['currentElo'] - contents[contents.length - 1]['currentElo']
         }
       })
     })
