@@ -18,11 +18,19 @@ export class IndexComponent implements OnInit {
   public target: string = 'elo_gg'
   public order: string = 'desc'
   public fireSubscription: Subscription = new Subscription
-  public start: Date = new Date('2018/01/04')
-  public end: Date = new Date('2018/01/11')
+  public today: Date = new Date()
+  public start: Date = new Date()
+  public end: Date = new Date()
 
   constructor(public state: StateService, private api: ApiService) {
     this.state.heading = 'Dashboard'
+    if (this.today.getDay() < 5) {
+      this.start = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 7 - 3 - this.today.getDay())
+      this.end = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay())
+    } else {
+      this.start = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay())
+      this.end = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
+    }
   }
 
   ngOnInit() {
