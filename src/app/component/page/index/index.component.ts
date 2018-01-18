@@ -19,8 +19,8 @@ export class IndexComponent implements OnInit {
   public order: string = 'desc'
   public fireSubscription: Subscription = new Subscription
   public today: Date = new Date()
-  public start: Date = new Date()
-  public end: Date = new Date()
+  public start: Date
+  public end: Date
 
   constructor(public state: StateService, private api: ApiService) {
     this.state.heading = 'Dashboard'
