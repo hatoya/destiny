@@ -24,13 +24,8 @@ export class IndexComponent implements OnInit {
 
   constructor(public state: StateService, private api: ApiService) {
     this.state.heading = 'Dashboard'
-    if (this.today.getDay() < 5) {
-      this.start = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 7 - 3 - this.today.getDay())
-      this.end = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay())
-    } else {
-      this.start = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay())
-      this.end = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
-    }
+    this.start = new Date(this.today.getFullYear(), this.today.getMonth() - 1, this.today.getDate())
+    this.end = this.today.getDay() < 5 ? new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay()) : new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
   }
 
   ngOnInit() {
@@ -59,11 +54,11 @@ export class IndexComponent implements OnInit {
 
   getDiff() {
     this.members.map(member => {
-      this.api.getGgHistory(member.id, this.start, this.end).subscribe(contents => {
-        contents.filter(content => content['mode'] === 39).map(data => member.diff_gg = member.elo_gg - data['elo'])
-      })
+      const [past_battles, latest_battles] = this.api.getGgHistory(member.id, this.start, this.today).flatMap(content => content).filter(content => content['mode'] === 39).share().partition(content => new Date(content['date']).getTime() <= this.end.getTime())
+      past_battles.subscribe(content => member.diff_gg = member.elo_gg - content['elo'])
+      latest_battles.subscribe(content => member.diff_match += content['gamesPlayed'])
       this.api.getTrackerHistory(member.id).filter(content => content['data'].length).map(content => content['data']).subscribe(contents => {
-        const battles = contents.filter(data => new Date(data['period']).getTime() >= this.start.getTime() && new Date(data['period']).getTime() <= this.end.getTime())
+        const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.start.getTime() && new Date(battle['period']).getTime() <= this.end.getTime())
         member.elo_tracker = contents[contents.length - 1]['currentElo']
         if (battles.length) member.diff_tracker = contents[contents.length - 1]['currentElo'] - battles[battles.length - 1]['currentElo']
       })
