@@ -43,9 +43,8 @@ export class IndexComponent implements OnInit {
       complete: () => {
         this.state.is_load = false
         this.sort()
-        this.getGgElo()
-        this.getTrackerElo()
         this.getDiff()
+        this.getRank()
       }
     })
   }
@@ -58,19 +57,11 @@ export class IndexComponent implements OnInit {
     this.members = this.members.sort((member1, member2) => (member1[this.target] < member2[this.target] ? 1 : -1) * (this.order === 'desc' ? 1 : -1))
   }
 
-  getGgElo() {
-    this.members.filter(member => member.elo_gg >= 1700).map(member => {
-      this.api.getPlayer(member.id).subscribe({
-        next: content => {
-          member.rank_gg = content.rank_gg
-        },
-        complete: () => member
-      })
-    })
-  }
-
-  getTrackerElo() {
+  getDiff() {
     this.members.map(member => {
+      this.api.getGgHistory(member.id, this.start, this.end).subscribe(contents => {
+        contents.filter(content => content['mode'] === 39).map(content => member.diff_gg = member.elo_gg - content['elo'])
+      })
       this.api.getTrackerHistory(member.id).subscribe(content => {
         if (content['data'].length) member.elo_tracker = content['data'][content['data'].length - 1]['currentElo']
         if (content['data'].length > 1) {
@@ -81,10 +72,11 @@ export class IndexComponent implements OnInit {
     })
   }
 
-  getDiff() {
-    this.members.map(member => {
-      this.api.getGgHistory(member.id, this.start, this.end).subscribe(contents => {
-        contents.filter(content => content['mode'] === 39).map(content => member.diff_gg = member.elo_gg - content['elo'])
+  getRank() {
+    this.members.filter(member => member.elo_gg >= 1700 && member.elo_tracker >= 1700).map(member => {
+      this.api.getPlayer(member.id).subscribe({
+        next: content => member.rank_gg = content.rank_gg,
+        complete: () => member
       })
     })
   }
