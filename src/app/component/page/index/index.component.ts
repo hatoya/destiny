@@ -60,20 +60,18 @@ export class IndexComponent implements OnInit {
   getDiff() {
     this.members.map(member => {
       this.api.getGgHistory(member.id, this.start, this.end).subscribe(contents => {
-        contents.filter(content => content['mode'] === 39).map(content => member.diff_gg = member.elo_gg - content['elo'])
+        contents.filter(content => content['mode'] === 39).map(data => member.diff_gg = member.elo_gg - data['elo'])
       })
-      this.api.getTrackerHistory(member.id).subscribe(content => {
-        if (content['data'].length) member.elo_tracker = content['data'][content['data'].length - 1]['currentElo']
-        if (content['data'].length > 1) {
-          const contents = content['data'].filter(data => new Date(data['period']).getTime() >= this.start.getTime() && new Date(data['period']).getTime() <= this.end.getTime())
-          if (contents.length) member.diff_tracker = content['data'][content['data'].length - 1]['currentElo'] - contents[contents.length - 1]['currentElo']
-        }
+      this.api.getTrackerHistory(member.id).filter(content => content['data'].length).map(content => content['data']).subscribe(contents => {
+        const battles = contents.filter(data => new Date(data['period']).getTime() >= this.start.getTime() && new Date(data['period']).getTime() <= this.end.getTime())
+        member.elo_tracker = contents[contents.length - 1]['currentElo']
+        if (battles.length) member.diff_tracker = contents[contents.length - 1]['currentElo'] - battles[battles.length - 1]['currentElo']
       })
     })
   }
 
   getRank() {
-    this.members.filter(member => member.elo_gg >= 1700 && member.elo_tracker >= 1700).map(member => {
+    this.members.filter(member => member.elo_gg >= 1700).map(member => {
       this.api.getPlayer(member.id).subscribe({
         next: content => member.rank_gg = content.rank_gg,
         complete: () => member
