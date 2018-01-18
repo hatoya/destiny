@@ -34,7 +34,7 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit() {
-    Observable.merge(this.api.getClanMembers('2027026'), this.api.getPlayer('4611686018455158849')).subscribe({
+    this.api.getClanMembers('2027026').subscribe({
       next: content => this.members.push(content),
       error: () => {
         this.state.is_load = false
