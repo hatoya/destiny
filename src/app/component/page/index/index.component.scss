@@ -49,4 +49,23 @@
       }
     }
   }
+  @include sp-only {
+    &__wrapper {
+      width: calc(100vw - 20px);
+      padding: 20px;
+      &__heading {
+        font-size: 7vw;
+      }
+      &__form {
+        display: block;
+        margin-top: 10px;
+        &__input {
+          width: 100%;
+        }
+        &__button {
+          margin: 10px auto 0;
+        }
+      }
+    }
+  }
 }
