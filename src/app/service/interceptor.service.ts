@@ -17,7 +17,7 @@ export class InterceptorService implements HttpInterceptor {
       return next.handle(request)
     } else {
       let oauth = this.storage.get('bungie_oauth')
-      let headers: HttpHeaders = request.headers.has('authorization') ? request.headers.set('X-API-Key', this.apiKey) : request.headers.set('X-API-Key', this.apiKey).set('Authorization', 'Basic ' + this.storage.get('bungie_oauth')['access_token'])
+      let headers: HttpHeaders = request.headers.has('authorization') ? request.headers.set('X-API-Key', this.apiKey) : request.headers.set('X-API-Key', this.apiKey)
       return next.handle(request.clone({ url: this.baseURL + request.url }).clone({ headers: headers }))
     }
   }

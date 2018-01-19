@@ -20,6 +20,10 @@ export class ApiService {
     return this.http.post('/app/oauth/token/', 'grant_type=authorization_code&code=' + code, {headers: headers})
   }
 
+  postClanSearch() {
+    return this.http.post('/GroupV2/Search/', {name: '084Z'})
+  }
+
   getUser() {
     return this.http.get('/User/GetMembershipsById/' + this.destiny_id + '/-1/')
   }
