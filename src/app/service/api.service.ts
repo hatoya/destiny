@@ -20,6 +20,21 @@ export class ApiService {
     return this.http.post('/app/oauth/token/', 'grant_type=authorization_code&code=' + code, {headers: headers})
   }
 
+  postClanSearch(target: string) {
+    const body: any = {
+      name: target,
+      groupType: 1,
+      creationDate: 0,
+      sortBy: 0,
+      localeFilter: '',
+      tagText: '',
+      itemsPerPage: 1,
+      currentPage: 1,
+      requestContinuationToken: 0
+    }
+    return this.http.post('/GroupV2/Search/', body)
+  }
+
   getUser() {
     return this.http.get('/User/GetMembershipsById/' + this.destiny_id + '/-1/')
   }

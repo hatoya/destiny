@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --aot --port 8888",
+    "start": "ng serve --aot --ssl --port 8888",
     "sw": "ng build --prod --aot && npm run ngsw-config && static dist",
     "build": "ng build --prod --aot && npm run ngsw-config",
     "test": "ng test",

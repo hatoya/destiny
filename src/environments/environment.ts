@@ -12,5 +12,8 @@ export const environment = {
     projectId: "destiny-cff1c",
     storageBucket: "destiny-cff1c.appspot.com",
     messagingSenderId: "266890712087"
+  },
+  destiny: {
+    apiKey: '26afb960ed334cc09268788c92305fd6'
   }
 };

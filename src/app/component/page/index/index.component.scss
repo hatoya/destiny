@@ -1,66 +1,71 @@
 @import "../../../../mixin.scss";
 
-.table {
-  &__content {
-    width: calc(100% - 40px);
-    margin: 20px auto;
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: calc(100vh - 50px);
+  &__wrapper {
     background: white;
+    width: 600px;
+    padding: 40px;
+    border: 1px solid rgba(black, 0.1);
     box-shadow: 0 3px 1px -2px rgba(black, 0.2), 0 2px 2px 0 rgba(black, 0.14), 0 1px 5px 0 rgba(black, 0.12);
-    border-collapse: collapse;
-    border-spacing: 0;
-    tr {
-      border-top: 1px solid rgba(black, 0.12);
+    &__heading {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: #00bcd4;
     }
-    th {
-      width: 50px;
-      padding: 0 12px;
-      font-size: 12px;
-      line-height: 50px;
-      font-weight: normal;
-      text-align: left;
-      white-space: nowrap;
-      color: rgba(black, 0.54);
-      &::selection {
-        background: none;
+    &__form {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      &__input {
+        display: block;
+        width: calc(100% - 110px);
+        height: 30px;
+        padding: 0 10px;
+        font-size: 14px;
+        border: 1px solid rgba(black, 0.2);
       }
-      &:nth-of-type(1) {
-        width: 40px;
-      }
-      &:nth-of-type(3) {
-        width: 140px;
-      }
-      &:nth-of-type(4) {
-        width: 120px;
-      }
-      i {
-        margin-left: 10px;
-        &.fa-sort-desc {
-          transform: translate(0, -3px);
-        }
-        &.fa-sort-asc {
-          transform: translate(0, 3px);
-        }
-      }
-      &.-active {
+      &__button {
+        display: block;
+        width: 100px;
+        height: 30px;
+        font-size: 14px;
+        color: white;
+        background: #00bcd4;
+        border: none;
+        appearance: none;
         cursor: pointer;
       }
-    }
-    td {
-      padding: 0 12px;
-      line-height: 50px;
-      font-size: 14px;
-      text-align: left;
-      white-space: nowrap;
-      color: rgba(black, 0.87);
+      &.ng-invalid & {
+        &__button {
+          pointer-events: none;
+        }
+      }
     }
   }
   @include sp-only {
-    display: inline-block;
-    min-width: 100vw;
-    padding: 10px;
-    &__content {
-      width: 100%;
-      margin: 0;
+    &__wrapper {
+      width: calc(100vw - 20px);
+      padding: 20px;
+      &__heading {
+        font-size: 7vw;
+      }
+      &__form {
+        display: block;
+        margin-top: 10px;
+        &__input {
+          width: 100%;
+        }
+        &__button {
+          margin: 10px auto 0;
+        }
+      }
     }
   }
 }
