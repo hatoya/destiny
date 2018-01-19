@@ -11,6 +11,7 @@ import { ApiService } from '../../../service/api.service'
 })
 export class IndexComponent implements OnInit {
 
+  public is_loading: boolean = false
   public searchForm: FormGroup
   public model: any = {
     name: ''
@@ -26,7 +27,11 @@ export class IndexComponent implements OnInit {
   }
 
   search() {
-    this.api.postClanSearch(this.model.name).subscribe(content => content['Response']['results'].length ? this.router.navigate(['/', 'clan', content['Response']['results'][0]['groupId']]) : console.log('failed'))
+    this.is_loading = true
+    this.api.postClanSearch(this.model.name).subscribe({
+      next: content => content['Response']['results'].length ? this.router.navigate(['/', 'clan', content['Response']['results'][0]['groupId']]) : console.log('failed'),
+      complete: () => this.is_loading = false
+    })
   }
 
 }
