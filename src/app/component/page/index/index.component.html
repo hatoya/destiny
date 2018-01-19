@@ -1,0 +1,9 @@
+<div class="form">
+  <div class="form__wrapper">
+    <p class="form__wrapper__heading">Destiny Clan Manager</p>
+    <form class="form__wrapper__form" [formGroup]="searchForm" (ngSubmit)="search()">
+      <input type="text" placeholder="Search clan..." class="form__wrapper__form__input" formControlName="name" [(ngModel)]="model.name">
+      <button type="submit" class="form__wrapper__form__button">Search</button>
+    </form>
+  </div>
+</div>
