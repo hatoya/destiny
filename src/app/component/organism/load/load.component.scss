@@ -5,21 +5,14 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 190px;
-  left: 240px;
-  width: calc(100vw - 240px);
-  height: calc(100vh - 190px);
+  top: 50px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 50px);
   background: white;
+  z-index: 100;
   i {
     color: #00bcd4;
     font-size: 45px;
-  }
-  @include sp-only {
-    position: fixed;
-    top: 50px;
-    left: 0;
-    width: 100vw;
-    height: calc(100vh - 50px);
-    z-index: 100;
   }
 }

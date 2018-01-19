@@ -29,12 +29,10 @@ import { HeadingComponent } from './component/atom/heading/heading.component';
 import { CharacterComponent } from './component/organism/character/character.component';
 import { LoadComponent } from './component/organism/load/load.component';
 import { HeaderComponent } from './component/organism/header/header.component';
-import { PartyIndexComponent } from './component/page/party-index/party-index.component';
 import { GgComponent } from './component/atom/gg/gg.component';
 import { TrackerComponent } from './component/atom/tracker/tracker.component';
 import { DiffComponent } from './component/atom/diff/diff.component';
 import { ErrorComponent } from './component/atom/error/error.component';
-import { PartyDetailComponent } from './component/page/party-detail/party-detail.component';
 
 @NgModule({
   imports: [
@@ -55,12 +53,10 @@ import { PartyDetailComponent } from './component/page/party-detail/party-detail
     CharacterComponent,
     LoadComponent,
     HeaderComponent,
-    PartyIndexComponent,
     GgComponent,
     TrackerComponent,
     DiffComponent,
-    ErrorComponent,
-    PartyDetailComponent
+    ErrorComponent
   ],
   providers: [
     DatePipe,

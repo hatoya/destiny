@@ -4,36 +4,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 140px;
-  padding: 0 70px;
-  line-height: 140px;
+  padding: 0 20px;
+  line-height: 100px;
   background: #00bcd4;
   &__content {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
     white-space: nowrap;
     color: white;
-    &.-party {
-      display: block;
-      padding: 0 16px;
-      font-size: 20px;
-      line-height: 40px;
-      color: #00bcd4;
-      background: white;
-      border-radius: 20px;
-      i {
-        padding-right: 5px;
-      }
-    }
   }
   @include sp-only {
-    height: 80px;
-    padding: 0 20px;
+    padding: 0 10px;
+    line-height: 80px;
     &__content {
-      font-size: 18px;
-      &.-party {
-        display: none;
-      }
+      font-size: 20px;
     }
   }
 }

@@ -23,7 +23,7 @@ export class IndexComponent implements OnInit {
   public end: Date
 
   constructor(public state: StateService, private api: ApiService) {
-    this.state.heading = 'Dashboard'
+    this.state.heading = '084Z'
     this.start = new Date(this.today.getFullYear(), this.today.getMonth() - 1, this.today.getDate())
     this.end = this.today.getDay() < 5 ? new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay()) : new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
   }
