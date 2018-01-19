@@ -12,6 +12,7 @@ import { Player } from '../../../model/player.model'
 })
 export class ClanDetailComponent implements OnInit {
 
+  public id: string = ''
   public clan: any = {}
   public members: Player[] = []
   public contents: any
@@ -23,13 +24,14 @@ export class ClanDetailComponent implements OnInit {
   public end: Date
 
   constructor(public state: StateService, private api: ApiService) {
-    this.state.heading = '084Z'
+    this.id = location.pathname.split('/')[2]
     this.start = new Date(this.today.getFullYear(), this.today.getMonth() - 1, this.today.getDate())
     this.end = this.today.getDay() < 5 ? new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay()) : new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
   }
 
   ngOnInit() {
-    this.api.getClanMembers('2027026').subscribe({
+    this.api.getClan(this.id).subscribe(content => this.state.heading = content['Response']['detail']['name'])
+    this.api.getClanMembers(this.id).subscribe({
       next: content => this.members.push(content),
       error: () => {
         this.state.is_load = false
