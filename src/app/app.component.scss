@@ -8,7 +8,7 @@
   height: 100vh;
   padding-top: 50px;
   &__content {
-    width: 100%;
+    width: calc(100% - 240px);
     height: 100%;
     overflow: scroll;
     z-index: 1;
@@ -20,6 +20,13 @@
           margin-top: 20px;
         }
       }
+    }
+    &.-menu {
+      width: 240px;
+      height: 100%;
+      background: white;
+      box-shadow: 3px 0 6px rgba(black, 0.24);
+      z-index: 10;
     }
     &.-off {
       display: none;

@@ -1,35 +1,44 @@
 import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription'
 import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Router, NavigationEnd } from '@angular/router'
 import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
 import { Player } from '../../../model/player.model'
 
 @Component({
-  selector: 'app-clan-detail',
-  templateUrl: './clan-detail.component.html',
-  styleUrls: ['./clan-detail.component.scss']
+  selector: 'app-clan-index',
+  templateUrl: './clan-index.component.html',
+  styleUrls: ['./clan-index.component.scss']
 })
-export class ClanDetailComponent implements OnInit {
+export class ClanIndexComponent implements OnInit {
 
+  private routerSubscription: Subscription
   public id: string = ''
   public clan: any = {}
   public members: Player[] = []
-  public contents: any
   public target: string = 'elo_gg'
   public order: string = 'desc'
-  public fireSubscription: Subscription = new Subscription
   public today: Date = new Date()
   public start: Date
   public end: Date
 
-  constructor(public state: StateService, private api: ApiService) {
+  constructor(private router: Router, public state: StateService, private api: ApiService) { }
+
+  ngOnInit() {
+    this.init()
+    this.routerSubscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => this.init())
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe()
+  }
+
+  init() {
+    this.members = []
     this.id = location.pathname.split('/')[2]
     this.start = new Date(this.today.getFullYear(), this.today.getMonth() - 1, this.today.getDate())
     this.end = this.today.getDay() < 5 ? new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay()) : new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
-  }
-
-  ngOnInit() {
     this.api.getClan(this.id).subscribe(content => this.state.heading = content['Response']['detail']['name'])
     this.api.getClanMembers(this.id).subscribe({
       next: content => this.members.push(content),
@@ -44,10 +53,6 @@ export class ClanDetailComponent implements OnInit {
         this.getRank()
       }
     })
-  }
-
-  ngOnDestroy() {
-    this.fireSubscription.unsubscribe()
   }
 
   sort() {
@@ -80,19 +85,6 @@ export class ClanDetailComponent implements OnInit {
     this.order = this.target === target && this.order === 'desc' ? 'asc' : 'desc'
     this.target = target
     this.sort()
-  }
-
-  save() {
-    this.members.forEach(member => this.api.setFireUser(member))
-  }
-
-  season() {
-    this.api.getFireUsers().flatMap(content => content).subscribe(user => {
-      if (user['elo_tracker']) {
-        user['elo_tracker'] = (user['elo_tracker'] + 1200) / 2
-        this.api.setFireUser(user)
-      }
-    })
   }
 
 }
