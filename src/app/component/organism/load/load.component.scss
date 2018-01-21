@@ -6,13 +6,17 @@
   justify-content: center;
   position: fixed;
   top: 50px;
-  left: 0;
-  width: 100vw;
+  left: 240px;
+  width: calc(100% - 240px);
   height: calc(100vh - 50px);
   background: white;
   z-index: 100;
   i {
     color: #00bcd4;
     font-size: 45px;
+  }
+  @include sp-only {
+    width: 100vw;
+    left: 0;
   }
 }

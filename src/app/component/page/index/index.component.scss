@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 50px);
   &__wrapper {
     background: white;
@@ -54,7 +54,7 @@
       width: calc(100vw - 20px);
       padding: 20px;
       &__heading {
-        font-size: 7vw;
+        font-size: 22px;
       }
       &__form {
         display: block;
