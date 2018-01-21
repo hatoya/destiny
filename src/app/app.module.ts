@@ -33,7 +33,7 @@ import { GgComponent } from './component/atom/gg/gg.component';
 import { TrackerComponent } from './component/atom/tracker/tracker.component';
 import { DiffComponent } from './component/atom/diff/diff.component';
 import { ErrorComponent } from './component/atom/error/error.component';
-import { ClanDetailComponent } from './component/page/clan-detail/clan-detail.component';
+import { ClanIndexComponent } from './component/page/clan-index/clan-index.component';
 
 @NgModule({
   imports: [
@@ -58,7 +58,7 @@ import { ClanDetailComponent } from './component/page/clan-detail/clan-detail.co
     TrackerComponent,
     DiffComponent,
     ErrorComponent,
-    ClanDetailComponent
+    ClanIndexComponent
   ],
   providers: [
     DatePipe,

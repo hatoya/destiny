@@ -7,11 +7,11 @@ import { ApiService } from '../../../service/api.service'
 import { Player } from '../../../model/player.model'
 
 @Component({
-  selector: 'app-clan-detail',
-  templateUrl: './clan-detail.component.html',
-  styleUrls: ['./clan-detail.component.scss']
+  selector: 'app-clan-index',
+  templateUrl: './clan-index.component.html',
+  styleUrls: ['./clan-index.component.scss']
 })
-export class ClanDetailComponent implements OnInit {
+export class ClanIndexComponent implements OnInit {
 
   private routerSubscription: Subscription
   public id: string = ''
