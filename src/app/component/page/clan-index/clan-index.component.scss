@@ -32,12 +32,13 @@
       &:nth-of-type(4) {
         width: 120px;
       }
-      i {
-        margin-left: 10px;
-        &.fa-sort-desc {
+      fa-icon {
+        display: inline-block;
+        margin-left: 5px;
+        &[icon="sort-down"] {
           transform: translate(0, -3px);
         }
-        &.fa-sort-asc {
+        &[icon="sort-up"] {
           transform: translate(0, 3px);
         }
       }

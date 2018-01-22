@@ -1,17 +1,15 @@
-<!-- <p class="save" (click)="save()">SAVE</p> -->
-<!-- <p class="save" (click)="season()">SEASON</p> -->
 <div class="table">
   <table class="table__content">
     <tbody>
       <tr>
         <th></th>
         <th>Name</th>
-        <th class="-active" (click)="changeOrder('elo_gg')">GG elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'elo_gg' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'elo_gg' && order === 'asc'"></i></th>
-        <th class="-active" (click)="changeOrder('elo_tracker')">Tracker elo<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'elo_tracker' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'elo_tracker' && order === 'asc'"></i></th>
-        <th class="-active" (click)="changeOrder('kd')">KD<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kd' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kd' && order === 'asc'"></i></th>
-        <th class="-active" (click)="changeOrder('kda')">KDA<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kda' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kda' && order === 'asc'"></i></th>
-        <th class="-active" (click)="changeOrder('kad')">KA/D<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'kad' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'kad' && order === 'asc'"></i></th>
-        <th class="-active" (click)="changeOrder('match')">Match<i class="fa fa-sort-desc" aria-hidden="true" *ngIf="target === 'match' && order === 'desc'"></i><i class="fa fa-sort-asc" aria-hidden="true" *ngIf="target === 'match' && order === 'asc'"></i></th>
+        <th class="-active" (click)="changeOrder('elo_gg')">GG elo<fa-icon icon="sort-down" *ngIf="target === 'elo_gg' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'elo_gg' && order === 'asc'"></fa-icon></th>
+        <th class="-active" (click)="changeOrder('elo_tracker')">Tracker elo<fa-icon icon="sort-down" *ngIf="target === 'elo_tracker' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'elo_tracker' && order === 'asc'"></fa-icon></th>
+        <th class="-active" (click)="changeOrder('kd')">KD<fa-icon icon="sort-down" *ngIf="target === 'kd' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'kd' && order === 'asc'"></fa-icon></th>
+        <th class="-active" (click)="changeOrder('kda')">KDA<fa-icon icon="sort-down" *ngIf="target === 'kda' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'kda' && order === 'asc'"></fa-icon></th>
+        <th class="-active" (click)="changeOrder('kad')">KA/D<fa-icon icon="sort-down" *ngIf="target === 'kad' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'kad' && order === 'asc'"></fa-icon></th>
+        <th class="-active" (click)="changeOrder('match')">Match<fa-icon icon="sort-down" *ngIf="target === 'match' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'match' && order === 'asc'"></fa-icon></th>
       </tr>
       <tr *ngFor="let member of members;let i = index">
         <td>{{i + 1}}</td>

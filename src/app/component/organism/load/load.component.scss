@@ -9,12 +9,10 @@
   left: 240px;
   width: calc(100% - 240px);
   height: calc(100vh - 50px);
+  font-size: 45px;
+  color: #00bcd4;
   background: white;
   z-index: 100;
-  i {
-    color: #00bcd4;
-    font-size: 45px;
-  }
   @include sp-only {
     width: 100vw;
     left: 0;

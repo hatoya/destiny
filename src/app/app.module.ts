@@ -12,6 +12,8 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+
 // Routing
 import { appRouting } from './app.routing'
 
@@ -44,6 +46,7 @@ import { ClanIndexComponent } from './component/page/clan-index/clan-index.compo
     ReactiveFormsModule,
     appRouting,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    FontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
