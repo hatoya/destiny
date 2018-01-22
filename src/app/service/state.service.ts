@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core'
 
+declare let gtag: any
+
 @Injectable()
 export class StateService {
 
@@ -11,5 +13,10 @@ export class StateService {
   public errors: string[] = []
 
   constructor() { }
+
+  postGoogle() {
+    console.log(this.url)
+    gtag('config', 'UA-53477209-3', { 'page_path': this.url })
+  }
 
 }
