@@ -14,6 +14,11 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@fortawesome/fontawesome-free-solid": [
+        "node_modules/@fortawesome/fontawesome-free-solid/shakable.es.js"
+      ]
+    }
   }
 }
