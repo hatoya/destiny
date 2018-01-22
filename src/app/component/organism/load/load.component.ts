@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core'
+import { library } from '@fortawesome/fontawesome'
+import { faCircleNotch } from '@fortawesome/fontawesome-free-solid'
 import { StateService } from '../../../service/state.service'
 
 @Component({
@@ -8,7 +10,9 @@ import { StateService } from '../../../service/state.service'
 })
 export class LoadComponent implements OnInit {
 
-  constructor(public state: StateService) { }
+  constructor(public state: StateService) {
+    library.add(faCircleNotch)
+  }
 
   ngOnInit() {
   }
