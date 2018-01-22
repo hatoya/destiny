@@ -15,7 +15,6 @@ export class StateService {
   constructor() { }
 
   postGoogle() {
-    console.log(this.url)
     gtag('config', 'UA-53477209-3', { 'page_path': this.url })
   }
 
