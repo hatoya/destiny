@@ -2,6 +2,8 @@ import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription'
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, NavigationEnd } from '@angular/router'
+import { library } from '@fortawesome/fontawesome'
+import { faSortUp, faSortDown } from '@fortawesome/fontawesome-free-solid'
 import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
 import { MetaService } from '../../../service/meta.service'
@@ -24,7 +26,9 @@ export class ClanIndexComponent implements OnInit {
   public start: Date
   public end: Date
 
-  constructor(private router: Router, public state: StateService, private api: ApiService, private meta: MetaService) { }
+  constructor(private router: Router, public state: StateService, private api: ApiService, private meta: MetaService) {
+    library.add(faSortUp, faSortDown)
+  }
 
   ngOnInit() {
     this.init()
