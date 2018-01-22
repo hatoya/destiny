@@ -4,6 +4,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, NavigationEnd } from '@angular/router'
 import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
+import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
 
 @Component({
@@ -23,7 +24,7 @@ export class ClanIndexComponent implements OnInit {
   public start: Date
   public end: Date
 
-  constructor(private router: Router, public state: StateService, private api: ApiService) { }
+  constructor(private router: Router, public state: StateService, private api: ApiService, private meta: MetaService) { }
 
   ngOnInit() {
     this.init()
@@ -39,7 +40,10 @@ export class ClanIndexComponent implements OnInit {
     this.id = location.pathname.split('/')[2]
     this.start = new Date(this.today.getFullYear(), this.today.getMonth() - 1, this.today.getDate())
     this.end = this.today.getDay() < 5 ? new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay()) : new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
-    this.api.getClan(this.id).subscribe(content => this.state.heading = content['Response']['detail']['name'])
+    this.api.getClan(this.id).subscribe(content => {
+      this.state.heading = content['Response']['detail']['name']
+      this.meta.setTitle(content['Response']['detail']['name'])
+    })
     this.api.getClanMembers(this.id).subscribe({
       next: content => this.members.push(content),
       error: () => {

@@ -1,7 +1,7 @@
-import { environment } from '../environments/environment'
 import { Component, OnInit } from '@angular/core'
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router'
 import { SwUpdate } from '@angular/service-worker'
+import { environment } from '../environments/environment'
 import { StateService } from './service/state.service'
 import { StorageService } from './service/storage.service'
 import { ApiService } from './service/api.service'

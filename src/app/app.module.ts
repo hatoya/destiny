@@ -20,6 +20,7 @@ import { StateService } from './service/state.service'
 import { ApiService } from './service/api.service'
 import { StorageService } from './service/storage.service'
 import { InterceptorService } from './service/interceptor.service'
+import { MetaService } from './service/meta.service'
 
 // Component
 import { AppComponent } from './app.component';
@@ -65,6 +66,7 @@ import { ClanIndexComponent } from './component/page/clan-index/clan-index.compo
     StateService,
     StorageService,
     ApiService,
+    MetaService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
