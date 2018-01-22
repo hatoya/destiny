@@ -46,8 +46,9 @@ export class ClanIndexComponent implements OnInit {
     this.start = new Date(this.today.getFullYear(), this.today.getMonth() - 1, this.today.getDate())
     this.end = this.today.getDay() < 5 ? new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay()) : new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
     this.api.getClan(this.id).subscribe(content => {
-      this.state.heading = content['Response']['detail']['name']
       this.meta.setTitle(content['Response']['detail']['name'])
+      this.state.heading = content['Response']['detail']['name']
+      this.state.postGoogle()
     })
     this.api.getClanMembers(this.id).subscribe({
       next: content => this.members.push(content),
