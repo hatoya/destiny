@@ -40,6 +40,7 @@ export class ClanIndexComponent implements OnInit {
   }
 
   init() {
+    this.state.heading = ''
     this.members = []
     this.id = location.pathname.split('/')[2]
     this.start = new Date(this.today.getFullYear(), this.today.getMonth() - 1, this.today.getDate())
