@@ -10,7 +10,8 @@
 
 .content {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  a {
+  a,
+  span {
     display: block;
     padding-left: 16px;
     font-size: 14px;
@@ -23,7 +24,8 @@
     }
   }
   &.-on {
-    a {
+    a,
+    span {
       color: #00bcd4;
       background: #fafafa;
     }

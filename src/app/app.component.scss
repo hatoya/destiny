@@ -26,6 +26,8 @@
       height: 100%;
       background: white;
       box-shadow: 3px 0 6px rgba(black, 0.24);
+      overflow: scroll;
+      -webkit-overflow-scrolling: touch;
       z-index: 10;
     }
     &.-off {
