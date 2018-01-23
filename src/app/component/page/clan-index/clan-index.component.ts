@@ -60,7 +60,7 @@ export class ClanIndexComponent implements OnInit {
         this.state.is_load = false
         this.sort()
         this.getDiff()
-        this.getRank()
+        this.getGgRank()
       }
     })
   }
@@ -78,11 +78,12 @@ export class ClanIndexComponent implements OnInit {
         const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.start.getTime() && new Date(battle['period']).getTime() <= this.end.getTime())
         member.elo_tracker = contents[contents.length - 1]['currentElo']
         if (battles.length) member.diff_tracker = contents[contents.length - 1]['currentElo'] - battles[battles.length - 1]['currentElo']
+        if (member.elo_tracker >= 1700) this.api.getTracker(member.id).flatMap(content => content).subscribe(content => member.rank_tracker = content['playerank']['rank'])
       })
     })
   }
 
-  getRank() {
+  getGgRank() {
     this.members.filter(member => member.elo_gg >= 1700).map(member => {
       this.api.getPlayer(member.id).subscribe({
         next: content => member.rank_gg = content.rank_gg,
