@@ -28,6 +28,7 @@
     "@fortawesome/angular-fontawesome": "0.1.0-1",
     "@fortawesome/fontawesome": "^1.1.2",
     "@fortawesome/fontawesome-free-solid": "^5.0.4",
+    "@fortawesome/fontawesome-pro-light": "^5.0.4",
     "angularfire2": "5.0.0-rc.4",
     "core-js": "2.5.3",
     "firebase": "4.9.0",
