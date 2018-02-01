@@ -50,12 +50,18 @@ export class ClanIndexComponent implements OnInit {
       this.state.heading = content['name'] + ' [' + content['clanInfo']['clanCallsign'] + ']'
       this.state.postGoogle()
     })
-    this.api.getClanMembers(this.id).subscribe({
-      next: content => this.members.push(content),
-      error: () => {
-        this.state.is_load = false
-        if (!this.state.errors.includes('GurdianGG API is dead.')) this.state.errors.push('GurdianGG API is dead.')
+    this.api.getClanMembers(this.id).map(content => Object.keys(content).map(value => content[value])).flatMap(member => member).subscribe({
+      next: content => {
+        let player: Player = new Player(content['member']['destinyUserInfo']['membershipId'], content['member']['destinyUserInfo']['displayName'])
+        let target: any = content['stats'][39]
+        player.elo_gg = target ? target['elo'] : 0
+        player.kd = target ? target['kills'] / target['deaths'] : 0
+        player.kda = target ? (target['kills'] + (target['assists'] / 2)) / target['deaths'] : 0
+        player.kad = target ? (target['kills'] + target['assists']) / target['deaths'] : 0
+        player.match = target ? target['gamesPlayed'] : 0
+        this.members.push(player)
       },
+      error: () => this.state.is_load = false,
       complete: () => {
         this.state.is_load = false
         this.sort()
@@ -78,7 +84,7 @@ export class ClanIndexComponent implements OnInit {
         const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.start.getTime() && new Date(battle['period']).getTime() <= this.end.getTime())
         member.elo_tracker = contents[contents.length - 1]['currentElo']
         if (battles.length) member.diff_tracker = contents[contents.length - 1]['currentElo'] - battles[battles.length - 1]['currentElo']
-        if (member.elo_tracker >= 1700) this.api.getTracker(member.id).flatMap(content => content).subscribe(content => member.rank_tracker = content['playerank']['rank'])
+        if (member.elo_tracker >= 1700) this.api.getTracker(member.id).map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39)).flatMap(content => content).subscribe(content => member.rank_tracker = content['playerank']['rank'])
       })
     })
   }
@@ -86,7 +92,7 @@ export class ClanIndexComponent implements OnInit {
   getGgRank() {
     this.members.filter(member => member.elo_gg >= 1700).map(member => {
       this.api.getGg(member.id).subscribe({
-        next: content => member.rank_gg = content.rank_gg,
+        next: content => member.rank_gg = content['playerRanks'][39],
         complete: () => member
       })
     })
