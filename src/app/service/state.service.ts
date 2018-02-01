@@ -2,7 +2,6 @@ import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router'
 
-
 declare let gtag: any
 
 @Injectable()
