@@ -1,6 +1,12 @@
 <p class="content" [class.-on]="state.url === '/'"><a [routerLink]="['/']">Dashboard</a></p>
 <p class="heading">MODE</p>
 <p class="content" [class.-on]="true"><span>Trials of the Nine</span></p>
+<p class="content" [class.-on]="false"><span>Clash</span></p>
+<p class="content" [class.-on]="false"><span>Control</span></p>
+<p class="content" [class.-on]="false"><span>Supremacy</span></p>
+<p class="content" [class.-on]="false"><span>Survival</span></p>
+<p class="content" [class.-on]="false"><span>Countdown</span></p>
+<p class="content" [class.-on]="false"><span>Iron Banner</span></p>
 <p class="heading">CLAN</p>
 <p class="content" [class.-on]="state.url.includes('2027026')"><a [routerLink]="['/', 'clan', 2027026]">084Z</a></p>
 <p class="content" [class.-on]="state.url.includes('2140164')"><a [routerLink]="['/', 'clan', 2140164]">BBJ</a></p>
