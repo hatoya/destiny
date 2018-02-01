@@ -9,57 +9,16 @@ import { Player } from '../model/player.model'
 @Injectable()
 export class ApiService {
 
-  private destiny_id: string = ''
+  constructor(private http: HttpClient, private datePipe: DatePipe, private fireStore: AngularFirestore, private storage: StorageService) { }
 
-  constructor(private http: HttpClient, private datePipe: DatePipe, private fireStore: AngularFirestore, private storage: StorageService) {
-    // this.destiny_id = this.storage.get('bungie_oauth')['destiny_id']
+  postClanSearch(target: string): Observable<any> {
+    return this.http.post('/GroupV2/Search/', { name: target, groupType: 1, creationDate: 0, sortBy: 0, localeFilter: '', tagText: '', itemsPerPage: 1, currentPage: 1, requestContinuationToken: 0 })
   }
 
-  getToken(code: string) {
-    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic MjE2ODY6VE9qTDhJM1BCQk5nYW5aVnBuMmFqQmtxV0l5NDRWbjdEcGhRQVZISnBXYw=='})
-    return this.http.post('/app/oauth/token/', 'grant_type=authorization_code&code=' + code, {headers: headers})
-  }
-
-  postClanSearch(target: string) {
-    const body: any = {
-      name: target,
-      groupType: 1,
-      creationDate: 0,
-      sortBy: 0,
-      localeFilter: '',
-      tagText: '',
-      itemsPerPage: 1,
-      currentPage: 1,
-      requestContinuationToken: 0
-    }
-    return this.http.post('/GroupV2/Search/', body)
-  }
-
-  getUser() {
-    return this.http.get('/User/GetMembershipsById/' + this.destiny_id + '/-1/')
-  }
-
-  getProfile(): Observable<any> {
-    const params = new HttpParams().set('components', '100')
-    return this.http.get('/Destiny2/2/Profile/' + this.destiny_id + '/', {params: params})
-  }
-
-  getCharacters(): Observable<any> {
-    const params = new HttpParams().set('components', '200,205')
-    return this.http.get('/Destiny2/2/Profile/' + this.destiny_id + '/', {params: params})
-  }
-
-  getCharacter(character_id: string) {
-    const params = new HttpParams().set('components', '200,205')
-    return this.http.get('/Destiny2/2/Profile/' + this.storage.get('bungie_oauth')['destiny_id'] + '/Character/' + character_id + '/', {params: params})
-  }
-
-  // 1851423
-  getClan(clan_id: string) {
+  getClan(clan_id: string): Observable<any> {
     return this.http.get('/GroupV2/' + clan_id + '/')
   }
 
-  // 1851423
   getClanMembers(clan_id: string): Observable<Player> {
     return this.http.get('https://api.guardian.gg/v2/clan/' + clan_id + '/members?lc=ja').map(content => Object.keys(content).map(value => content[value])).flatMap(member => member).map(content => {
       let player: Player = new Player(content['member']['destinyUserInfo']['membershipId'], content['member']['destinyUserInfo']['displayName'])
@@ -73,7 +32,7 @@ export class ApiService {
     })
   }
 
-  getPlayer(id: string): Observable<Player> {
+  getGg(id: string): Observable<Player> {
     return this.http.get('https://api.guardian.gg/v2/players/' + id + '?lc=ja').map(content => {
       let player: Player = new Player(content['player']['membershipId'], content['player']['name'])
       let nine: any = content['player']['stats'].filter(stat => stat['mode'] === 39)[0]
@@ -95,45 +54,8 @@ export class ApiService {
     return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/history/2/' + id + '/39/')
   }
 
-  getVendors(character_id: string) {
-    const params = new HttpParams().set('components', '400')
-    return this.http.get('/Destiny2/2/Profile/' + this.destiny_id + '/Character/' + character_id + '/Vendors/', {params: params})
-  }
-
-  getStats() {
-    return this.http.get('/Destiny2/Stats/Definition/')
-  }
-
-  getMilestones() {
-    return this.http.get('/Destiny2/Milestones/')
-  }
-
   getTracker(id: string): Observable<any> {
     return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/2/' + id + '?season=2').map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39))
-  }
-
-  getFireUsers(): Observable<any> {
-    return this.fireStore.collection('user').valueChanges()
-  }
-
-  setFireUser(member: any) {
-    this.fireStore.collection('user').doc(member['name']).set(Object.assign({}, member))
-  }
-
-  getFireParties() {
-    return this.fireStore.collection('party').valueChanges()
-  }
-
-  getFireParty(id: string) {
-    return this.fireStore.collection('party').doc(id).valueChanges()
-  }
-
-  getFireMessages(id: string) {
-    return this.fireStore.collection('party/' + id + '/message').valueChanges()
-  }
-
-  postFireMessage(id: string, data: any) {
-    this.fireStore.collection('party/' + id + '/message').add(data)
   }
 
 }

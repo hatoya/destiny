@@ -85,7 +85,7 @@ export class ClanIndexComponent implements OnInit {
 
   getGgRank() {
     this.members.filter(member => member.elo_gg >= 1700).map(member => {
-      this.api.getPlayer(member.id).subscribe({
+      this.api.getGg(member.id).subscribe({
         next: content => member.rank_gg = content.rank_gg,
         complete: () => member
       })
