@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription'
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Router, NavigationEnd } from '@angular/router'
 import { library } from '@fortawesome/fontawesome'
 import { faSortUp, faSortDown } from '@fortawesome/fontawesome-free-solid'
@@ -28,27 +28,26 @@ export class ClanIndexComponent implements OnInit {
 
   constructor(private router: Router, public state: StateService, private api: ApiService, private meta: MetaService) {
     library.add(faSortUp, faSortDown)
+    this.start = new Date(this.today.getFullYear(), this.today.getMonth() - 1, this.today.getDate())
+    this.end = this.today.getDay() < 6 ? new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay()) : new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
   }
 
   ngOnInit() {
     this.init()
-    this.routerSubscription = this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => this.init())
-  }
-
-  ngOnDestroy() {
-    this.routerSubscription.unsubscribe()
+    this.state.routerObserver$.subscribe(event => this.init())
   }
 
   init() {
     this.state.heading = ''
     this.members = []
     this.id = location.pathname.split('/')[2]
-    this.start = new Date(this.today.getFullYear(), this.today.getMonth() - 1, this.today.getDate())
-    this.end = this.today.getDay() < 6 ? new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay()) : new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
-    this.api.getClan(this.id).map(content => content['Response']['detail']).subscribe(content => {
-      this.meta.setTitle(content['name'])
-      this.state.heading = content['name'] + ' [' + content['clanInfo']['clanCallsign'] + ']'
-      this.state.postGoogle()
+    this.api.getClan(this.id).map(content => content['Response']['detail']).subscribe({
+      next: content => {
+        this.meta.setTitle(content['name'])
+        this.state.heading = content['name'] + ' [' + content['clanInfo']['clanCallsign'] + ']'
+      },
+      error: error => console.log(error),
+      complete: () => this.state.postGoogle()
     })
     this.api.getClanMembers(this.id).map(content => Object.keys(content).map(value => content[value])).flatMap(member => member).subscribe({
       next: content => {

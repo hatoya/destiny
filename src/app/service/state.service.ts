@@ -1,4 +1,7 @@
+import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router'
+
 
 declare let gtag: any
 
@@ -12,8 +15,11 @@ export class StateService {
   public is_navigation: boolean = false
   public is_load: boolean = true
   public errors: string[] = []
+  public routerObserver$: Observable<any>
 
-  constructor() { }
+  constructor(private router: Router) {
+    this.routerObserver$ = this.router.events.filter(event => event instanceof NavigationEnd).share()
+  }
 
   postGoogle() {
     gtag('config', 'UA-53477209-3', { 'page_path': this.url })
