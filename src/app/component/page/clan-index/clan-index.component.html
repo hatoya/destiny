@@ -14,12 +14,12 @@
       <tr *ngFor="let member of members;let i = index">
         <td>{{i + 1}}</td>
         <td>{{member.name}}</td>
-        <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank" [attr.title]="'Rank: ' + member.rank_gg"><app-gg [elo]="member.elo_gg" [rank]="member.rank_gg"></app-gg>{{member.elo_gg | number:'1.0-0'}}<app-diff [elo]="member.diff_gg"></app-diff></a></td>
-        <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank" [attr.title]="'Rank: ' + member.rank_tracker"><app-tracker [elo]="member.elo_tracker" [rank]="member.rank_tracker"></app-tracker>{{member.elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.diff_tracker" *ngIf="member.elo_tracker"></app-diff></a></td>
-        <td>{{member.kd | number:'1.2-2'}}</td>
-        <td>{{member.kda | number:'1.2-2'}}</td>
-        <td>{{member.kad | number:'1.2-2'}}</td>
-        <td>{{member.match}}<app-diff [elo]="member.diff_match"></app-diff></td>
+        <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank" [attr.title]="'Rank: ' + member.stat[state.mode_id].rank_gg"><app-gg [elo]="member.stat[state.mode_id].elo_gg" [rank]="member.stat[state.mode_id].rank_gg"></app-gg>{{member.stat[state.mode_id].elo_gg | number:'1.0-0'}}<app-diff [elo]="member.stat[state.mode_id].diff_gg"></app-diff></a></td>
+        <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank" [attr.title]="'Rank: ' + member.stat[state.mode_id].rank_tracker"><app-tracker [elo]="member.stat[state.mode_id].elo_tracker" [rank]="member.stat[state.mode_id].rank_tracker"></app-tracker>{{member.stat[state.mode_id].elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.stat[state.mode_id].diff_tracker" *ngIf="member.stat[state.mode_id].elo_tracker"></app-diff></a></td>
+        <td>{{member.stat[state.mode_id].kd | number:'1.2-2'}}</td>
+        <td>{{member.stat[state.mode_id].kda | number:'1.2-2'}}</td>
+        <td>{{member.stat[state.mode_id].kad | number:'1.2-2'}}</td>
+        <td>{{member.stat[state.mode_id].match}}<app-diff [elo]="member.stat[state.mode_id].diff_match"></app-diff></td>
       </tr>
     </tbody>
   </table>

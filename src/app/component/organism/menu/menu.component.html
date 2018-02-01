@@ -1,5 +1,5 @@
 <p class="content" [class.-on]="state.url === '/'"><a [routerLink]="['/']">Dashboard</a></p>
 <p class="heading">MODE</p>
-<p class="content" [class.-on]="state.mode_id === mode.id" (click)="changeMode(mode.id)" *ngFor="let mode of modes"><span>{{mode.name}}</span></p>
+<p class="content" [class.-on]="state.mode_id === mode.id" (click)="changeMode(mode.id)" *ngFor="let mode of state.modes"><span>{{mode.name}}</span></p>
 <p class="heading">CLAN</p>
 <p class="content" [class.-on]="state.url.includes(clan.id)" *ngFor="let clan of clans"><a [routerLink]="['/', 'clan', clan.id]">{{clan.name}}</a></p>

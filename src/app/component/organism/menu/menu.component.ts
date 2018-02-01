@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { StateService } from '../../../service/state.service'
 
-interface Mode {
-  id: number
-  name: string
-}
 interface Clan {
   id: number
   name: string
@@ -17,36 +13,6 @@ interface Clan {
 })
 export class MenuComponent implements OnInit {
 
-  public modes: Mode[] = [
-    {
-      id: 39,
-      name: 'Trials of the Nine'
-    },
-    {
-      id: 1,
-      name: 'Clash'
-    },
-    {
-      id: 2,
-      name: 'Control'
-    },
-    {
-      id: 3,
-      name: 'Supremacy'
-    },
-    {
-      id: 4,
-      name: 'Survival'
-    },
-    {
-      id: 5,
-      name: 'Countdown'
-    },
-    {
-      id: 6,
-      name: 'Iron Banner'
-    }
-  ]
   public clans: Clan[] = [
     {
       id: 2027026,
