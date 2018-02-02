@@ -15,6 +15,7 @@
     border-right: 5px solid rgba(black, 0);
     border-bottom: 5px solid rgba(black, 0);
     border-left: 5px solid rgba(black, 0);
+    pointer-events: none;
   }
   &__select {
     width: 160px;
