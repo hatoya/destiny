@@ -1,5 +1,39 @@
 @import "../../../../mixin.scss";
 
+.form {
+  position: relative;
+  width: calc(100% - 40px);
+  margin: 20px auto 0;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 145px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid rgba(black, 0.42);
+    border-right: 5px solid rgba(black, 0);
+    border-bottom: 5px solid rgba(black, 0);
+    border-left: 5px solid rgba(black, 0);
+    pointer-events: none;
+  }
+  &__select {
+    width: 160px;
+    height: 30px;
+    padding-left: 5px;
+    font-size: 16px;
+    color: rgba(black, 0.6);
+    border: none;
+    border-bottom: 1px solid rgba(black, 0.42);
+    border-radius: 0;
+    appearance: none;
+  }
+  @include sp-only {
+    width: calc(100% - 20px);
+    margin-top: 6px;
+  }
+}
+
 .table {
   &__content {
     width: calc(100% - 40px);

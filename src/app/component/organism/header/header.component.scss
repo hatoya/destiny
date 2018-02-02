@@ -16,15 +16,15 @@
   &__content {
     display: flex;
     align-items: center;
-    a {
+    span {
+      padding-left: 5px;
+    }
+    &__logo {
       display: inline-block;
       line-height: 40px;
       font-size: 16px;
       font-weight: bold;
       color: white;
-    }
-    span {
-      padding-left: 5px;
     }
     &__login {
       font-size: 16px;
@@ -36,54 +36,12 @@
         opacity: 0.8;
       }
     }
-    &__user {
-      display: flex;
-      align-items: center;
-      position: relative;
-      height: 50px;
-      cursor: pointer;
-      &__image {
-        width: 30px;
-        height: 30px;
-        margin-right: 5px;
-        background-size: cover;
-        background-position: center;
-        border-radius: 50%;
-      }
-      &__name {
-        font-size: 16px;
-        font-weight: bold;
+    &__github {
+      svg {
+        display: block;
+        width: 24px;
         color: white;
-      }
-      &__menu {
-        position: absolute;
-        top: 50px;
-        right: 0;
-        width: 150px;
-        background: white;
-        border: 1px solid rgba(black, 0.12);
-        box-shadow: 0 3px 1px -2px rgba(black, 0.2), 0 2px 2px 0 rgba(black, 0.14), 0 1px 5px 0 rgba(black, 0.12);
-        opacity: 0;
-        pointer-events: none;
-        transition: 0.3s;
-        &__list {
-          padding-left: 16px;
-          font-size: 12px;
-          line-height: 40px;
-          color: #869fb1;
-          transition: 0.3s;
-          &:not(:first-child) {
-            border-top: 1px solid rgba(black, 0.12);
-          }
-          &:hover {
-            color: #00bcd4;
-            background: #fafafa;
-          }
-        }
-      }
-      &:hover &__menu {
-        opacity: 1;
-        pointer-events: auto;
+        transform: translate(0, 1px);
       }
     }
     &__controller {
@@ -93,6 +51,9 @@
   @include sp-only {
     padding: 0 10px;
     &__content {
+      &__github {
+        display: none;
+      }
       &__controller {
         display: block;
         position: relative;
