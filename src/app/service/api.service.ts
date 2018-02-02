@@ -31,8 +31,8 @@ export class ApiService {
     return this.http.get('https://api.guardian.gg/v2/players/' + id + '/performance/0/' + this.datePipe.transform(start, 'yyyy-MM-dd') + '/' + this.datePipe.transform(end, 'yyyy-MM-dd') + '?lc=ja')
   }
 
-  getTrackerHistory(id: string): Observable<any> {
-    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/history/2/' + id + '/39/')
+  getTrackerHistory(player_id: string, mode_id): Observable<any> {
+    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/history/2/' + player_id + '/' + mode_id + '/')
   }
 
   getTracker(id: string): Observable<any> {

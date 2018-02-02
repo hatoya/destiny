@@ -57,8 +57,4 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeMode(mode_id: number) {
-    this.state.mode_id = mode_id
-  }
-
 }
