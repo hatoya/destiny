@@ -77,6 +77,7 @@ export class ClanIndexComponent implements OnInit {
             stat.kda = (target['kills'] + (target['assists'] / 2)) / target['deaths']
             stat.kad = (target['kills'] + target['assists']) / target['deaths']
             stat.match = target['gamesPlayed']
+            stat.win = target['wins']
           }
           player.stat[mode.id] = stat
         })
@@ -97,9 +98,13 @@ export class ClanIndexComponent implements OnInit {
   getDiff() {
     this.members.map(member => {
       member.stat[this.mode_id].diff_match = 0
+      member.stat[this.mode_id].diff_win = 0
       const [past_battles, latest_battles] = this.api.getGgHistory(member.id, this.start, this.today).flatMap(content => content).filter(content => content['mode'] === Number(this.mode_id)).share().partition(content => new Date(content['date']).getTime() <= this.end.getTime())
       past_battles.subscribe(content => member.stat[this.mode_id].diff_gg = member.stat[this.mode_id].elo_gg - content['elo'])
-      latest_battles.subscribe(content => member.stat[this.mode_id].diff_match += content['gamesPlayed'])
+      latest_battles.subscribe(content => {
+        member.stat[this.mode_id].diff_match += content['gamesPlayed']
+        member.stat[this.mode_id].diff_win += content['wins']
+      })
       this.api.getTrackerHistory(member.id, this.mode_id).filter(content => content['data'].length).map(content => content['data']).subscribe(contents => {
         const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.start.getTime() && new Date(battle['period']).getTime() <= this.end.getTime())
         member.stat[this.mode_id].elo_tracker = contents[contents.length - 1]['currentElo']
