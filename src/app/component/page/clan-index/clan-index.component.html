@@ -14,8 +14,9 @@
         <th class="-active" (click)="changeOrder('kd')">KD<fa-icon icon="sort-down" *ngIf="target === 'kd' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'kd' && order === 'asc'"></fa-icon></th>
         <th class="-active" (click)="changeOrder('kda')">KDA<fa-icon icon="sort-down" *ngIf="target === 'kda' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'kda' && order === 'asc'"></fa-icon></th>
         <th class="-active" (click)="changeOrder('kad')">KA/D<fa-icon icon="sort-down" *ngIf="target === 'kad' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'kad' && order === 'asc'"></fa-icon></th>
-        <th class="-active" (click)="changeOrder('match')">Win<fa-icon icon="sort-down" *ngIf="target === 'match' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'match' && order === 'asc'"></fa-icon></th>
+        <th class="-active" (click)="changeOrder('win')">Win<fa-icon icon="sort-down" *ngIf="target === 'win' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'win' && order === 'asc'"></fa-icon></th>
         <th class="-active" (click)="changeOrder('match')">Match<fa-icon icon="sort-down" *ngIf="target === 'match' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'match' && order === 'asc'"></fa-icon></th>
+        <th>Ratio</th>
       </tr>
       <tr *ngFor="let member of members;let i = index">
         <td>{{i + 1}}</td>
@@ -27,6 +28,7 @@
         <td>{{member.stat[mode_id].kad | number:'1.2-2'}}</td>
         <td>{{member.stat[mode_id].win | number:'1.0-0'}}<app-diff [elo]="member.stat[mode_id].diff_win"></app-diff></td>
         <td>{{member.stat[mode_id].match | number:'1.0-0'}}<app-diff [elo]="member.stat[mode_id].diff_match"></app-diff></td>
+        <td><span *ngIf="member.stat[mode_id].win">{{member.stat[mode_id].win / member.stat[mode_id].match * 100 | number:'1.2-2'}}%</span></td>
       </tr>
     </tbody>
   </table>
