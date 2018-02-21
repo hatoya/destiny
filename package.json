@@ -25,19 +25,19 @@
     "@angular/platform-browser-dynamic": "5.2.5",
     "@angular/router": "5.2.5",
     "@angular/service-worker": "5.2.5",
-    "@fortawesome/angular-fontawesome": "0.1.0-1",
+    "@fortawesome/angular-fontawesome": "0.1.0-3",
     "@fortawesome/fontawesome": "^1.1.2",
     "@fortawesome/fontawesome-free-solid": "^5.0.4",
     "@fortawesome/fontawesome-pro-light": "^5.0.4",
     "angularfire2": "5.0.0-rc.6",
     "core-js": "2.5.3",
-    "firebase": "4.9.1",
+    "firebase": "4.10.0",
     "font-awesome": "4.7.0",
     "rxjs": "5.5.6",
     "zone.js": "0.8.20"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.8",
+    "@angular/cli": "1.7.0",
     "@angular/compiler-cli": "5.2.5",
     "@angular/language-service": "5.2.5",
     "@types/jasmine": "~2.8.2",
@@ -55,7 +55,7 @@
     "node-static": "0.7.10",
     "npm-check-updates": "2.14.0",
     "protractor": "~5.3.0",
-    "ts-node": "~4.1.0",
+    "ts-node": "~5.0.0",
     "tslint": "~5.9.1",
     "typescript": "<2.7.0"
   }
