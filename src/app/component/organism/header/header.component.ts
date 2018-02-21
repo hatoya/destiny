@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { library } from '@fortawesome/fontawesome'
-import { faPaperPlane } from '@fortawesome/fontawesome-free-solid'
+import { faPaperPlane } from '@fortawesome/fontawesome-free-solid/shakable.es'
 import { StateService } from '../../../service/state.service'
 
 @Component({

@@ -1,1 +1,4 @@
-<i class="gg" [ngClass]="{'-party': type === 'party', '-unranked': elo === 0, '-bronze': 0 < elo && elo < 1100, '-silver': 1100 <= elo && elo < 1300, '-gold': 1300 <= elo && elo < 1500, '-platinum': 1500 <= elo && elo < 1700, '-diamond': 1700 <= elo, '-master': 1700 <= elo && rank > 0 && rank <= 500}"></i>
+<div class="gg">
+  <div class="gg__icon" [ngClass]="{'-party': type === 'party', '-unranked': elo === 0, '-bronze': 0 < elo && elo < 1100, '-silver': 1100 <= elo && elo < 1300, '-gold': 1300 <= elo && elo < 1500, '-platinum': 1500 <= elo && elo < 1700, '-diamond': 1700 <= elo, '-master': 1700 <= elo && rank > 0 && rank <= 500}"></div>
+  <p class="gg__rank" *ngIf="rank">#{{rank | number:'1.0-0'}}</p>
+</div>

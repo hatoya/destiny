@@ -1,35 +1,46 @@
 .gg {
   display: inline-block;
+  position: relative;
   vertical-align: middle;
-  width: calc(122px / 2);
-  height: calc(101px / 2);
   margin-right: 10px;
-  background-size: cover;
-  &.-party {
-    width: calc(122px / 4);
-    height: calc(101px / 4);
-    margin-right: 5px;
-    margin-left: 10px;
+  &__icon {
+    width: calc(122px / 2);
+    height: calc(101px / 2);
+    background-size: cover;
+    &.-party {
+      width: calc(122px / 4);
+      height: calc(101px / 4);
+      margin-right: 5px;
+      margin-left: 10px;
+    }
+    &.-unranked {
+      background-image: url(../../../../assets/gg_unranked.png);
+    }
+    &.-bronze {
+      background-image: url(../../../../assets/gg_bronze.png);
+    }
+    &.-silver {
+      background-image: url(../../../../assets/gg_silver.png);
+    }
+    &.-gold {
+      background-image: url(../../../../assets/gg_gold.png);
+    }
+    &.-platinum {
+      background-image: url(../../../../assets/gg_platinum.png);
+    }
+    &.-diamond {
+      background-image: url(../../../../assets/gg_diamond.png);
+    }
+    &.-master {
+      background-image: url(../../../../assets/gg_master.png);
+    }
   }
-  &.-unranked {
-    background-image: url(../../../../assets/gg_unranked.png);
-  }
-  &.-bronze {
-    background-image: url(../../../../assets/gg_bronze.png);
-  }
-  &.-silver {
-    background-image: url(../../../../assets/gg_silver.png);
-  }
-  &.-gold {
-    background-image: url(../../../../assets/gg_gold.png);
-  }
-  &.-platinum {
-    background-image: url(../../../../assets/gg_platinum.png);
-  }
-  &.-diamond {
-    background-image: url(../../../../assets/gg_diamond.png);
-  }
-  &.-master {
-    background-image: url(../../../../assets/gg_master.png);
+  &__rank {
+    position: absolute;
+    top: 37px;
+    left: 48px;
+    font-size: 10px;
+    line-height: 1;
+    color: #00bcd4;
   }
 }

@@ -1,35 +1,46 @@
 .tracker {
   display: inline-block;
+  position: relative;
   vertical-align: middle;
   margin-right: 10px;
-  width: 40px;
-  height: 40px;
-  background-size: cover;
-  &.-party {
-    width: 25px;
-    height: 25px;
-    margin-right: 5px;
-    margin-left: 10px;
+  &__icon {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    &.-party {
+      width: 25px;
+      height: 25px;
+      margin-right: 5px;
+      margin-left: 10px;
+    }
+    &.-unranked {
+      background-image: url(../../../../assets/gg_unranked.png);
+    }
+    &.-bronze {
+      background-image: url(../../../../assets/tracker_bronze.png);
+    }
+    &.-silver {
+      background-image: url(../../../../assets/tracker_silver.png);
+    }
+    &.-gold {
+      background-image: url(../../../../assets/tracker_gold.png);
+    }
+    &.-platinum {
+      background-image: url(../../../../assets/tracker_platinum.png);
+    }
+    &.-diamond {
+      background-image: url(../../../../assets/tracker_diamond.png);
+    }
+    &.-challenger {
+      background-image: url(../../../../assets/tracker_challenger.png);
+    }
   }
-  &.-unranked {
-    background-image: url(../../../../assets/gg_unranked.png);
-  }
-  &.-bronze {
-    background-image: url(../../../../assets/tracker_bronze.png);
-  }
-  &.-silver {
-    background-image: url(../../../../assets/tracker_silver.png);
-  }
-  &.-gold {
-    background-image: url(../../../../assets/tracker_gold.png);
-  }
-  &.-platinum {
-    background-image: url(../../../../assets/tracker_platinum.png);
-  }
-  &.-diamond {
-    background-image: url(../../../../assets/tracker_diamond.png);
-  }
-  &.-challenger {
-    background-image: url(../../../../assets/tracker_challenger.png);
+  &__rank {
+    position: absolute;
+    top: 33px;
+    left: 40px;
+    font-size: 10px;
+    line-height: 1;
+    color: #00bcd4;
   }
 }
