@@ -2,10 +2,10 @@
   display: inline-block;
   position: relative;
   vertical-align: middle;
+  margin-right: 10px;
   &__icon {
     width: calc(122px / 2);
     height: calc(101px / 2);
-    margin-right: 10px;
     background-size: cover;
     &.-party {
       width: calc(122px / 4);
