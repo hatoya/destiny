@@ -20,7 +20,7 @@
       </tr>
       <tr *ngFor="let member of members;let i = index">
         <td>{{i + 1}}</td>
-        <td>{{member.name}}</td>
+        <td><a [routerLink]="['/', 'player', member.id]">{{member.name}}</a></td>
         <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank"><app-gg [elo]="member.stat[mode_id].elo_gg" [rank]="member.stat[mode_id].rank_gg"></app-gg>{{member.stat[mode_id].elo_gg | number:'1.0-0'}}<app-diff [elo]="member.stat[mode_id].diff_gg"></app-diff></a></td>
         <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank"><app-tracker [elo]="member.stat[mode_id].elo_tracker" [rank]="member.stat[mode_id].rank_tracker"></app-tracker>{{member.stat[mode_id].elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.stat[mode_id].diff_tracker" *ngIf="member.stat[mode_id].elo_tracker"></app-diff></a></td>
         <td>{{member.stat[mode_id].kd | number:'1.2-2'}}</td>

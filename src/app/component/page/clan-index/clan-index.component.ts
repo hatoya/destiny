@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core'
+import { Subscription } from 'rxjs/Subscription'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, NavigationEnd } from '@angular/router'
 import { library } from '@fortawesome/fontawesome'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
@@ -21,6 +22,7 @@ interface Mode {
 })
 export class ClanIndexComponent implements OnInit {
 
+  public routerSubscription: Subscription
   public formGroup: FormGroup
   public id: string = ''
   public clan: any = {}
@@ -50,7 +52,11 @@ export class ClanIndexComponent implements OnInit {
 
   ngOnInit() {
     this.init()
-    this.state.routerObserver$.subscribe(event => this.init())
+    this.routerSubscription = this.state.routerObserver$.subscribe(event => this.init())
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe()
   }
 
   init() {
