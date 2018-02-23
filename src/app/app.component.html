@@ -4,7 +4,7 @@
     <organism-menu></organism-menu>
   </div>
   <div class="column__content">
-    <atom-heading [content]="state.heading"></atom-heading>
+    <atom-heading></atom-heading>
     <ul class="column__content__error" *ngIf="state.errors.length">
       <li class="column__content__error__list" *ngFor="let error of state.errors">
         <app-error [error]="error"></app-error>

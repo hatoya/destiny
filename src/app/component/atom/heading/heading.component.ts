@@ -8,8 +8,6 @@ import { StateService } from '../../../service/state.service'
 })
 export class HeadingComponent implements OnInit {
 
-  @Input() content: string = ''
-
   constructor(public state: StateService) { }
 
   ngOnInit() {
