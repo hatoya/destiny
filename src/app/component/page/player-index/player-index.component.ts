@@ -29,6 +29,7 @@ export class PlayerIndexComponent implements OnInit {
         this.kill += stat['kills']
         this.death += stat['deaths']
         this.assist += stat['assists']
+        this.player.stats[stat['mode']] = stat
       })
       this.getGg()
       this.getTracker()
@@ -36,11 +37,11 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getGg() {
-    console.log('GG')
+    this.api.getGgHistory(this.player.id, this.state.start, this.state.end).subscribe(content => console.log(content))
   }
 
   getTracker() {
-    console.log('Tracker')
+    this.api.getTrackerHistory(this.player.id, 39).subscribe(content => console.log(content))
   }
 
 }

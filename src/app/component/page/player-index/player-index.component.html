@@ -16,10 +16,10 @@
 <ul class="elo">
   <li class="elo__list" *ngFor="let mode of state.modes">
     <p class="elo__list__heading">{{mode.name}}</p>
-    <div class="elo__list__wrapper" *ngIf="player.stat[mode.id]">
+    <div class="elo__list__wrapper" *ngIf="player.stats[mode.id]">
       <div class="elo__list__wrapper__content">
-        <div class="elo__list__wrapper__content__icon"><app-gg [elo]="player.stat[mode.id].elo" rank="1000"></app-gg></div>
-        <p class="elo__list__wrapper__content__elo">{{player.stat[mode.id].elo | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
+        <div class="elo__list__wrapper__content__icon"><app-gg [elo]="player.stats[mode.id].elo" rank="1000"></app-gg></div>
+        <p class="elo__list__wrapper__content__elo">{{player.stats[mode.id].elo | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
       </div>
       <div class="elo__list__wrapper__content">
         <div class="elo__list__wrapper__content__icon"><app-tracker elo="1700" rank="1000"></app-tracker></div>
