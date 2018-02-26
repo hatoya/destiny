@@ -12,6 +12,9 @@ import { Player } from '../../../model/player.model'
 export class PlayerIndexComponent implements OnInit {
 
   public player: Player = new Player
+  public kill: number = 0
+  public death: number = 0
+  public assist: number = 0
 
   constructor(public state: StateService, private api: ApiService, private meta: MetaService) { }
 
@@ -22,7 +25,22 @@ export class PlayerIndexComponent implements OnInit {
       this.state.is_load = false
       this.state.heading = this.player.name
       this.meta.setTitle(this.player.name + ' | Player')
+      content['player']['stats'].forEach(stat => {
+        this.kill += stat['kills']
+        this.death += stat['deaths']
+        this.assist += stat['assists']
+      })
+      this.getGg()
+      this.getTracker()
     })
+  }
+
+  getGg() {
+    console.log('GG')
+  }
+
+  getTracker() {
+    console.log('Tracker')
   }
 
 }

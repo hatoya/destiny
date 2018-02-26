@@ -1,6 +1,6 @@
 <form class="form" [formGroup]="formGroup">
   <select class="form__select" formControlName="mode" [(ngModel)]="mode_id" (change)="changeMode()">
-    <option [value]="mode.id" *ngFor="let mode of modes">{{mode.name}}</option>
+    <option [value]="mode.id" *ngFor="let mode of state.modes">{{mode.name}}</option>
   </select>
 </form>
 <div class="table">
