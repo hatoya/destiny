@@ -65,7 +65,7 @@ export class ClanIndexComponent implements OnInit {
     this.id = location.pathname.split('/')[2]
     this.api.getClan(this.id).map(content => content['Response']['detail']).subscribe({
       next: content => {
-        this.meta.setTitle(content['name'])
+        this.meta.setTitle(content['name'] + ' | Clan')
         this.state.heading = content['name'] + ' [' + content['clanInfo']['clanCallsign'] + ']'
       },
       error: error => console.log(error),

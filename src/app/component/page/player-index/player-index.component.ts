@@ -21,7 +21,7 @@ export class PlayerIndexComponent implements OnInit {
       this.player.name = content['player']['name']
       this.state.is_load = false
       this.state.heading = this.player.name
-      this.meta.setTitle(this.player.name)
+      this.meta.setTitle(this.player.name + ' | Player')
     })
   }
 
