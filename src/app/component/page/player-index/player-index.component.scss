@@ -1,25 +1,110 @@
-.elo {
+@import '../../../../mixin.scss';
+
+.information {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: calc(100% - 40px);
   margin: 20px auto 0;
+  background: white;
+  box-shadow: 0 3px 1px -2px rgba(black, 0.2), 0 2px 2px 0 rgba(black, 0.14), 0 1px 5px 0 rgba(black, 0.12);
   &__list {
+    width: calc(100% / 3);
+    padding: 20px;
+    &__heading {
+      font-size: 12px;
+      line-height: 1;
+      text-align: center;
+      color: #00bcd4;
+    }
+    &__content {
+      margin-top: 3px;
+      font-size: 24px;
+      line-height: 1;
+      text-align: center;
+    }
+  }
+  @include sp-only {
+    margin-top: 10px;
+    width: calc(100% - 20px);
+    &__list {
+      &__heading {
+        font-size: 10px;
+      }
+      &__content {
+        font-size: 20px;
+      }
+    }
+  }
+}
+.graph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 40px);
+  height: 300px;
+  margin: 20px auto 0;
+  font-size: 20px;
+  background: white;
+  box-shadow: 0 3px 1px -2px rgba(black, 0.2), 0 2px 2px 0 rgba(black, 0.14), 0 1px 5px 0 rgba(black, 0.12);
+  @include sp-only {
+    width: calc(100% - 20px);
+    margin-top: 10px;
+  }
+}
+.elo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: calc(100% - 40px);
+  margin: 20px auto;
+  &__list {
+    width: calc((100% / 3) - (40px / 3));
+    margin-right: 20px;
     padding: 20px;
     background: white;
     box-shadow: 0 3px 1px -2px rgba(black, 0.2), 0 2px 2px 0 rgba(black, 0.14), 0 1px 5px 0 rgba(black, 0.12);
+    &:nth-of-type(n+4) {
+      margin-top: 20px;
+    }
+    &:nth-of-type(3n) {
+      margin-right: 0;
+    }
     &__heading {
-
+      font-size: 16px;
     }
     &__wrapper {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
+      margin-top: 5px;
       &__content {
         display: flex;
         align-items: center;
+        &:first-child {
+          margin-right: 20px;
+        }
         &__icon {
 
         }
         &__elo {
-
+          font-size: 14px;
         }
+      }
+    }
+  }
+  @include sp-only {
+    width: calc(100% - 20px);
+    margin: 10px auto;
+    &__list {
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+      &:not(:first-child) {
+        margin-top: 10px;
+      }
+      &__wrapper {
+        justify-content: center;
       }
     }
   }

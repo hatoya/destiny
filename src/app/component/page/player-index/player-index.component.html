@@ -1,14 +1,81 @@
+<ul class="information">
+  <li class="information__list">
+    <p class="information__list__heading">KD</p>
+    <p class="information__list__content">{{1.23 | number:'1.2-2'}}</p>
+  </li>
+  <li class="information__list">
+    <p class="information__list__heading">KDA</p>
+    <p class="information__list__content">{{2.34 | number:'1.2-2'}}</p>
+  </li>
+  <li class="information__list">
+    <p class="information__list__heading">KA/D</p>
+    <p class="information__list__content">{{3.45 | number:'1.2-2'}}</p>
+  </li>
+</ul>
+<div class="graph">Graph</div>
 <ul class="elo">
   <li class="elo__list">
     <p class="elo__list__heading">Trials of the Nine</p>
     <div class="elo__list__wrapper">
       <div class="elo__list__wrapper__content">
-        <div class="elo__list__wrapper__content__icon"><app-gg elo="2500" rank="100"></app-gg></div>
-        <p class="elo__list__wrapper__content__elo">2500</p>
+        <div class="elo__list__wrapper__content__icon"><app-gg elo="1700" rank="500"></app-gg></div>
+        <p class="elo__list__wrapper__content__elo">{{1700 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
       </div>
       <div class="elo__list__wrapper__content">
-        <div class="elo__list__wrapper__content__icon"><app-tracker elo="2500" rank="100"></app-tracker></div>
-        <p class="elo__list__wrapper__content__elo">2500</p>
+        <div class="elo__list__wrapper__content__icon"><app-tracker elo="1700" rank="500"></app-tracker></div>
+        <p class="elo__list__wrapper__content__elo">{{1700 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
+      </div>
+    </div>
+  </li>
+  <li class="elo__list">
+    <p class="elo__list__heading">Trials of the Nine</p>
+    <div class="elo__list__wrapper">
+      <div class="elo__list__wrapper__content">
+        <div class="elo__list__wrapper__content__icon"><app-gg elo="1700" rank="1000"></app-gg></div>
+        <p class="elo__list__wrapper__content__elo">{{1700 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
+      </div>
+      <div class="elo__list__wrapper__content">
+        <div class="elo__list__wrapper__content__icon"><app-tracker elo="1700" rank="1000"></app-tracker></div>
+        <p class="elo__list__wrapper__content__elo">{{1700 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
+      </div>
+    </div>
+  </li>
+  <li class="elo__list">
+    <p class="elo__list__heading">Trials of the Nine</p>
+    <div class="elo__list__wrapper">
+      <div class="elo__list__wrapper__content">
+        <div class="elo__list__wrapper__content__icon"><app-gg elo="1500" rank="1000"></app-gg></div>
+        <p class="elo__list__wrapper__content__elo">{{1500 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
+      </div>
+      <div class="elo__list__wrapper__content">
+        <div class="elo__list__wrapper__content__icon"><app-tracker elo="1500" rank="1000"></app-tracker></div>
+        <p class="elo__list__wrapper__content__elo">{{1500 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
+      </div>
+    </div>
+  </li>
+  <li class="elo__list">
+    <p class="elo__list__heading">Trials of the Nine</p>
+    <div class="elo__list__wrapper">
+      <div class="elo__list__wrapper__content">
+        <div class="elo__list__wrapper__content__icon"><app-gg elo="1300" rank="1000"></app-gg></div>
+        <p class="elo__list__wrapper__content__elo">{{1300 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
+      </div>
+      <div class="elo__list__wrapper__content">
+        <div class="elo__list__wrapper__content__icon"><app-tracker elo="1300" rank="1000"></app-tracker></div>
+        <p class="elo__list__wrapper__content__elo">{{1300 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
+      </div>
+    </div>
+  </li>
+  <li class="elo__list">
+    <p class="elo__list__heading">Trials of the Nine</p>
+    <div class="elo__list__wrapper">
+      <div class="elo__list__wrapper__content">
+        <div class="elo__list__wrapper__content__icon"><app-gg elo="1200" rank="1000"></app-gg></div>
+        <p class="elo__list__wrapper__content__elo">{{1200 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
+      </div>
+      <div class="elo__list__wrapper__content">
+        <div class="elo__list__wrapper__content__icon"><app-tracker elo="1200" rank="1000"></app-tracker></div>
+        <p class="elo__list__wrapper__content__elo">{{1200 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
       </div>
     </div>
   </li>
