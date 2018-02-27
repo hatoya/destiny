@@ -3,6 +3,7 @@ import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
 import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
+import { Stat } from '../../../model/stat.model'
 
 @Component({
   selector: 'app-player-index',
@@ -25,11 +26,14 @@ export class PlayerIndexComponent implements OnInit {
       this.state.is_load = false
       this.state.heading = this.player.name
       this.meta.setTitle(this.player.name + ' | Player')
-      content['player']['stats'].forEach(stat => {
-        this.kill += stat['kills']
-        this.death += stat['deaths']
-        this.assist += stat['assists']
-        this.player.stats[stat['mode']] = stat
+      content['player']['stats'].forEach(mode => {
+        let stat = new Stat
+        stat.elo_gg = mode['elo']
+        stat.rank_gg = content['playerRanks'][mode['mode']]
+        this.kill += mode['kills']
+        this.death += mode['deaths']
+        this.assist += mode['assists']
+        this.player.stats[mode['mode']] = stat
       })
       this.getGg()
       this.getTracker()
@@ -37,7 +41,9 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getGg() {
-    this.api.getGgHistory(this.player.id, this.state.start, this.state.end).subscribe(content => console.log(content))
+    this.api.getGgHistory(this.player.id, this.state.start, this.state.end).flatMap(content => content).subscribe(content => {
+      this.player.stats[content['mode']].diff_gg = this.player.stats[content['mode']].elo_gg - content['elo']
+    })
   }
 
   getTracker() {

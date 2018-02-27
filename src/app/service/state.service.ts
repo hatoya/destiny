@@ -24,11 +24,11 @@ export class StateService {
   public end: Date
   public modes: Mode[] = [
     { id: 39, name: 'Trials of the Nine' },
+    { id: 37, name: 'Survival' },
+    { id: 38, name: 'Countdown' },
     { id: 12, name: 'Clash' },
     { id: 10, name: 'Control' },
     { id: 31, name: 'Supremacy' },
-    { id: 37, name: 'Survival' },
-    { id: 38, name: 'Countdown' },
     { id: 19, name: 'Iron Banner' }
   ]
 
