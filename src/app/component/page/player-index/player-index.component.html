@@ -1,0 +1,30 @@
+<ul class="information">
+  <li class="information__list">
+    <p class="information__list__heading">KD</p>
+    <p class="information__list__content">{{kill / death | number:'1.2-2'}}</p>
+  </li>
+  <li class="information__list">
+    <p class="information__list__heading">KDA</p>
+    <p class="information__list__content">{{(kill + (assist / 2)) / death | number:'1.2-2'}}</p>
+  </li>
+  <li class="information__list">
+    <p class="information__list__heading">KA/D</p>
+    <p class="information__list__content">{{(kill + assist) / death | number:'1.2-2'}}</p>
+  </li>
+</ul>
+<div class="graph">Graph</div>
+<ul class="elo">
+  <li class="elo__list" *ngFor="let mode of state.modes">
+    <p class="elo__list__heading">{{mode.name}}</p>
+    <div class="elo__list__wrapper" *ngIf="player.stats[mode.id]">
+      <div class="elo__list__wrapper__content">
+        <div class="elo__list__wrapper__content__icon"><app-gg [elo]="player.stats[mode.id].elo_gg" [rank]="player.stats[mode.id].rank_gg"></app-gg></div>
+        <p class="elo__list__wrapper__content__elo">{{player.stats[mode.id].elo_gg | number:'1.0-0'}}<app-diff [elo]="player.stats[mode.id].diff_gg"></app-diff></p>
+      </div>
+      <div class="elo__list__wrapper__content">
+        <div class="elo__list__wrapper__content__icon"><app-tracker elo="1700" rank="1000"></app-tracker></div>
+        <p class="elo__list__wrapper__content__elo">{{1700 | number:'1.0-0'}}<app-diff elo="100"></app-diff></p>
+      </div>
+    </div>
+  </li>
+</ul>

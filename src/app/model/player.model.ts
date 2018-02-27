@@ -4,9 +4,9 @@ export class Player {
 
   public id: string = ''
   public name: string = ''
-  public stat: any = {}
+  public stats: Stat[] = []
 
-  constructor(id?: string, name?: string) {
+  constructor(id: string = '', name: string = '') {
     this.id = id
     this.name = name
   }

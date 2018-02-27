@@ -1,6 +1,6 @@
 <form class="form" [formGroup]="formGroup">
   <select class="form__select" formControlName="mode" [(ngModel)]="mode_id" (change)="changeMode()">
-    <option [value]="mode.id" *ngFor="let mode of modes">{{mode.name}}</option>
+    <option [value]="mode.id" *ngFor="let mode of state.modes">{{mode.name}}</option>
   </select>
 </form>
 <div class="table">
@@ -20,15 +20,15 @@
       </tr>
       <tr *ngFor="let member of members;let i = index">
         <td>{{i + 1}}</td>
-        <td>{{member.name}}</td>
-        <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank"><app-gg [elo]="member.stat[mode_id].elo_gg" [rank]="member.stat[mode_id].rank_gg"></app-gg>{{member.stat[mode_id].elo_gg | number:'1.0-0'}}<app-diff [elo]="member.stat[mode_id].diff_gg"></app-diff></a></td>
-        <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank"><app-tracker [elo]="member.stat[mode_id].elo_tracker" [rank]="member.stat[mode_id].rank_tracker"></app-tracker>{{member.stat[mode_id].elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.stat[mode_id].diff_tracker" *ngIf="member.stat[mode_id].elo_tracker"></app-diff></a></td>
-        <td>{{member.stat[mode_id].kd | number:'1.2-2'}}</td>
-        <td>{{member.stat[mode_id].kda | number:'1.2-2'}}</td>
-        <td>{{member.stat[mode_id].kad | number:'1.2-2'}}</td>
-        <td>{{member.stat[mode_id].win | number:'1.0-0'}}<app-diff [elo]="member.stat[mode_id].diff_win"></app-diff></td>
-        <td>{{member.stat[mode_id].match | number:'1.0-0'}}<app-diff [elo]="member.stat[mode_id].diff_match"></app-diff></td>
-        <td><span *ngIf="member.stat[mode_id].win">{{member.stat[mode_id].win / member.stat[mode_id].match * 100 | number:'1.2-2'}}%</span></td>
+        <td><a [routerLink]="['/', 'player', member.id]">{{member.name}}</a></td>
+        <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank"><app-gg [elo]="member.stats[mode_id].elo_gg" [rank]="member.stats[mode_id].rank_gg"></app-gg>{{member.stats[mode_id].elo_gg | number:'1.0-0'}}<app-diff [elo]="member.stats[mode_id].diff_gg"></app-diff></a></td>
+        <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank"><app-tracker [elo]="member.stats[mode_id].elo_tracker" [rank]="member.stats[mode_id].rank_tracker"></app-tracker>{{member.stats[mode_id].elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.stats[mode_id].diff_tracker" *ngIf="member.stats[mode_id].elo_tracker"></app-diff></a></td>
+        <td>{{member.stats[mode_id].kd | number:'1.2-2'}}</td>
+        <td>{{member.stats[mode_id].kda | number:'1.2-2'}}</td>
+        <td>{{member.stats[mode_id].kad | number:'1.2-2'}}</td>
+        <td>{{member.stats[mode_id].win | number:'1.0-0'}}<app-diff [elo]="member.stats[mode_id].diff_win"></app-diff></td>
+        <td>{{member.stats[mode_id].match | number:'1.0-0'}}<app-diff [elo]="member.stats[mode_id].diff_match"></app-diff></td>
+        <td><span *ngIf="member.stats[mode_id].win">{{member.stats[mode_id].win / member.stats[mode_id].match * 100 | number:'1.2-2'}}%</span></td>
       </tr>
     </tbody>
   </table>

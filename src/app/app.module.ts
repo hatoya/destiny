@@ -37,6 +37,7 @@ import { TrackerComponent } from './component/atom/tracker/tracker.component';
 import { DiffComponent } from './component/atom/diff/diff.component';
 import { ErrorComponent } from './component/atom/error/error.component';
 import { ClanIndexComponent } from './component/page/clan-index/clan-index.component';
+import { PlayerIndexComponent } from './component/page/player-index/player-index.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { ClanIndexComponent } from './component/page/clan-index/clan-index.compo
     TrackerComponent,
     DiffComponent,
     ErrorComponent,
-    ClanIndexComponent
+    ClanIndexComponent,
+    PlayerIndexComponent
   ],
   providers: [
     DatePipe,

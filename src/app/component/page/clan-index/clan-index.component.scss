@@ -88,6 +88,13 @@
       text-align: left;
       white-space: nowrap;
       color: rgba(black, 0.87);
+      &:nth-of-type(2) {
+        a {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
     }
   }
   @include sp-only {
