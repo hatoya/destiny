@@ -35,19 +35,26 @@ export class PlayerIndexComponent implements OnInit {
         this.assist += mode['assists']
         this.player.stats[mode['mode']] = stat
       })
-      this.getGg()
+      this.getGgDiff()
       this.getTracker()
     })
   }
 
-  getGg() {
+  getGgDiff() {
     this.api.getGgHistory(this.player.id, this.state.start, this.state.end).flatMap(content => content).subscribe(content => {
       this.player.stats[content['mode']].diff_gg = this.player.stats[content['mode']].elo_gg - content['elo']
     })
   }
 
   getTracker() {
-    this.api.getTrackerHistory(this.player.id, 39).subscribe(content => console.log(content))
+    this.api.getTracker(this.player.id).flatMap(content => content).subscribe(content => this.player.stats[content['mode']].rank_tracker = content['playerank']['rank'])
+    this.state.modes.forEach(mode => {
+      this.api.getTrackerHistory(this.player.id, mode.id).map(content => content['data']).subscribe(contents => {
+        const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.state.start.getTime() && new Date(battle['period']).getTime() <= this.state.end.getTime())
+        this.player.stats[mode.id].elo_tracker = contents[contents.length - 1]['currentElo']
+        if (battles.length) this.player.stats[mode.id].diff_tracker = this.player.stats[mode.id].elo_tracker - battles[battles.length - 1]['currentElo']
+      })
+    })
   }
 
 }
