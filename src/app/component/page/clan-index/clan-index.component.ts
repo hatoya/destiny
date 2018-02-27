@@ -94,7 +94,7 @@ export class ClanIndexComponent implements OnInit {
         const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.state.start.getTime() && new Date(battle['period']).getTime() <= this.state.end.getTime())
         member.stats[this.mode_id].elo_tracker = contents[contents.length - 1]['currentElo']
         if (battles.length) member.stats[this.mode_id].diff_tracker = contents[contents.length - 1]['currentElo'] - battles[battles.length - 1]['currentElo']
-        if (member.stats[this.mode_id].elo_tracker >= 1700) this.api.getTracker(member.id).map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39)).flatMap(content => content).subscribe(content => member.stats[this.mode_id].rank_tracker = content['playerank']['rank'])
+        if (member.stats[this.mode_id].elo_tracker >= 1700) this.api.getTracker(member.id).map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39)).flatMap(content => content).filter(content => content['playerank']).subscribe(content => member.stats[this.mode_id].rank_tracker = content['playerank']['rank'])
       })
     })
   }
