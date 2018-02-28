@@ -21,35 +21,41 @@ export class PlayerIndexComponent implements OnInit {
 
   ngOnInit() {
     this.player.id = this.state.url.split('/')[2]
-    this.api.getGg(this.player.id).subscribe(content => {
-      this.player.name = content['player']['name']
+    this.state.modes.forEach(mode => this.player.stats[mode.id] = new Stat)
+    this.getPlayer()
+    this.getGg()
+    this.getTracker()
+  }
+
+  getPlayer() {
+    this.api.getProfile(this.player.id).subscribe(content => {
       this.state.is_load = false
+      this.player.name = content['displayName']
       this.state.heading = this.player.name
       this.meta.setTitle(this.player.name + ' | Player')
+    })
+    this.api.getGg(this.player.id).subscribe(content => {
       content['player']['stats'].forEach(mode => {
-        let stat = new Stat
-        stat.elo_gg = mode['elo']
-        stat.rank_gg = content['playerRanks'][mode['mode']]
         this.kill += mode['kills']
         this.death += mode['deaths']
         this.assist += mode['assists']
-        this.player.stats[mode['mode']] = stat
+        this.player.stats[mode['mode']].rank_gg = content['playerRanks'][mode['mode']]
       })
-      this.getGgDiff()
-      this.getTracker()
     })
   }
 
-  getGgDiff() {
-    this.api.getGgHistory(this.player.id, this.state.start, this.state.end).flatMap(content => content).subscribe(content => {
-      this.player.stats[content['mode']].diff_gg = this.player.stats[content['mode']].elo_gg - content['elo']
+  getGg() {
+    const [past_battles, latest_battles] = this.api.getGgHistory(this.player.id, this.state.start, this.state.today).flatMap(content => content).share().partition(content => new Date(content['date']).getTime() <= this.state.end.getTime())
+    latest_battles.subscribe({
+      next: content => this.player.stats[content['mode']].elo_gg = content['elo'],
+      complete: () => past_battles.subscribe(content => this.player.stats[content['mode']].diff_gg = this.player.stats[content['mode']].elo_gg - content['elo'])
     })
   }
 
   getTracker() {
-    this.api.getTracker(this.player.id).flatMap(content => content).subscribe(content => this.player.stats[content['mode']].rank_tracker = content['playerank']['rank'])
+    this.api.getTracker(this.player.id).flatMap(content => content).filter(content => typeof this.player.stats[content['mode']] === 'object').subscribe(content => this.player.stats[content['mode']].rank_tracker = content['playerank']['rank'])
     this.state.modes.forEach(mode => {
-      this.api.getTrackerHistory(this.player.id, mode.id).map(content => content['data']).subscribe(contents => {
+      this.api.getTrackerHistory(this.player.id, mode.id).map(content => content['data']).filter(contents => contents.length).subscribe(contents => {
         const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.state.start.getTime() && new Date(battle['period']).getTime() <= this.state.end.getTime())
         this.player.stats[mode.id].elo_tracker = contents[contents.length - 1]['currentElo']
         if (battles.length) this.player.stats[mode.id].diff_tracker = this.player.stats[mode.id].elo_tracker - battles[battles.length - 1]['currentElo']

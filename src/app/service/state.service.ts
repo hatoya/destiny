@@ -29,7 +29,8 @@ export class StateService {
     { id: 12, name: 'Clash' },
     { id: 10, name: 'Control' },
     { id: 31, name: 'Supremacy' },
-    { id: 19, name: 'Iron Banner' }
+    { id: 19, name: 'Iron Banner' },
+    { id: 15, name: 'Double' }
   ]
 
   constructor(private router: Router) {
