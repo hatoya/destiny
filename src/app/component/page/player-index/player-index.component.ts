@@ -13,7 +13,6 @@ import { Stat } from '../../../model/stat.model'
 export class PlayerIndexComponent implements OnInit {
 
   public player: Player = new Player
-  public characters: string[] = []
   public kill: number = 0
   public death: number = 0
   public assist: number = 0
@@ -29,19 +28,11 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getPlayer() {
-    this.api.getProfile(this.player.id).subscribe({
-      next: content => {
-        this.state.is_load = false
-        this.player.name = content['userInfo']['displayName']
-        this.characters = content['characterIds']
-        this.state.heading = this.player.name
-        this.meta.setTitle(this.player.name + ' | Player')
-      },
-      complete: () => {
-        this.characters.forEach(character => {
-          this.api.getGgActivity(this.player.id, character, 39).subscribe(content => console.log(content))
-        })
-      }
+    this.api.getProfile(this.player.id).subscribe(content => {
+      this.state.is_load = false
+      this.player.name = content['userInfo']['displayName']
+      this.state.heading = this.player.name
+      this.meta.setTitle(this.player.name + ' | Player')
     })
     // this.api.getGg(this.player.id).subscribe(content => {
     //   content['player']['stats'].forEach(mode => {
@@ -54,10 +45,18 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getGg() {
-    const [past_battles, latest_battles] = this.api.getGgHistory(this.player.id, this.state.start, this.state.today).flatMap(content => content).share().partition(content => new Date(content['date']).getTime() <= this.state.end.getTime())
-    latest_battles.subscribe({
-      next: content => this.player.stats[content['mode']].elo_gg = content['elo'],
-      complete: () => past_battles.subscribe(content => this.player.stats[content['mode']].diff_gg = this.player.stats[content['mode']].elo_gg - content['elo'])
+    this.state.modes.forEach(mode => {
+      const [past_battles, latest_battles] = this.api.getGgHistory(this.player.id, mode.id, this.state.start, this.state.today).flatMap(content => content).share().partition(content => new Date(content['date']).getTime() <= this.state.end.getTime())
+      latest_battles.subscribe({
+        next: content => this.player.stats[mode.id].elo_gg = content['elo'],
+        complete: () => {
+          if (this.player.stats[mode.id].elo_gg) {
+            past_battles.subscribe(content => this.player.stats[mode.id].diff_gg = this.player.stats[mode.id].elo_gg - content['elo'])
+          } else {
+            past_battles.subscribe(content => this.player.stats[mode.id].elo_gg = content['elo'])
+          }
+        }
+      })
     })
   }
 

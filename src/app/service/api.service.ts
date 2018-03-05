@@ -31,12 +31,8 @@ export class ApiService {
     return this.http.get('https://api.guardian.gg/v2/players/' + id + '?lc=ja')
   }
 
-  getGgHistory(id: string, start: Date, end: Date): Observable<any> {
-    return this.http.get('https://api.guardian.gg/v2/players/' + id + '/performance/0/' + this.datePipe.transform(start, 'yyyy-MM-dd') + '/' + this.datePipe.transform(end, 'yyyy-MM-dd') + '?lc=ja')
-  }
-
-  getGgActivity(player_id: string, character_id: string, mode_id: number): Observable<any> {
-    return this.http.get('https://api.guardian.gg/v2/players/' + player_id + '/characters/' + character_id + '/activities/' + mode_id + '?lc=ja')
+  getGgHistory(player_id: string, mode_id: number, start: Date, end: Date): Observable<any> {
+    return this.http.get('https://api.guardian.gg/v2/players/' + player_id + '/performance/' + mode_id + '/' + this.datePipe.transform(start, 'yyyy-MM-dd') + '/' + this.datePipe.transform(end, 'yyyy-MM-dd') + '?lc=ja')
   }
 
   getTrackerHistory(player_id: string, mode_id: number): Observable<any> {
