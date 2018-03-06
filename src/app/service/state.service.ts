@@ -19,7 +19,8 @@ export class StateService {
   public is_load: boolean = true
   public errors: string[] = []
   public routerObserver$: Observable<any>
-  public today: Date = new Date
+  public now: Date = new Date
+  public today: Date = new Date(this.now.getFullYear(), this.now.getMonth(), this.now.getDate())
   public start: Date
   public end: Date
   public modes: Mode[] = [
@@ -29,7 +30,8 @@ export class StateService {
     { id: 12, name: 'Clash' },
     { id: 10, name: 'Control' },
     { id: 31, name: 'Supremacy' },
-    { id: 19, name: 'Iron Banner' }
+    { id: 19, name: 'Iron Banner' },
+    { id: 15, name: 'Double' }
   ]
 
   constructor(private router: Router) {

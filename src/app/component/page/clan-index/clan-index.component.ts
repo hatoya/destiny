@@ -84,7 +84,7 @@ export class ClanIndexComponent implements OnInit {
 
   getDiff() {
     this.members.map(member => {
-      const [past_battles, latest_battles] = this.api.getGgHistory(member.id, this.state.start, this.state.today).flatMap(content => content).filter(content => content['mode'] === Number(this.mode_id)).share().partition(content => new Date(content['date']).getTime() <= this.state.end.getTime())
+      const [past_battles, latest_battles] = this.api.getGgHistory(member.id, 0, this.state.start, this.state.today).flatMap(content => content).filter(content => content['mode'] === Number(this.mode_id)).share().partition(content => new Date(content['date']).getTime() <= this.state.end.getTime())
       past_battles.subscribe(content => member.stats[this.mode_id].diff_gg = member.stats[this.mode_id].elo_gg - content['elo'])
       latest_battles.subscribe(content => {
         member.stats[this.mode_id].diff_match += content['gamesPlayed']

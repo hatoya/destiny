@@ -19,6 +19,10 @@ export class ApiService {
     return this.http.get('/GroupV2/' + clan_id + '/')
   }
 
+  getProfile(id: string): Observable<any> {
+    return this.http.get('/Destiny2/2/Profile/' + id + '/?components=100').map(content => content['Response']['profile']['data'])
+  }
+
   getClanMembers(clan_id: string): Observable<any> {
     return this.http.get('https://api.guardian.gg/v2/clan/' + clan_id + '/members?lc=ja')
   }
@@ -27,8 +31,8 @@ export class ApiService {
     return this.http.get('https://api.guardian.gg/v2/players/' + id + '?lc=ja')
   }
 
-  getGgHistory(id: string, start: Date, end: Date): Observable<any> {
-    return this.http.get('https://api.guardian.gg/v2/players/' + id + '/performance/0/' + this.datePipe.transform(start, 'yyyy-MM-dd') + '/' + this.datePipe.transform(end, 'yyyy-MM-dd') + '?lc=ja')
+  getGgHistory(player_id: string, mode_id: number, start: Date, end: Date): Observable<any> {
+    return this.http.get('https://api.guardian.gg/v2/players/' + player_id + '/performance/' + mode_id + '/' + this.datePipe.transform(start, 'yyyy-MM-dd') + '/' + this.datePipe.transform(end, 'yyyy-MM-dd') + '?lc=ja')
   }
 
   getTrackerHistory(player_id: string, mode_id: number): Observable<any> {
