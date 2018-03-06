@@ -13,6 +13,7 @@ import { Stat } from '../../../model/stat.model'
 export class PlayerIndexComponent implements OnInit {
 
   public player: Player = new Player
+  public clan: string = ''
   public kill: number = 0
   public death: number = 0
   public assist: number = 0
@@ -28,20 +29,14 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getPlayer() {
-    this.api.getProfile(this.player.id).subscribe(content => {
-      this.state.is_load = false
-      this.player.name = content['userInfo']['displayName']
-      this.state.heading = this.player.name
-      this.meta.setTitle(this.player.name + ' | Player')
+    this.api.getProfile(this.player.id).subscribe({
+      next: content => {
+        this.state.is_load = false
+        this.player.name = content['userInfo']['displayName']
+        this.meta.setTitle(this.player.name + ' | Player')
+      },
+      complete: () => this.api.getClanForMember(this.player.id).subscribe(content => this.state.heading = this.player.name + ' [' + content['group']['clanInfo']['clanCallsign'] + ']')
     })
-    // this.api.getGg(this.player.id).subscribe(content => {
-    //   content['player']['stats'].forEach(mode => {
-    //     this.kill += mode['kills']
-    //     this.death += mode['deaths']
-    //     this.assist += mode['assists']
-    //     this.player.stats[mode['mode']].rank_gg = content['playerRanks'][mode['mode']]
-    //   })
-    // })
   }
 
   getGg() {
@@ -55,7 +50,12 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getTracker() {
-    this.api.getTracker(this.player.id).flatMap(content => content).filter(content => content['playerank']).subscribe(content => this.player.stats[content['mode']].rank_tracker = content['playerank']['rank'])
+    this.api.getTracker(this.player.id).flatMap(content => content).filter(content => content['playerank']).subscribe(content => {
+      this.player.stats[content['mode']].rank_tracker = content['playerank']['rank']
+      this.kill += content['kills']
+      this.death += content['deaths']
+      this.assist += content['assists']
+    })
     this.state.modes.forEach(mode => {
       this.api.getTrackerHistory(this.player.id, mode.id).map(content => content['data']).filter(contents => contents.length).subscribe(contents => {
         const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.state.start.getTime() && new Date(battle['period']).getTime() <= this.state.end.getTime())
