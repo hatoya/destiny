@@ -49,19 +49,13 @@ export class PlayerIndexComponent implements OnInit {
       const [past_battles, latest_battles] = this.api.getGgHistory(this.player.id, mode.id, this.state.start, this.state.today).flatMap(content => content).share().partition(content => new Date(content['date']).getTime() <= this.state.end.getTime())
       latest_battles.subscribe({
         next: content => this.player.stats[mode.id].elo_gg = content['elo'],
-        complete: () => {
-          if (this.player.stats[mode.id].elo_gg) {
-            past_battles.subscribe(content => this.player.stats[mode.id].diff_gg = this.player.stats[mode.id].elo_gg - content['elo'])
-          } else {
-            past_battles.subscribe(content => this.player.stats[mode.id].elo_gg = content['elo'])
-          }
-        }
+        complete: () => past_battles.subscribe(content => this.player.stats[mode.id].elo_gg ? this.player.stats[mode.id].diff_gg = this.player.stats[mode.id].elo_gg - content['elo'] : this.player.stats[mode.id].elo_gg = content['elo'])
       })
     })
   }
 
   getTracker() {
-    this.api.getTracker(this.player.id).flatMap(content => content).filter(content => content['playerank']['rank']).subscribe(content => this.player.stats[content['mode']].rank_tracker = content['playerank']['rank'])
+    this.api.getTracker(this.player.id).flatMap(content => content).filter(content => content['playerank']).subscribe(content => this.player.stats[content['mode']].rank_tracker = content['playerank']['rank'])
     this.state.modes.forEach(mode => {
       this.api.getTrackerHistory(this.player.id, mode.id).map(content => content['data']).filter(contents => contents.length).subscribe(contents => {
         const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.state.start.getTime() && new Date(battle['period']).getTime() <= this.state.end.getTime())
