@@ -24,7 +24,7 @@ export class ApiService {
   }
 
   getProfile(id: string): Observable<any> {
-    return this.http.get('/Destiny2/2/Profile/' + id + '/?components=100').do(content => console.log(content)).map(content => content['Response']['profile']['data'])
+    return this.http.get('/Destiny2/2/Profile/' + id + '/?components=100').map(content => content['Response']['profile']['data'])
   }
 
   getClanMembers(clan_id: string): Observable<any> {
