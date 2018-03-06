@@ -55,7 +55,7 @@ export class MenuComponent implements OnInit {
       name: '天照大御神'
     },
     {
-      id: 1827272,
+      id: 3052984,
       name: 'Alternative'
     },
     {
