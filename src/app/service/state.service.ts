@@ -21,8 +21,8 @@ export class StateService {
   public routerObserver$: Observable<any>
   public now: Date = new Date
   public today: Date = new Date(this.now.getFullYear(), this.now.getMonth(), this.now.getDate())
-  public start: Date
-  public end: Date
+  public start: Date = new Date(this.today.getFullYear(), this.today.getMonth() - 3, this.today.getDate())
+  public end: Date = this.today.getDay() < 6 ? new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay()) : new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
   public modes: Mode[] = [
     { id: 39, name: 'Trials of the Nine' },
     { id: 37, name: 'Survival' },
@@ -36,8 +36,6 @@ export class StateService {
 
   constructor(private router: Router) {
     this.routerObserver$ = this.router.events.filter(event => event instanceof NavigationEnd).share()
-    this.start = new Date(this.today.getFullYear(), this.today.getMonth() - 1, this.today.getDate())
-    this.end = this.today.getDay() < 6 ? new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() - 3 - this.today.getDay()) : new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate() + 4 - this.today.getDay())
   }
 
   postGoogle() {

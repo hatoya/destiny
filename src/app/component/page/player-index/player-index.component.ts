@@ -41,10 +41,11 @@ export class PlayerIndexComponent implements OnInit {
 
   getGg() {
     this.state.modes.forEach(mode => {
-      const [past_battles, latest_battles] = this.api.getGgHistory(this.player.id, mode.id, this.state.start, this.state.today).flatMap(content => content).share().partition(content => new Date(content['date']).getTime() <= this.state.end.getTime())
-      latest_battles.subscribe({
-        next: content => this.player.stats[mode.id].elo_gg = content['elo'],
-        complete: () => past_battles.subscribe(content => this.player.stats[mode.id].elo_gg ? this.player.stats[mode.id].diff_gg = this.player.stats[mode.id].elo_gg - content['elo'] : this.player.stats[mode.id].elo_gg = content['elo'])
+      let past: any
+      this.api.getGgHistory(this.player.id, mode.id, this.state.start, this.state.today).flatMap(content => content).subscribe(content => {
+        if (new Date(content['date']).getTime() <= this.state.end.getTime()) past = content
+        this.player.stats[mode.id].elo_gg = content['elo']
+        this.player.stats[mode.id].diff_gg = this.player.stats[mode.id].elo_gg - past['elo']
       })
     })
   }
