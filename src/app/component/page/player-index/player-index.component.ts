@@ -51,8 +51,8 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getTracker() {
-    this.api.getTracker(this.player.id).flatMap(content => content).filter(content => content['playerank']).subscribe(content => {
-      this.player.stats[content['mode']].rank_tracker = content['playerank']['rank']
+    this.api.getTracker(this.player.id).flatMap(content => content).subscribe(content => {
+      if (content['playerank']) this.player.stats[content['mode']].rank_tracker = content['playerank']['rank']
       this.kill += content['kills']
       this.death += content['deaths']
       this.assist += content['assists']
