@@ -1,9 +1,16 @@
+import { Observable } from 'rxjs/Observable'
 import { Component, OnInit } from '@angular/core'
 import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
 import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
 import { Stat } from '../../../model/stat.model'
+
+interface Graph {
+  mode: number
+  point: string
+  stats: Stat[]
+}
 
 @Component({
   selector: 'app-player-index',
@@ -17,10 +24,27 @@ export class PlayerIndexComponent implements OnInit {
   public kill: number = 0
   public death: number = 0
   public assist: number = 0
+  public stats: any[][] = []
+  public size: any = {
+    x: 0,
+    y: 0
+  }
+  public points: string[] = []
+
+  public graph: Graph[] = [
+    {
+      mode: 39,
+      point: '0 0 100 100',
+      stats: [
+        new Stat
+      ]
+    }
+  ]
 
   constructor(public state: StateService, private api: ApiService, private meta: MetaService) { }
 
   ngOnInit() {
+    this.size.x = (this.state.today.getTime() - this.state.start.getTime()) / 1000000
     this.player.id = this.state.url.split('/')[2]
     this.state.modes.forEach(mode => this.player.stats[mode.id] = new Stat)
     this.getPlayer()
@@ -40,13 +64,31 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getGg() {
-    this.state.modes.forEach(mode => {
-      let past: any
-      this.api.getGgHistory(this.player.id, mode.id, this.state.start, this.state.today).flatMap(content => content).subscribe(content => {
-        if (new Date(content['date']).getTime() <= this.state.end.getTime()) past = content
-        this.player.stats[mode.id].elo_gg = content['elo']
-        this.player.stats[mode.id].diff_gg = this.player.stats[mode.id].elo_gg - past['elo']
-      })
+    Observable.merge(this.state.modes.map(mode => this.api.getGgHistory(this.player.id, mode.id, this.state.start, this.state.today))).flatMap(content => content).subscribe({
+      next: contents => {
+        let pastStat: any
+        contents.filter(content => new Date(content['date']).getTime() <= this.state.end.getTime()).map(content => pastStat = content)
+        contents.map(content => {
+          this.player.stats[content['mode']].elo_gg = content['elo']
+          this.player.stats[content['mode']].diff_gg = this.player.stats[content['mode']].elo_gg - pastStat['elo']
+          if (!this.stats[content['mode']]) this.stats[content['mode']] = []
+          this.stats[content['mode']].push(content)
+        })
+      },
+      complete: () => {
+        let max: number = 0
+        let min: number = 10000
+        this.stats.map(contents => {
+          contents.map(stat => {
+            if (max < stat['elo']) max = stat['elo']
+            if (min > stat['elo']) min = stat['elo']
+          })
+        })
+        this.size.y = max - min
+        this.stats.map(contents => {
+          this.points[contents[0]['mode']] = contents.map(stat => [this.size.x - ((this.state.today.getTime() - new Date(stat['date']).getTime()) / 1000000), max - stat['elo']]).join(' ')
+        })
+      }
     })
   }
 
