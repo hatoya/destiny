@@ -68,7 +68,7 @@ export class PlayerIndexComponent implements OnInit {
           let stat: Stat = new Stat
           stat.date = new Date(content['date'])
           stat.elo_gg = content['elo']
-          stat.diff_gg = this.player.stats[content['mode']].elo_gg - pastStat['elo']
+          if (pastStat) stat.diff_gg = this.player.stats[content['mode']].elo_gg - pastStat['elo']
           this.player.stats[content['mode']] = stat
           if (!this.graph[content['mode']]) this.graph[content['mode']] = new Graph
           this.graph[content['mode']].stats.push(stat)
