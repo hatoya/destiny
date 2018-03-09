@@ -81,9 +81,7 @@ export class PlayerIndexComponent implements OnInit {
             if (this.size.y.min > stat.elo_gg || this.size.y.min === 0) this.size.y.min = stat.elo_gg
           })
         })
-        this.graph.map(content => {
-          content.point = content.stats.map(stat => [(stat.date.getTime() / 1000000) - this.size.x.min, this.size.y.max - stat.elo_gg]).join(' ')
-        })
+        this.graph.map(content => content.point = content.stats.map(stat => [(stat.date.getTime() / 1000000) - this.size.x.min, this.size.y.max - stat.elo_gg]).join(' '))
       }
     })
   }
