@@ -1,5 +1,6 @@
 export class Stat {
 
+  public date: Date = new Date
   public elo_gg: number = 0
   public elo_tracker: number = 0
   public diff_gg: number = 0

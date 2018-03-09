@@ -4,13 +4,8 @@ import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
 import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
+import { Graph } from '../../../model/graph.mode'
 import { Stat } from '../../../model/stat.model'
-
-interface Graph {
-  mode: number
-  point: string
-  stats: Stat[]
-}
 
 @Component({
   selector: 'app-player-index',
@@ -26,27 +21,28 @@ export class PlayerIndexComponent implements OnInit {
   public assist: number = 0
   public stats: any[][] = []
   public size: any = {
-    x: 0,
-    y: 0
+    x: {
+      max: 0,
+      min: 0
+    },
+    y: {
+      max: 0,
+      min: 0
+    }
   }
   public points: string[] = []
-
-  public graph: Graph[] = [
-    {
-      mode: 39,
-      point: '0 0 100 100',
-      stats: [
-        new Stat
-      ]
-    }
-  ]
+  public graph: Graph[] = []
 
   constructor(public state: StateService, private api: ApiService, private meta: MetaService) { }
 
   ngOnInit() {
-    this.size.x = (this.state.today.getTime() - this.state.start.getTime()) / 1000000
+    this.size.x.max = this.state.today.getTime() / 1000000
+    this.size.x.min = this.state.start.getTime() / 1000000
     this.player.id = this.state.url.split('/')[2]
-    this.state.modes.forEach(mode => this.player.stats[mode.id] = new Stat)
+    this.state.modes.forEach(mode => {
+      this.player.stats[mode.id] = new Stat
+      this.graph[mode.id] = new Graph
+    })
     this.getPlayer()
     this.getGg()
     this.getTracker()
@@ -69,24 +65,24 @@ export class PlayerIndexComponent implements OnInit {
         let pastStat: any
         contents.filter(content => new Date(content['date']).getTime() <= this.state.end.getTime()).map(content => pastStat = content)
         contents.map(content => {
-          this.player.stats[content['mode']].elo_gg = content['elo']
-          this.player.stats[content['mode']].diff_gg = this.player.stats[content['mode']].elo_gg - pastStat['elo']
-          if (!this.stats[content['mode']]) this.stats[content['mode']] = []
-          this.stats[content['mode']].push(content)
+          let stat: Stat = new Stat
+          stat.date = new Date(content['date'])
+          stat.elo_gg = content['elo']
+          stat.diff_gg = this.player.stats[content['mode']].elo_gg - pastStat['elo']
+          this.player.stats[content['mode']] = stat
+          if (!this.graph[content['mode']]) this.graph[content['mode']] = new Graph
+          this.graph[content['mode']].stats.push(stat)
         })
       },
       complete: () => {
-        let max: number = 0
-        let min: number = 10000
-        this.stats.map(contents => {
-          contents.map(stat => {
-            if (max < stat['elo']) max = stat['elo']
-            if (min > stat['elo']) min = stat['elo']
+        this.graph.map(content => {
+          content.stats.map(stat => {
+            if (this.size.y.max < stat.elo_gg) this.size.y.max = stat.elo_gg
+            if (this.size.y.min > stat.elo_gg || this.size.y.min === 0) this.size.y.min = stat.elo_gg
           })
         })
-        this.size.y = max - min
-        this.stats.map(contents => {
-          this.points[contents[0]['mode']] = contents.map(stat => [this.size.x - ((this.state.today.getTime() - new Date(stat['date']).getTime()) / 1000000), max - stat['elo']]).join(' ')
+        this.graph.map(content => {
+          content.point = content.stats.map(stat => [(stat.date.getTime() / 1000000) - this.size.x.min, this.size.y.max - stat.elo_gg]).join(' ')
         })
       }
     })

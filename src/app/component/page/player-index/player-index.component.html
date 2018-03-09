@@ -12,10 +12,10 @@
     <p class="information__list__content">{{(kill + assist) / death | number:'1.2-2'}}</p>
   </li>
 </ul>
-<svg class="graph" [attr.viewBox]="'0 0 ' + size.x + ' ' + size.y" preserveAspectRatio="none">
+<svg class="graph" [attr.viewBox]="'0 0 ' + (size.x.max - size.x.min) + ' ' + (size.y.max - size.y.min)" preserveAspectRatio="none">
   <g [attr.stroke]="mode.color" *ngFor="let mode of state.modes">
-    <!-- <circle [attr.cx]="100" [attr.cy]="size.y - (stat.elo - size.y)" [attr.fill]="mode.color" r="5" vector-effect="non-scaling-stroke" *ngFor="let stat of stats[mode.id]"></circle> -->
-    <polyline [attr.points]="points[mode.id]" fill="none" stroke-width="1" vector-effect="non-scaling-stroke"></polyline>
+    <circle [attr.cx]="stat.date.getTime() / 1000000" [attr.cy]="stat.elo_gg" [attr.fill]="mode.color" r="5" vector-effect="non-scaling-stroke" *ngFor="let stat of graph[mode.id].stats"></circle>
+    <polyline [attr.points]="graph[mode.id].point" fill="none" stroke-width="1" vector-effect="non-scaling-stroke"></polyline>
   </g>
 </svg>
 <ul class="elo">
