@@ -36,8 +36,8 @@ export class PlayerIndexComponent implements OnInit {
   constructor(public state: StateService, private api: ApiService, private meta: MetaService) { }
 
   ngOnInit() {
-    this.size.x.max = this.state.today.getTime() / 1000000
-    this.size.x.min = this.state.start.getTime() / 1000000
+    this.size.x.max = this.state.today.getTime() / 5000000
+    this.size.x.min = this.state.start.getTime() / 5000000
     this.player.id = this.state.url.split('/')[2]
     this.state.modes.forEach(mode => {
       this.player.stats[mode.id] = new Stat
@@ -68,10 +68,11 @@ export class PlayerIndexComponent implements OnInit {
           let stat: Stat = new Stat
           stat.date = new Date(content['date'])
           stat.elo_gg = content['elo']
-          stat.diff_gg = this.player.stats[content['mode']].elo_gg - pastStat['elo']
+          if (pastStat['mode']) stat.diff_gg = stat.elo_gg - pastStat['elo']
           this.player.stats[content['mode']] = stat
           if (!this.graph[content['mode']]) this.graph[content['mode']] = new Graph
           this.graph[content['mode']].stats.push(stat)
+          console.log(this.player.id, content['mode'], content['date'], content['elo'])
         })
       },
       complete: () => {
@@ -81,7 +82,7 @@ export class PlayerIndexComponent implements OnInit {
             if (this.size.y.min > stat.elo_gg || this.size.y.min === 0) this.size.y.min = stat.elo_gg
           })
         })
-        this.graph.map(content => content.point = content.stats.map(stat => [(stat.date.getTime() / 1000000) - this.size.x.min, this.size.y.max - stat.elo_gg]).join(' '))
+        this.graph.map(content => content.point = content.stats.map(stat => [(stat.date.getTime() / 5000000) - this.size.x.min, this.size.y.max - stat.elo_gg]).join(' '))
       }
     })
   }

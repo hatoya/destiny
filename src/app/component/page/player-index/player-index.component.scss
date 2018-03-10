@@ -28,11 +28,12 @@
     margin-top: 10px;
     width: calc(100% - 20px);
     &__list {
+      padding: 6.3vw;
       &__heading {
-        font-size: 10px;
+        font-size: 3vw;
       }
       &__content {
-        font-size: 20px;
+        font-size: 6.3vw;
       }
     }
   }
@@ -98,9 +99,12 @@
     &__list {
       width: 100%;
       margin: 0;
-      padding: 10px;
+      padding: 3vw;
       &:not(:first-child) {
         margin-top: 10px;
+      }
+      &__heading {
+        font-size: 5vw;
       }
       &__wrapper {
         justify-content: center;
