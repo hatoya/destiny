@@ -55,6 +55,7 @@ export class PlayerIndexComponent implements OnInit {
         this.state.is_load = false
         this.player.name = content['userInfo']['displayName']
         this.meta.setTitle(this.player.name + ' | Player')
+        this.state.postGoogle()
       },
       error: () => this.router.navigate(['/']),
       complete: () => this.api.getClanForMember(this.player.id).subscribe(content => this.state.heading = this.player.name + ' [' + content['group']['clanInfo']['clanCallsign'] + ']')
@@ -67,13 +68,11 @@ export class PlayerIndexComponent implements OnInit {
         let pastStat: any
         contents.filter(content => new Date(content['date']).getTime() <= this.state.end.getTime()).map(content => pastStat = content)
         contents.map(content => {
-          let stat: Stat = new Stat
-          stat.date = new Date(content['date'])
-          stat.elo_gg = content['elo']
-          if (pastStat['mode']) stat.diff_gg = stat.elo_gg - pastStat['elo']
-          this.player.stats[content['mode']] = stat
+          this.player.stats[content['mode']].date = new Date(content['date'])
+          this.player.stats[content['mode']].elo_gg = content['elo']
+          if (pastStat['mode']) this.player.stats[content['mode']].diff_gg = this.player.stats[content['mode']].elo_gg - pastStat['elo']
           if (!this.graph[content['mode']]) this.graph[content['mode']] = new Graph
-          this.graph[content['mode']].stats.push(stat)
+          this.graph[content['mode']].stats.push(this.player.stats[content['mode']])
         })
       },
       complete: () => {
@@ -102,6 +101,10 @@ export class PlayerIndexComponent implements OnInit {
         if (battles.length) this.player.stats[mode.id].diff_tracker = this.player.stats[mode.id].elo_tracker - battles[battles.length - 1]['currentElo']
       })
     })
+  }
+
+  getGraph() {
+
   }
 
 }
