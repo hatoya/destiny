@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable'
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { StateService } from '../../../service/state.service'
 import { ApiService } from '../../../service/api.service'
 import { MetaService } from '../../../service/meta.service'
@@ -33,7 +34,7 @@ export class PlayerIndexComponent implements OnInit {
   public points: string[] = []
   public graph: Graph[] = []
 
-  constructor(public state: StateService, private api: ApiService, private meta: MetaService) { }
+  constructor(private router: Router, public state: StateService, private api: ApiService, private meta: MetaService) { }
 
   ngOnInit() {
     this.size.x.max = this.state.today.getTime() / 5000000
@@ -55,6 +56,7 @@ export class PlayerIndexComponent implements OnInit {
         this.player.name = content['userInfo']['displayName']
         this.meta.setTitle(this.player.name + ' | Player')
       },
+      error: () => this.router.navigate(['/']),
       complete: () => this.api.getClanForMember(this.player.id).subscribe(content => this.state.heading = this.player.name + ' [' + content['group']['clanInfo']['clanCallsign'] + ']')
     })
   }
@@ -72,7 +74,6 @@ export class PlayerIndexComponent implements OnInit {
           this.player.stats[content['mode']] = stat
           if (!this.graph[content['mode']]) this.graph[content['mode']] = new Graph
           this.graph[content['mode']].stats.push(stat)
-          console.log(this.player.id, content['mode'], content['date'], content['elo'])
         })
       },
       complete: () => {
