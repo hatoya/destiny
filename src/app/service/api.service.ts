@@ -15,6 +15,10 @@ export class ApiService {
     return this.http.post('/GroupV2/Search/', { name: target, groupType: 1, creationDate: 0, sortBy: 0, localeFilter: '', tagText: '', itemsPerPage: 1, currentPage: 1, requestContinuationToken: 0 })
   }
 
+  getPlayerSearch(target: string): Observable<any> {
+    return this.http.get('/Destiny2/SearchDestinyPlayer/2/' + target + '/').map(content => content['Response'])
+  }
+
   getClan(clan_id: string): Observable<any> {
     return this.http.get('/GroupV2/' + clan_id + '/')
   }
@@ -24,7 +28,8 @@ export class ApiService {
   }
 
   getProfile(id: string): Observable<any> {
-    return this.http.get('/Destiny2/2/Profile/' + id + '/?components=100').map(content => content['Response']['profile']['data'])
+    const [success, failed] = this.http.get('/Destiny2/2/Profile/' + id + '/?components=100').partition(content => content['ErrorCode'] === 1)
+    return Observable.merge(success.map(content => content['Response']['profile']['data']), failed.map(content => { throw content['ErrorStatus'] }))
   }
 
   getClanMembers(clan_id: string): Observable<any> {

@@ -1,8 +1,12 @@
 <div class="form">
   <div class="form__wrapper">
     <p class="form__wrapper__heading">Destiny Clan Manager</p>
-    <form class="form__wrapper__form" [formGroup]="searchForm" (ngSubmit)="search()">
-      <input type="text" placeholder="Search Clan Name" class="form__wrapper__form__input" formControlName="name" [(ngModel)]="model.name">
+    <form class="form__wrapper__form" [formGroup]="clanForm" (ngSubmit)="searchClan()">
+      <input type="text" placeholder="Search Clan Name" class="form__wrapper__form__input" formControlName="name" [(ngModel)]="model.clan">
+      <button type="submit" class="form__wrapper__form__button">Search</button>
+    </form>
+    <form class="form__wrapper__form" [formGroup]="playerForm" (ngSubmit)="searchPlayer()">
+      <input type="text" placeholder="Search Player Name" class="form__wrapper__form__input" formControlName="name" [(ngModel)]="model.player">
       <button type="submit" class="form__wrapper__form__button">Search</button>
     </form>
   </div>
