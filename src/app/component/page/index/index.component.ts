@@ -31,6 +31,7 @@ export class IndexComponent implements OnInit {
     this.state.is_load = false
     this.clanForm = this.formBuilder.group({ name: [this.model.clan, [Validators.required]] })
     this.playerForm = this.formBuilder.group({ name: [this.model.player, [Validators.required]] })
+    this.state.postGoogle()
   }
 
   searchClan() {

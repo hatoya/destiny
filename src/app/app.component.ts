@@ -24,7 +24,6 @@ export class AppComponent {
       this.state.url = event['url']
       this.state.is_load = true
       this.state.is_navigation = false
-      if (!event['url'].includes('/clan/')) this.state.postGoogle()
     })
   }
 

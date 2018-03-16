@@ -39,7 +39,7 @@ export class StateService {
     this.routerObserver$ = this.router.events.filter(event => event instanceof NavigationEnd).share()
   }
 
-  postGoogle() {
+  postGoogle(): void {
     gtag('config', 'UA-53477209-3', { 'page_path': this.url })
   }
 
