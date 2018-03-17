@@ -61,6 +61,10 @@ export class MenuComponent implements OnInit {
     {
       id: 2001282,
       name: 'cRecendo'
+    },
+    {
+      id: 3059868,
+      name: 'Large Sinner'
     }
   ]
 
