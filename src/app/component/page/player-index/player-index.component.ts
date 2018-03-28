@@ -17,9 +17,6 @@ export class PlayerIndexComponent implements OnInit {
 
   public player: Player = new Player
   public clan: string = ''
-  public kill: number = 0
-  public death: number = 0
-  public assist: number = 0
   public stats: any[][] = []
   public size: any = {
     x: {
@@ -52,13 +49,16 @@ export class PlayerIndexComponent implements OnInit {
   getPlayer() {
     this.api.getProfile(this.player.id).subscribe({
       next: content => {
-        this.state.is_load = false
         this.player.name = content['userInfo']['displayName']
         this.meta.setTitle(this.player.name + ' | Player')
         this.state.postGoogle()
       },
       error: () => this.router.navigate(['/']),
-      complete: () => this.api.getClanForMember(this.player.id).subscribe(content => this.state.heading = this.player.name + ' [' + content['group']['clanInfo']['clanCallsign'] + ']')
+      complete: () => this.api.getClanForMember(this.player.id).subscribe({
+        next: content => this.state.heading = this.player.name + ' [' + content['group']['clanInfo']['clanCallsign'] + ']',
+        error: () => this.state.is_load = false,
+        complete: () => this.state.is_load = false
+      })
     })
   }
 
@@ -70,6 +70,10 @@ export class PlayerIndexComponent implements OnInit {
         contents.map(content => {
           this.player.stats[content['mode']].date = new Date(content['date'])
           this.player.stats[content['mode']].elo_gg = content['elo']
+          this.player.stats[content['mode']].kill += content['kills']
+          this.player.stats[content['mode']].death += content['deaths']
+          this.player.stats[content['mode']].win += content['wins']
+          this.player.stats[content['mode']].match += content['gamesPlayed']
           if (pastStat['mode']) this.player.stats[content['mode']].diff_gg = this.player.stats[content['mode']].elo_gg - pastStat['elo']
           if (!this.graph[content['mode']]) this.graph[content['mode']] = new Graph
           this.graph[content['mode']].stats.push(this.player.stats[content['mode']])
@@ -88,12 +92,7 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getTracker() {
-    this.api.getTracker(this.player.id).flatMap(content => content).subscribe(content => {
-      if (content['playerank']) this.player.stats[content['mode']].rank_tracker = content['playerank']['rank']
-      this.kill += content['kills']
-      this.death += content['deaths']
-      this.assist += content['assists']
-    })
+    this.api.getTracker(this.player.id).flatMap(content => content).filter(content => content['playerank']).subscribe(content => this.player.stats[content['mode']].rank_tracker = content['playerank']['rank'])
     this.state.modes.forEach(mode => {
       this.api.getTrackerHistory(this.player.id, mode.id).map(content => content['data']).filter(contents => contents.length).subscribe(contents => {
         const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.state.start.getTime() && new Date(battle['period']).getTime() <= this.state.end.getTime())

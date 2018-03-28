@@ -1,43 +1,5 @@
 @import '../../../../mixin.scss';
 
-.information {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: calc(100% - 40px);
-  margin: 20px auto 0;
-  background: white;
-  box-shadow: 0 3px 1px -2px rgba(black, 0.2), 0 2px 2px 0 rgba(black, 0.14), 0 1px 5px 0 rgba(black, 0.12);
-  &__list {
-    width: calc(100% / 3);
-    padding: 20px;
-    &__heading {
-      font-size: 12px;
-      line-height: 1;
-      text-align: center;
-      color: #039be5;
-    }
-    &__content {
-      margin-top: 3px;
-      font-size: 24px;
-      line-height: 1;
-      text-align: center;
-    }
-  }
-  @include sp-only {
-    margin-top: 10px;
-    width: calc(100% - 20px);
-    &__list {
-      padding: 6.3vw;
-      &__heading {
-        font-size: 3vw;
-      }
-      &__content {
-        font-size: 6.3vw;
-      }
-    }
-  }
-}
 .graph {
   display: flex;
   align-items: center;
@@ -54,61 +16,55 @@
     padding: 10px;
   }
 }
-.elo {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  width: calc(100% - 40px);
-  margin: 20px auto;
-  &__list {
-    width: calc((100% / 3) - (40px / 3));
-    margin-right: 20px;
-    padding: 20px;
+.table {
+  &__content {
+    width: calc(100% - 40px);
+    margin: 20px auto;
     background: white;
     box-shadow: 0 3px 1px -2px rgba(black, 0.2), 0 2px 2px 0 rgba(black, 0.14), 0 1px 5px 0 rgba(black, 0.12);
-    &:nth-of-type(n+4) {
-      margin-top: 20px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    tr {
+      border-top: 1px solid rgba(black, 0.12);
     }
-    &:nth-of-type(3n) {
-      margin-right: 0;
-    }
-    &__heading {
-      font-size: 16px;
-    }
-    &__wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      margin-top: 5px;
-      &__content {
-        display: flex;
-        width: 50%;
-        align-items: center;
-        &__icon {
-
-        }
-        &__elo {
-          font-size: 14px;
-        }
+    th {
+      width: 50px;
+      padding: 0 12px;
+      font-size: 12px;
+      line-height: 50px;
+      font-weight: normal;
+      text-align: left;
+      white-space: nowrap;
+      color: rgba(black, 0.54);
+      &::selection {
+        background: none;
       }
+      &:nth-of-type(1) {
+        width: 120px;
+      }
+      &:nth-of-type(2) {
+        width: 140px;
+      }
+      &:nth-of-type(3) {
+        width: 120px;
+      }
+    }
+    td {
+      padding: 0 12px;
+      line-height: 50px;
+      font-size: 14px;
+      text-align: left;
+      white-space: nowrap;
+      color: rgba(black, 0.87);
     }
   }
   @include sp-only {
-    width: calc(100% - 20px);
-    margin: 10px auto;
-    &__list {
+    display: inline-block;
+    min-width: 100vw;
+    padding: 10px;
+    &__content {
       width: 100%;
       margin: 0;
-      padding: 3vw;
-      &:not(:first-child) {
-        margin-top: 10px;
-      }
-      &__heading {
-        font-size: 5vw;
-      }
-      &__wrapper {
-        justify-content: center;
-      }
     }
   }
 }

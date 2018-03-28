@@ -14,8 +14,11 @@ export class Stat {
   public diff_match: number = 0
   public win: number = 0
   public diff_win: number = 0
+  public kill: number = 0
+  public assist: number = 0
+  public death: number = 0
 
-  constructor() {
-
+  constructor(stat?: Stat) {
+    Object.assign(this, stat)
   }
 }
