@@ -15,7 +15,7 @@ export class Stat {
   public win: number = 0
   public diff_win: number = 0
 
-  constructor() {
-
+  constructor(stat?: Stat) {
+    Object.assign(this, stat)
   }
 }

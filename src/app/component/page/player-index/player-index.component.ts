@@ -76,7 +76,6 @@ export class PlayerIndexComponent implements OnInit {
         })
       },
       complete: () => {
-        console.log(this.player)
         this.graph.map(content => {
           content.stats.map(stat => {
             if (this.size.y.max < stat.elo_gg) this.size.y.max = stat.elo_gg

@@ -6,8 +6,8 @@ export class Graph {
   public point: string = ''
   public stats: Stat[] = []
 
-  constructor() {
-
+  constructor(graph?: Graph) {
+    Object.assign(this, graph)
   }
 
 }

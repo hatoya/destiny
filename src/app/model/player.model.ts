@@ -6,9 +6,8 @@ export class Player {
   public name: string = ''
   public stats: Stat[] = []
 
-  constructor(id: string = '', name: string = '') {
-    this.id = id
-    this.name = name
+  constructor(player?: Player) {
+    Object.assign(this, player)
   }
 
 }
