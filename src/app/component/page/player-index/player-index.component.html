@@ -12,8 +12,6 @@
         <th>GG elo</th>
         <th>Tracker elo</th>
         <th>KD</th>
-        <th>KDA</th>
-        <th>KA/D</th>
         <th>Win</th>
         <th>Match</th>
         <th>Ratio</th>
@@ -22,12 +20,10 @@
         <td>{{mode.name}}</td>
         <td><app-gg [elo]="player.stats[mode.id].elo_gg" [rank]="player.stats[mode.id].rank_gg"></app-gg>{{player.stats[mode.id].elo_gg}}<app-diff [elo]="player.stats[mode.id].diff_gg"></app-diff></td>
         <td><app-tracker [elo]="player.stats[mode.id].elo_tracker" [rank]="player.stats[mode.id].rank_tracker"></app-tracker>{{player.stats[mode.id].elo_tracker}}<app-diff [elo]="player.stats[mode.id].diff_tracker"></app-diff></td>
-        <td>{{1.23 | number:'1.2-2'}}</td>
-        <td>{{1.23 | number:'1.2-2'}}</td>
-        <td>{{1.23 | number:'1.2-2'}}</td>
-        <td>{{100 | number:'1.0-0'}}</td>
-        <td>{{100 | number:'1.0-0'}}</td>
-        <td>{{56.78 | number:'1.2-2'}}%</td>
+        <td>{{player.stats[mode.id].kill / player.stats[mode.id].death | number:'1.2-2'}}</td>
+        <td>{{player.stats[mode.id].win | number:'1.0-0'}}</td>
+        <td>{{player.stats[mode.id].match | number:'1.0-0'}}</td>
+        <td>{{player.stats[mode.id].win / player.stats[mode.id].match * 100 | number:'1.2-2'}}%</td>
       </tr>
     </tbody>
   </table>
