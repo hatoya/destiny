@@ -38,6 +38,9 @@ testem.log
 /e2e/*.js
 /e2e/*.map
 
+# Firebase
+firebase-debug.log
+
 # System Files
 .DS_Store
 Thumbs.db
