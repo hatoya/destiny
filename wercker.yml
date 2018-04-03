@@ -12,9 +12,9 @@ test:
 
 deploy:
   steps:
-    - devillex/firebase-deploy@1.1.0:
-      project: $FIREBASE_PROJECT_NAME
-      token: $FIREBASE_TOKEN
+    - script:
+      name: firebase deploy
+      code: firebase deploy
   after-steps:
     - maestrohealthcaretechnologies/slack-notify@0.3.0:
       url: $SLACK_WEBHOOK_URL
