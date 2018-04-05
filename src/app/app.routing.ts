@@ -27,6 +27,10 @@ const routes: Routes = [
         component: PlayerIndexComponent
       }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: ''
   }
 ]
 
