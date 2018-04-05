@@ -7,9 +7,9 @@ const app = express();
 
 // You might instead set these as environment varibles
 // I just want to make this example explicitly clear
-const appUrl = 'instafire-app.firebaseapp.com';
+const appUrl = 'destiny-cff1c.firebaseapp.com';
 // const renderUrl = 'https://render-tron.appspot.com/render';
-const renderUrl = 'https://instafire-app.appspot.com/render';
+const renderUrl = 'https://destiny-cff1c.appspot.com/render';
 
 
 // Generates the URL
