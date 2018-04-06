@@ -13,7 +13,7 @@ export class MetaService {
 
   init() {
     this.setTitle('')
-    this.setDescription('')
+    this.setDescription('Tracking your Tracker elo and GG elo in Destiny2.')
     this.meta.updateTag({ property: 'og:url', content: location.href })
   }
 
