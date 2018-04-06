@@ -54,7 +54,7 @@ function detectBot(userAgent) {
     }
   }
 
-  console.log('no bots found')
+  console.log('no bots found', agent)
   return false
 
 }
