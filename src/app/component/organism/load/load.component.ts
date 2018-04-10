@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { library } from '@fortawesome/fontawesome'
-import { faCircleNotch } from '@fortawesome/fontawesome-free-solid/shakable.es'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import { StateService } from '../../../service/state.service'
 
 @Component({
