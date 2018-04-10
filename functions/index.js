@@ -78,7 +78,7 @@ app.get('*', (req, res) => {
 
         // Set the Vary header to cache the user agent, based on code from:
         // https://github.com/justinribeiro/pwa-firebase-functions-botrender
-        res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+        res.set('Cache-Control', 'no-cache');
         res.set('Vary', 'User-Agent');
 
         res.send(body.toString())
