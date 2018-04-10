@@ -1,16 +1,13 @@
 {
-  "database": {
-    "rules": "database.rules.json"
-  },
   "hosting": {
     "public": "dist",
     "rewrites": [
       {
-        "source": "robots.txt",
+        "source": "/robots.txt",
         "destination": "/robots.txt"
       },
       {
-        "source": "sitemap.xml",
+        "source": "/sitemap.xml",
         "destination": "/sitemap.xml"
       },
       {

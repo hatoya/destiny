@@ -10,6 +10,8 @@
       "assets": [
         "assets",
         "favicon.ico",
+        "robots.txt",
+        "sitemap.xml",
         {
           "input": "../node_modules/@angular/service-worker",
           "glob": "ngsw-worker.js",
