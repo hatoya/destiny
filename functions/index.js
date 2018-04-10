@@ -27,6 +27,7 @@ function detectBot(userAgent) {
   const bots = [
     // crawler bots
     'googlebot',
+    'google search console',
     'bingbot',
     'yandexbot',
     'duckduckbot',
