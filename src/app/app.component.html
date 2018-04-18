@@ -1,19 +1,10 @@
 <app-header></app-header>
 <div class="column">
-  <div class="column__content -menu" [class.-on]="state.is_navigation">
+  <div class="column__menu" [class.-on]="state.is_navigation">
     <organism-menu></organism-menu>
   </div>
   <div class="column__content">
-    <atom-heading></atom-heading>
-    <ul class="column__content__error" *ngIf="state.errors.length">
-      <li class="column__content__error__list" *ngFor="let error of state.errors">
-        <app-error [error]="error"></app-error>
-      </li>
-    </ul>
-    <div class="column__content__scroll">
-      <router-outlet></router-outlet>
-      <organism-load></organism-load>
-    </div>
+    <router-outlet></router-outlet>
+    <organism-load></organism-load>
   </div>
-  <!-- <div class="column__content -loading"><i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i></div> -->
 </div>

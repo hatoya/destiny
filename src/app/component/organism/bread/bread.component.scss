@@ -1,0 +1,44 @@
+@import '../../../../mixin.scss';
+
+.bread {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background: #039be5;
+  &__list {
+    font-size: 24px;
+    line-height: 100px;
+    white-space: nowrap;
+    a {
+      font-weight: bold;
+      white-space: nowrap;
+      color: white;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    fa-icon {
+      margin: 0 10px;
+      color: white;
+    }
+    &:last-child {
+      a {
+        pointer-events: none;
+      }
+      fa-icon {
+        display: none;
+      }
+    }
+  }
+  @include sp-only {
+    display: block;
+    padding: 7vw 10px;
+    &__list {
+      font-size: 5.2vw;
+      line-height: 1;
+      &:nth-of-type(n+2) {
+        margin-top: 10px;
+      }
+    }
+  }
+}

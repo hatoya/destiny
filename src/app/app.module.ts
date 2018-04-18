@@ -38,6 +38,7 @@ import { DiffComponent } from './component/atom/diff/diff.component';
 import { ErrorComponent } from './component/atom/error/error.component';
 import { ClanIndexComponent } from './component/page/clan-index/clan-index.component';
 import { PlayerIndexComponent } from './component/page/player-index/player-index.component';
+import { BreadComponent } from './component/organism/bread/bread.component';
 
 @NgModule({
   imports: [
@@ -64,7 +65,8 @@ import { PlayerIndexComponent } from './component/page/player-index/player-index
     DiffComponent,
     ErrorComponent,
     ClanIndexComponent,
-    PlayerIndexComponent
+    PlayerIndexComponent,
+    BreadComponent
   ],
   providers: [
     DatePipe,

@@ -1,0 +1,3 @@
+<ul class="bread">
+  <li class="bread__list" *ngFor="let bread of breads"><a [routerLink]="bread.url">{{bread.title}}</a><fa-icon [icon]="['fa', 'caret-right']"></fa-icon></li>
+</ul>
