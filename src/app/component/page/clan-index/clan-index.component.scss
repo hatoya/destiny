@@ -38,7 +38,7 @@
 .table {
   width: 100%;
   padding: 20px;
-  overflow-x: scroll;
+  overflow: scroll;
   -webkit-overflow-scrolling: touch;
   &__content {
     width: 100%;
