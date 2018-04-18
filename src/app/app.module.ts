@@ -12,32 +12,32 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+// FontAwesome
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // Routing
-import { appRouting } from './app.routing'
+import { appRouting } from './app.routing';
 
 // Service
-import { StateService } from './service/state.service'
-import { ApiService } from './service/api.service'
-import { StorageService } from './service/storage.service'
-import { InterceptorService } from './service/interceptor.service'
-import { MetaService } from './service/meta.service'
+import { StateService } from './service/state.service';
+import { ApiService } from './service/api.service';
+import { StorageService } from './service/storage.service';
+import { InterceptorService } from './service/interceptor.service';
+import { MetaService } from './service/meta.service';
 
 // Component
 import { AppComponent } from './app.component';
 import { IndexComponent } from './component/page/index/index.component';
 import { MenuComponent } from './component/organism/menu/menu.component';
-import { HeadingComponent } from './component/atom/heading/heading.component';
 import { CharacterComponent } from './component/organism/character/character.component';
 import { LoadComponent } from './component/organism/load/load.component';
 import { HeaderComponent } from './component/organism/header/header.component';
 import { GgComponent } from './component/atom/gg/gg.component';
 import { TrackerComponent } from './component/atom/tracker/tracker.component';
 import { DiffComponent } from './component/atom/diff/diff.component';
-import { ErrorComponent } from './component/atom/error/error.component';
 import { ClanIndexComponent } from './component/page/clan-index/clan-index.component';
 import { PlayerIndexComponent } from './component/page/player-index/player-index.component';
+import { BreadComponent } from './component/organism/bread/bread.component';
 
 @NgModule({
   imports: [
@@ -55,16 +55,15 @@ import { PlayerIndexComponent } from './component/page/player-index/player-index
     AppComponent,
     IndexComponent,
     MenuComponent,
-    HeadingComponent,
     CharacterComponent,
     LoadComponent,
     HeaderComponent,
     GgComponent,
     TrackerComponent,
     DiffComponent,
-    ErrorComponent,
     ClanIndexComponent,
-    PlayerIndexComponent
+    PlayerIndexComponent,
+    BreadComponent
   ],
   providers: [
     DatePipe,

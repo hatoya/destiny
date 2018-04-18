@@ -7,6 +7,7 @@ import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
 import { Graph } from '../../../model/graph.mode'
 import { Stat } from '../../../model/stat.model'
+import { Bread } from '../../../model/bread.model'
 
 @Component({
   selector: 'app-player-index',
@@ -30,6 +31,7 @@ export class PlayerIndexComponent implements OnInit {
   }
   public points: string[] = []
   public graph: Graph[] = []
+  public breads: Bread[] = []
 
   constructor(private router: Router, public state: StateService, private api: ApiService, private meta: MetaService) { }
 
@@ -55,7 +57,7 @@ export class PlayerIndexComponent implements OnInit {
       },
       error: () => this.router.navigate(['/']),
       complete: () => this.api.getClanForMember(this.player.id).subscribe({
-        next: content => this.state.heading = this.player.name + ' [' + content['group']['clanInfo']['clanCallsign'] + ']',
+        next: content => this.breads = [{ title: content['group']['name'] + ' [' + content['group']['clanInfo']['clanCallsign'] + ']', url: ['/', 'clan', content['group']['groupId']] }, { title: this.player.name, url: ['/', 'player', this.player.id] }],
         error: () => this.state.is_load = false,
         complete: () => this.state.is_load = false
       })

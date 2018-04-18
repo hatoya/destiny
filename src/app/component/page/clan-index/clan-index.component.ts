@@ -9,6 +9,7 @@ import { ApiService } from '../../../service/api.service'
 import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
 import { Stat } from '../../../model/stat.model'
+import { Bread } from '../../../model/bread.model'
 
 @Component({
   selector: 'app-clan-index',
@@ -25,6 +26,7 @@ export class ClanIndexComponent implements OnInit {
   public mode_id: number = 39
   public target: string = 'elo_gg'
   public order: string = 'desc'
+  public breads: Bread[] = []
 
   constructor(private formBuilder: FormBuilder, private router: Router, public state: StateService, private api: ApiService, private meta: MetaService) {
     library.add(faSortUp, faSortDown)
@@ -47,7 +49,7 @@ export class ClanIndexComponent implements OnInit {
     this.api.getClan(this.id).map(content => content['Response']['detail']).subscribe({
       next: content => {
         this.meta.setTitle(content['name'] + ' | Clan')
-        this.state.heading = content['name'] + ' [' + content['clanInfo']['clanCallsign'] + ']'
+        this.breads = [{ title: content['name'] + ' [' + content['clanInfo']['clanCallsign'] + ']', url: ['/', 'clan', this.id] }]
       },
       error: error => console.log(error),
       complete: () => this.state.postGoogle()
