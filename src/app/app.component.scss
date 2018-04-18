@@ -23,6 +23,7 @@
     z-index: 1;
   }
   @include sp-only {
+    height: auto;
     &__menu {
       position: fixed;
       top: 50px;
@@ -38,6 +39,7 @@
     }
     &__content {
       width: 100vw;
+      height: auto;
       overflow-x: hidden;
     }
   }
