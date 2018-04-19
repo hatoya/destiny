@@ -65,6 +65,7 @@ app.get('*', (req, res) => {
     fetch(`https://${appUrl}`)
       .then(res => res.text())
       .then(body => {
+        res.set('Cache-Control', 'no-cache');
         res.send(body.toString());
       })
   }
