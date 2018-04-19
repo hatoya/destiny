@@ -36,6 +36,7 @@ export class PlayerIndexComponent implements OnInit {
       next: content => {
         this.player.name = content['userInfo']['displayName']
         this.meta.setTitle(this.player.name + ' | Player')
+        this.meta.setDescription('Tracking ' + this.player.name + '\'s Tracker elo and GG elo in Destiny2.')
         this.state.postGoogle()
       },
       error: () => this.router.navigate(['/']),
