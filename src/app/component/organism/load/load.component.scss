@@ -11,6 +11,7 @@
   height: calc(100vh - 50px);
   font-size: 45px;
   color: #039be5;
+  background: #fafafa;
   z-index: 100;
   @include sp-only {
     width: 100vw;
