@@ -49,6 +49,7 @@ export class ClanIndexComponent implements OnInit {
     this.api.getClan(this.id).map(content => content['Response']['detail']).subscribe({
       next: content => {
         this.meta.setTitle(content['name'] + ' | Clan')
+        this.meta.setDescription('Tracking ' + content['name'] + ' Clan\'s Tracker elo and GG elo in Destiny2.')
         this.breads = [{ title: content['name'] + ' [' + content['clanInfo']['clanCallsign'] + ']', url: ['/', 'clan', this.id] }]
       },
       error: error => console.log(error),
