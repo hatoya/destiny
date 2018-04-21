@@ -44,8 +44,20 @@ export class ApiService {
     return this.http.get('https://api.guardian.gg/v2/players/' + player_id + '/performance/' + mode_id + '/' + this.datePipe.transform(start, 'yyyy-MM-dd') + '/' + this.datePipe.transform(end, 'yyyy-MM-dd') + '?lc=ja')
   }
 
+  getGgActivity(activity_id: string) {
+    return this.http.get('https://api.guardian.gg/v2/pgcr/' + activity_id)
+  }
+
   getTrackerHistory(player_id: string, mode_id: number): Observable<any> {
     return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/history/2/' + player_id + '/' + mode_id + '/')
+  }
+
+  getTrackerActivities(player_id: string): Observable<any> {
+    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/history/2/' + player_id).map(content => content['games']).map(contents => contents.slice(0, 25))
+  }
+
+  getTrackerActivity(activity_id: string) {
+    return this.http.get('https://destinytracker.com/d2/api/pgcr/' + activity_id)
   }
 
   getTracker(id: string): Observable<any> {

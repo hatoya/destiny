@@ -27,8 +27,9 @@ export class PlayerIndexComponent implements OnInit {
       this.player.stats[mode.id] = new Stat
     })
     this.getPlayer()
-    this.getGg()
-    this.getTracker()
+    this.getActivity()
+    this.getGgHistory()
+    this.getTrackerHistory()
   }
 
   getPlayer() {
@@ -48,7 +49,14 @@ export class PlayerIndexComponent implements OnInit {
     })
   }
 
-  getGg() {
+  getActivity() {
+    this.api.getTrackerActivities(this.player.id).flatMap(content => content).map(content => content['instanceId']).subscribe(activity_id => {
+      this.getGgActivity(activity_id)
+      // this.getTrackerActivity(activity_id)
+    })
+  }
+
+  getGgHistory() {
     Observable.merge(this.state.modes.map(mode => this.api.getGgHistory(this.player.id, mode.id, this.state.start, this.state.today))).flatMap(content => content).subscribe(contents => {
       let pastStat: any
       contents.filter(content => new Date(content['date']).getTime() <= this.state.end.getTime()).map(content => pastStat = content)
@@ -64,7 +72,11 @@ export class PlayerIndexComponent implements OnInit {
     })
   }
 
-  getTracker() {
+  getGgActivity(activity_id: string) {
+    this.api.getGgActivity(activity_id).subscribe(content => console.log(content))
+  }
+
+  getTrackerHistory() {
     this.api.getTracker(this.player.id).flatMap(content => content).filter(content => content['playerank']).subscribe(content => this.player.stats[content['mode']].rank_tracker = content['playerank']['rank'])
     this.state.modes.forEach(mode => {
       this.api.getTrackerHistory(this.player.id, mode.id).map(content => content['data']).filter(contents => contents.length).subscribe(contents => {
@@ -73,6 +85,10 @@ export class PlayerIndexComponent implements OnInit {
         if (battles.length) this.player.stats[mode.id].diff_tracker = this.player.stats[mode.id].elo_tracker - battles[battles.length - 1]['currentElo']
       })
     })
+  }
+
+  getTrackerActivity(activity_id: string) {
+    this.api.getTrackerActivity(activity_id).subscribe(content => console.log(content))
   }
 
 }
