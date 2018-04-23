@@ -52,8 +52,8 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getActivity() {
-    this.api.getTrackerActivities(this.player.id).flatMap(content => content).map(content => content['instanceId']).subscribe(activity_id => {
-      this.getGgActivity(activity_id)
+    this.api.getTrackerActivities(this.player.id).subscribe(contents => {
+      this.getGgActivity(contents)
       // this.getTrackerActivity(activity_id)
     })
   }
@@ -74,10 +74,13 @@ export class PlayerIndexComponent implements OnInit {
     })
   }
 
-  getGgActivity(activity_id: string) {
-    this.api.getGgActivity(activity_id).subscribe(content => {
-      const player = content['pgcr']['entries'].filter(entry => entry['player']['destinyUserInfo']['membershipId'] === this.player.id)[0]
-      this.activities.push(new Activity({ id: content['pgcr']['activityDetails']['instanceId'], date: new Date(content['pgcr']['period']), standing: player['standing'], mode: content['pgcr']['activityDetails']['mode'], mode_name: content['definitions']['activityMode']['displayProperties']['name'], location: content['definitions']['activity']['displayProperties']['name'], elo_gg: content['playerElos'][this.player.id], score: player['score']['basic']['value'], kill: player['values']['kills']['basic']['value'], assist: player['values']['assists']['basic']['value'], death: player['values']['deaths']['basic']['value'] }))
+  getGgActivity(activities: any) {
+    Observable.forkJoin(activities.map(activity => this.api.getGgActivity(activity['instanceId']))).do(content => console.log(content)).flatMap(content => content).subscribe({
+      next: content => {
+        const player = content['pgcr']['entries'].filter(entry => entry['player']['destinyUserInfo']['membershipId'] === this.player.id)[0]
+        this.activities.push(new Activity({ id: content['pgcr']['activityDetails']['instanceId'], date: new Date(content['pgcr']['period']), standing: player['standing'], mode: content['pgcr']['activityDetails']['mode'], mode_name: content['definitions']['activityMode']['displayProperties']['name'], location: content['definitions']['activity']['displayProperties']['name'], elo_gg: content['playerElos'][this.player.id], score: player['score']['basic']['value'], kill: player['values']['kills']['basic']['value'], assist: player['values']['assists']['basic']['value'], death: player['values']['deaths']['basic']['value'] }))
+      },
+      complete: () => this.activities.sort((activity1, activity2) => activity1.date.getTime() < activity2.date.getTime() ? 1 : -1)
     })
   }
 
