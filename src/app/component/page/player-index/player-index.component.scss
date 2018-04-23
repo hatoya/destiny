@@ -103,6 +103,9 @@
         font-size: 12px;
         opacity: 0.5;
       }
+      &:nth-of-type(1) {
+        width: 230px;
+      }
     }
     &.-win {
       border-left: 5px solid #4caf50;

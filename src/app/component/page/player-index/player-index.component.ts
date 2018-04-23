@@ -7,6 +7,7 @@ import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
 import { Stat } from '../../../model/stat.model'
 import { Bread } from '../../../model/bread.model'
+import { Activity } from '../../../model/activity.model'
 
 @Component({
   selector: 'app-player-index',
@@ -15,9 +16,10 @@ import { Bread } from '../../../model/bread.model'
 })
 export class PlayerIndexComponent implements OnInit {
 
+  public breads: Bread[] = []
   public player: Player = new Player
   public clan: string = ''
-  public breads: Bread[] = []
+  public activities: Activity[] = []
 
   constructor(private router: Router, public state: StateService, private api: ApiService, private meta: MetaService) { }
 
@@ -73,7 +75,10 @@ export class PlayerIndexComponent implements OnInit {
   }
 
   getGgActivity(activity_id: string) {
-    this.api.getGgActivity(activity_id).subscribe(content => console.log(content))
+    this.api.getGgActivity(activity_id).subscribe(content => {
+      const player = content['pgcr']['entries'].filter(entry => entry['player']['destinyUserInfo']['membershipId'] === this.player.id)[0]
+      this.activities.push(new Activity({ id: content['pgcr']['activityDetails']['instanceId'], date: new Date(content['pgcr']['period']), standing: player['standing'], mode: content['pgcr']['activityDetails']['mode'], mode_name: content['definitions']['activityMode']['displayProperties']['name'], location: content['definitions']['activity']['displayProperties']['name'], elo_gg: content['playerElos'][this.player.id], score: player['score']['basic']['value'], kill: player['values']['kills']['basic']['value'], assist: player['values']['assists']['basic']['value'], death: player['values']['deaths']['basic']['value'] }))
+    })
   }
 
   getTrackerHistory() {

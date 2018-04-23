@@ -13,8 +13,8 @@
       </tr>
       <tr *ngFor="let mode of state.modes">
         <td>{{mode.name}}</td>
-        <td><app-gg [elo]="player.stats[mode.id].elo_gg" [rank]="player.stats[mode.id].rank_gg"></app-gg>{{player.stats[mode.id].elo_gg}}<app-diff [elo]="player.stats[mode.id].diff_gg"></app-diff></td>
-        <td><app-tracker [elo]="player.stats[mode.id].elo_tracker" [rank]="player.stats[mode.id].rank_tracker"></app-tracker>{{player.stats[mode.id].elo_tracker}}<app-diff [elo]="player.stats[mode.id].diff_tracker"></app-diff></td>
+        <td><app-gg [elo]="player.stats[mode.id].elo_gg" [rank]="player.stats[mode.id].rank_gg"></app-gg>{{player.stats[mode.id].elo_gg | number:'1.0-0'}}<app-diff [elo]="player.stats[mode.id].diff_gg"></app-diff></td>
+        <td><app-tracker [elo]="player.stats[mode.id].elo_tracker" [rank]="player.stats[mode.id].rank_tracker"></app-tracker>{{player.stats[mode.id].elo_tracker | number:'1.0-0'}}<app-diff [elo]="player.stats[mode.id].diff_tracker"></app-diff></td>
         <td>{{player.stats[mode.id].kill / player.stats[mode.id].death | number:'1.2-2'}}</td>
         <td>{{player.stats[mode.id].win | number:'1.0-0'}}</td>
         <td>{{player.stats[mode.id].match | number:'1.0-0'}}</td>
@@ -25,64 +25,14 @@
 </div>
 <p class="heading">Activity</p>
 <ul class="activity">
-  <li class="activity__list -win">
-    <p class="activity__list__data">Iron Banner Control<br /><span>Vostok・2018/12/24 12:34:56</span></p>
-    <p class="activity__list__data"><app-gg [elo]="1700"></app-gg>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><app-tracker [elo]="1700"></app-tracker>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><span>KD</span><br />2.34</p>
-    <p class="activity__list__data"><span>KILL</span><br />10</p>
-    <p class="activity__list__data"><span>ASSIST</span><br />10</p>
-    <p class="activity__list__data"><span>DEATH</span><br />10</p>
-    <p class="activity__list__data"><span>SCORE</span><br />10</p>
-  </li>
-  <li class="activity__list -win">
-    <p class="activity__list__data">Iron Banner Control<br /><span>Vostok・2018/12/24 12:34:56</span></p>
-    <p class="activity__list__data"><app-gg [elo]="1700"></app-gg>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><app-tracker [elo]="1700"></app-tracker>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><span>KD</span><br />2.34</p>
-    <p class="activity__list__data"><span>KILL</span><br />10</p>
-    <p class="activity__list__data"><span>ASSIST</span><br />10</p>
-    <p class="activity__list__data"><span>DEATH</span><br />10</p>
-    <p class="activity__list__data"><span>SCORE</span><br />10</p>
-  </li>
-  <li class="activity__list -lose">
-    <p class="activity__list__data">Iron Banner Control<br /><span>Vostok・2018/12/24 12:34:56</span></p>
-    <p class="activity__list__data"><app-gg [elo]="1700"></app-gg>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><app-tracker [elo]="1700"></app-tracker>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><span>KD</span><br />2.34</p>
-    <p class="activity__list__data"><span>KILL</span><br />10</p>
-    <p class="activity__list__data"><span>ASSIST</span><br />10</p>
-    <p class="activity__list__data"><span>DEATH</span><br />10</p>
-    <p class="activity__list__data"><span>SCORE</span><br />10</p>
-  </li>
-  <li class="activity__list -win">
-    <p class="activity__list__data">Iron Banner Control<br /><span>Vostok・2018/12/24 12:34:56</span></p>
-    <p class="activity__list__data"><app-gg [elo]="1700"></app-gg>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><app-tracker [elo]="1700"></app-tracker>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><span>KD</span><br />2.34</p>
-    <p class="activity__list__data"><span>KILL</span><br />10</p>
-    <p class="activity__list__data"><span>ASSIST</span><br />10</p>
-    <p class="activity__list__data"><span>DEATH</span><br />10</p>
-    <p class="activity__list__data"><span>SCORE</span><br />10</p>
-  </li>
-  <li class="activity__list -win">
-    <p class="activity__list__data">Iron Banner Control<br /><span>Vostok・2018/12/24 12:34:56</span></p>
-    <p class="activity__list__data"><app-gg [elo]="1700"></app-gg>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><app-tracker [elo]="1700"></app-tracker>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><span>KD</span><br />2.34</p>
-    <p class="activity__list__data"><span>KILL</span><br />10</p>
-    <p class="activity__list__data"><span>ASSIST</span><br />10</p>
-    <p class="activity__list__data"><span>DEATH</span><br />10</p>
-    <p class="activity__list__data"><span>SCORE</span><br />10</p>
-  </li>
-  <li class="activity__list -lose">
-    <p class="activity__list__data">Iron Banner Control<br /><span>Vostok・2018/12/24 12:34:56</span></p>
-    <p class="activity__list__data"><app-gg [elo]="1700"></app-gg>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><app-tracker [elo]="1700"></app-tracker>1,700<app-diff [elo]="100"></app-diff></p>
-    <p class="activity__list__data"><span>KD</span><br />2.34</p>
-    <p class="activity__list__data"><span>KILL</span><br />10</p>
-    <p class="activity__list__data"><span>ASSIST</span><br />10</p>
-    <p class="activity__list__data"><span>DEATH</span><br />10</p>
-    <p class="activity__list__data"><span>SCORE</span><br />10</p>
+  <li class="activity__list" [ngClass]="{'-win': activity.standing === 0, '-lose': activity.standing === 1}" *ngFor="let activity of activities">
+    <p class="activity__list__data">{{activity.mode_name}}<br /><span>{{activity.date | date:'yyyy/MM/dd HH:mm:ss'}}・{{activity.location}}</span></p>
+    <p class="activity__list__data"><app-gg [elo]="activity.elo_gg"></app-gg>{{activity.elo_gg | number}}<app-diff [elo]="0"></app-diff></p>
+    <p class="activity__list__data"><app-tracker [elo]="activity.elo_tracker"></app-tracker>{{activity.elo_tracker | number}}<app-diff [elo]="0"></app-diff></p>
+    <p class="activity__list__data"><span>KD</span><br />{{activity.kill / activity.death | number:'1.2-2'}}</p>
+    <p class="activity__list__data"><span>KILL</span><br />{{activity.kill}}</p>
+    <p class="activity__list__data"><span>ASSIST</span><br />{{activity.assist}}</p>
+    <p class="activity__list__data"><span>DEATH</span><br />{{activity.death}}</p>
+    <p class="activity__list__data"><span>SCORE</span><br />{{activity.score}}</p>
   </li>
 </ul>
