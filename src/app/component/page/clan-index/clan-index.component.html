@@ -10,6 +10,8 @@
       <tr>
         <th></th>
         <th>Name</th>
+        <th>Valor</th>
+        <th>Glory</th>
         <th class="-active" (click)="changeOrder('elo_gg')">GG elo<fa-icon icon="sort-down" *ngIf="target === 'elo_gg' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'elo_gg' && order === 'asc'"></fa-icon></th>
         <th class="-active" (click)="changeOrder('elo_tracker')">Tracker elo<fa-icon icon="sort-down" *ngIf="target === 'elo_tracker' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'elo_tracker' && order === 'asc'"></fa-icon></th>
         <th class="-active" (click)="changeOrder('kd')">KD<fa-icon icon="sort-down" *ngIf="target === 'kd' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'kd' && order === 'asc'"></fa-icon></th>
@@ -22,6 +24,8 @@
       <tr *ngFor="let member of members;let i = index">
         <td>{{i + 1}}</td>
         <td><a [routerLink]="['/', 'player', member.id]">{{member.name}}</a></td>
+        <td>{{2000 | number:'1.0-0'}}<app-diff [elo]="100"></app-diff></td>
+        <td>{{2000 | number:'1.0-0'}}<app-diff [elo]="100"></app-diff></td>
         <td><a [attr.href]="'https://guardian.gg/2/profile/' + member.id + '/' + member.name" target="_blank"><app-gg [elo]="member.stats[mode_id].elo_gg" [rank]="member.stats[mode_id].rank_gg"></app-gg>{{member.stats[mode_id].elo_gg | number:'1.0-0'}}<app-diff [elo]="member.stats[mode_id].diff_gg"></app-diff></a></td>
         <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + member.name" target="_blank"><app-tracker [elo]="member.stats[mode_id].elo_tracker" [rank]="member.stats[mode_id].rank_tracker"></app-tracker>{{member.stats[mode_id].elo_tracker | number:'1.0-0'}}<app-diff [elo]="member.stats[mode_id].diff_tracker" *ngIf="member.stats[mode_id].elo_tracker"></app-diff></a></td>
         <td>{{member.stats[mode_id].kd | number:'1.2-2'}}</td>
