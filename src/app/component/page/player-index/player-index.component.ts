@@ -7,6 +7,7 @@ import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
 import { Stat } from '../../../model/stat.model'
 import { Bread } from '../../../model/bread.model'
+import { Activity } from '../../../model/activity.model'
 
 @Component({
   selector: 'app-player-index',
@@ -15,9 +16,10 @@ import { Bread } from '../../../model/bread.model'
 })
 export class PlayerIndexComponent implements OnInit {
 
+  public breads: Bread[] = []
   public player: Player = new Player
   public clan: string = ''
-  public breads: Bread[] = []
+  public activities: Activity[] = []
 
   constructor(private router: Router, public state: StateService, private api: ApiService, private meta: MetaService) { }
 
@@ -27,8 +29,9 @@ export class PlayerIndexComponent implements OnInit {
       this.player.stats[mode.id] = new Stat
     })
     this.getPlayer()
-    this.getGg()
-    this.getTracker()
+    this.getActivity()
+    this.getGgHistory()
+    this.getTrackerHistory()
   }
 
   getPlayer() {
@@ -48,7 +51,14 @@ export class PlayerIndexComponent implements OnInit {
     })
   }
 
-  getGg() {
+  getActivity() {
+    this.api.getTrackerActivities(this.player.id).subscribe(contents => {
+      this.getGgActivity(contents)
+      // this.getTrackerActivity(activity_id)
+    })
+  }
+
+  getGgHistory() {
     Observable.merge(this.state.modes.map(mode => this.api.getGgHistory(this.player.id, mode.id, this.state.start, this.state.today))).flatMap(content => content).subscribe(contents => {
       let pastStat: any
       contents.filter(content => new Date(content['date']).getTime() <= this.state.end.getTime()).map(content => pastStat = content)
@@ -64,7 +74,17 @@ export class PlayerIndexComponent implements OnInit {
     })
   }
 
-  getTracker() {
+  getGgActivity(activities: any) {
+    Observable.forkJoin(activities.map(activity => this.api.getGgActivity(activity['instanceId']))).do(content => console.log(content)).flatMap(content => content).subscribe({
+      next: content => {
+        const player = content['pgcr']['entries'].filter(entry => entry['player']['destinyUserInfo']['membershipId'] === this.player.id)[0]
+        this.activities.push(new Activity({ id: content['pgcr']['activityDetails']['instanceId'], date: new Date(content['pgcr']['period']), standing: player['standing'], mode: content['pgcr']['activityDetails']['mode'], mode_name: content['definitions']['activityMode']['displayProperties']['name'], location: content['definitions']['activity']['displayProperties']['name'], elo_gg: content['playerElos'][this.player.id], score: player['score']['basic']['value'], kill: player['values']['kills']['basic']['value'], assist: player['values']['assists']['basic']['value'], death: player['values']['deaths']['basic']['value'] }))
+      },
+      complete: () => this.activities.sort((activity1, activity2) => activity1.date.getTime() < activity2.date.getTime() ? 1 : -1)
+    })
+  }
+
+  getTrackerHistory() {
     this.api.getTracker(this.player.id).flatMap(content => content).filter(content => content['playerank']).subscribe(content => this.player.stats[content['mode']].rank_tracker = content['playerank']['rank'])
     this.state.modes.forEach(mode => {
       this.api.getTrackerHistory(this.player.id, mode.id).map(content => content['data']).filter(contents => contents.length).subscribe(contents => {
@@ -73,6 +93,10 @@ export class PlayerIndexComponent implements OnInit {
         if (battles.length) this.player.stats[mode.id].diff_tracker = this.player.stats[mode.id].elo_tracker - battles[battles.length - 1]['currentElo']
       })
     })
+  }
+
+  getTrackerActivity(activity_id: string) {
+    this.api.getTrackerActivity(activity_id).subscribe(content => console.log(content))
   }
 
 }

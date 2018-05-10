@@ -71,3 +71,50 @@
     }
   }
 }
+.heading {
+  padding: 0 20px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1;
+  color: rgba(black, 0.54);
+  @include sp-only {
+    padding: 0 10px;
+    font-size: 5.2vw;
+  }
+}
+.activity {
+  display: grid;
+  padding: 10px 20px 20px;
+  overflow: scroll;
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    box-shadow: 0 3px 1px -2px rgba(black, 0.2), 0 2px 2px 0 rgba(black, 0.14), 0 1px 5px 0 rgba(black, 0.12);
+    &:nth-of-type(n+2) {
+      margin-top: 10px;
+    }
+    &__data {
+      padding: 8px 12px;
+      font-size: 14px;
+      white-space: nowrap;
+      span {
+        font-size: 12px;
+        opacity: 0.5;
+      }
+      &:nth-of-type(1) {
+        width: 230px;
+      }
+    }
+    &.-win {
+      border-left: 5px solid #4caf50;
+    }
+    &.-lose {
+      border-left: 5px solid red;
+    }
+  }
+  @include sp-only {
+    padding: 10px;
+  }
+}
