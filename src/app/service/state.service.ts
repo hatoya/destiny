@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
+import { filter, share } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router'
 
@@ -36,7 +37,7 @@ export class StateService {
   ]
 
   constructor(private router: Router) {
-    this.routerObserver$ = this.router.events.filter(event => event instanceof NavigationEnd).share()
+    this.routerObserver$ = this.router.events.pipe(filter(event => event instanceof NavigationEnd), share())
   }
 
   postGoogle(): void {

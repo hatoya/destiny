@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs'
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, NavigationEnd } from '@angular/router'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
@@ -10,6 +10,7 @@ import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
 import { Stat } from '../../../model/stat.model'
 import { Bread } from '../../../model/bread.model'
+import { map, mergeMap, filter, share, partition } from 'rxjs/operators';
 
 @Component({
   selector: 'app-clan-index',
@@ -46,7 +47,7 @@ export class ClanIndexComponent implements OnInit {
     this.state.heading = ''
     this.members = []
     this.id = location.pathname.split('/')[2]
-    this.api.getClan(this.id).map(content => content['Response']['detail']).subscribe({
+    this.api.getClan(this.id).pipe(map(content => content['Response']['detail'])).subscribe({
       next: content => {
         this.meta.setTitle(content['name'] + ' | Clan')
         this.meta.setDescription('Tracking ' + content['name'] + ' Clan\'s Tracker elo and GG elo in Destiny2.')
@@ -55,7 +56,7 @@ export class ClanIndexComponent implements OnInit {
       error: error => console.log(error),
       complete: () => this.state.postGoogle()
     })
-    this.api.getClanMembers(this.id).map(content => Object.keys(content).map(value => content[value])).flatMap(member => member).subscribe({
+    this.api.getClanMembers(this.id).pipe(map(content => Object.keys(content).map(value => content[value])), mergeMap(member => member)).subscribe({
       next: content => {
         let player: Player = new Player({ id: content['member']['destinyUserInfo']['membershipId'], name: content['member']['destinyUserInfo']['displayName'], stats: [] })
         this.state.modes.map(mode => {
@@ -87,17 +88,17 @@ export class ClanIndexComponent implements OnInit {
 
   getDiff() {
     this.members.map(member => {
-      const [past_battles, latest_battles] = this.api.getGgHistory(member.id, 0, this.state.start, this.state.today).flatMap(content => content).filter(content => content['mode'] === Number(this.mode_id)).share().partition(content => new Date(content['date']).getTime() <= this.state.end.getTime())
+      const [past_battles, latest_battles] = partition(content => new Date(content['date']).getTime() <= this.state.end.getTime())(this.api.getGgHistory(member.id, 0, this.state.start, this.state.today).pipe(mergeMap(content => content), filter(content => content['mode'] === Number(this.mode_id)), share()))
       past_battles.subscribe(content => member.stats[this.mode_id].diff_gg = member.stats[this.mode_id].elo_gg - content['elo'])
       latest_battles.subscribe(content => {
         member.stats[this.mode_id].diff_match += content['gamesPlayed']
         member.stats[this.mode_id].diff_win += content['wins']
       })
-      this.api.getTrackerHistory(member.id, this.mode_id).filter(content => content['data'].length).map(content => content['data']).subscribe(contents => {
+      this.api.getTrackerHistory(member.id, this.mode_id).pipe(filter(content => content['data'].length), map(content => content['data'])).subscribe(contents => {
         const battles = contents.filter(battle => new Date(battle['period']).getTime() >= this.state.start.getTime() && new Date(battle['period']).getTime() <= this.state.end.getTime())
         member.stats[this.mode_id].elo_tracker = contents[contents.length - 1]['currentElo']
         if (battles.length) member.stats[this.mode_id].diff_tracker = contents[contents.length - 1]['currentElo'] - battles[battles.length - 1]['currentElo']
-        if (member.stats[this.mode_id].elo_tracker >= 1700) this.api.getTracker(member.id).map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39)).flatMap(content => content).filter(content => content['playerank']).subscribe(content => member.stats[this.mode_id].rank_tracker = content['playerank']['rank'])
+        if (member.stats[this.mode_id].elo_tracker >= 1700) this.api.getTracker(member.id).pipe(map(content => Object.keys(content).map(value => content[value]).filter(stat => stat['mode'] === 39)), mergeMap(content => content), filter(content => content['playerank'])).subscribe(content => member.stats[this.mode_id].rank_tracker = content['playerank']['rank'])
       })
     })
   }
