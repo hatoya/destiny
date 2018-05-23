@@ -39,8 +39,8 @@ export class MenuComponent implements OnInit {
       name: 'Valuser'
     },
     {
-      id: 2857820,
-      name: 'VioIet'
+      id: 3106582,
+      name: 'Freezia'
     },
     {
       id: 2732118,
