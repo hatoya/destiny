@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators'
 import { Title, Meta } from '@angular/platform-browser'
 import { Injectable } from '@angular/core'
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router'
@@ -8,7 +9,7 @@ export class MetaService {
   public base: string = 'Destiny Clan Manager'
 
   constructor(private title: Title, private meta: Meta, private router: Router) {
-    this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => this.init())
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => this.init())
   }
 
   init() {

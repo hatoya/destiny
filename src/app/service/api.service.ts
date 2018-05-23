@@ -1,10 +1,11 @@
-import { Observable } from 'rxjs/Observable'
+import { Observable, merge } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { DatePipe } from '@angular/common'
 import { AngularFirestore } from 'angularfire2/firestore'
 import { StorageService } from './storage.service'
 import { Player } from '../model/player.model'
+import { map, mergeMap, partition } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
@@ -18,7 +19,7 @@ export class ApiService {
   }
 
   getPlayerSearch(target: string): Observable<any> {
-    return this.http.get('/Destiny2/SearchDestinyPlayer/2/' + target + '/').map(content => content['Response'])
+    return this.http.get('/Destiny2/SearchDestinyPlayer/2/' + target + '/').pipe(map(content => content['Response']))
   }
 
   getClan(clan_id: string): Observable<any> {
@@ -26,12 +27,12 @@ export class ApiService {
   }
 
   getClanForMember(player_id: string): Observable<any> {
-    return this.http.get('/GroupV2/User/2/' + player_id + '/0/1/').flatMap(content => content['Response']['results'])
+    return this.http.get('/GroupV2/User/2/' + player_id + '/0/1/').pipe(mergeMap(content => content['Response']['results']))
   }
 
   getProfile(id: string): Observable<any> {
-    const [success, failed] = this.http.get('/Destiny2/2/Profile/' + id + '/?components=100').partition(content => content['ErrorCode'] === 1)
-    return Observable.merge(success.map(content => content['Response']['profile']['data']), failed.map(content => { throw content['ErrorStatus'] }))
+    const [success, failed] = partition(content => content['ErrorCode'] === 1)(this.http.get('/Destiny2/2/Profile/' + id + '/?components=100'))
+    return merge(success.pipe(map(content => content['Response']['profile']['data'])), failed.pipe(map(content => { throw content['ErrorStatus'] })))
   }
 
   getClanMembers(clan_id: string): Observable<any> {
@@ -55,7 +56,7 @@ export class ApiService {
   }
 
   getTrackerActivities(player_id: string): Observable<any> {
-    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/history/2/' + player_id).map(content => content['games']).map(contents => contents.slice(0, 25))
+    return this.http.get('https://api-insights.destinytracker.com/api/d2/elo/history/2/' + player_id).pipe(map(content => content['games']), map(contents => contents.slice(0, 25)))
   }
 
   getTrackerActivity(activity_id: string) {
