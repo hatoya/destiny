@@ -37,6 +37,8 @@ import { DiffComponent } from './component/atom/diff/diff.component';
 import { ClanIndexComponent } from './component/page/clan-index/clan-index.component';
 import { PlayerIndexComponent } from './component/page/player-index/player-index.component';
 import { BreadComponent } from './component/organism/bread/bread.component';
+import { GloryComponent } from './component/atom/glory/glory.component';
+import { ValorComponent } from './component/atom/valor/valor.component';
 
 @NgModule({
   imports: [
@@ -62,7 +64,9 @@ import { BreadComponent } from './component/organism/bread/bread.component';
     DiffComponent,
     ClanIndexComponent,
     PlayerIndexComponent,
-    BreadComponent
+    BreadComponent,
+    GloryComponent,
+    ValorComponent
   ],
   providers: [
     DatePipe,

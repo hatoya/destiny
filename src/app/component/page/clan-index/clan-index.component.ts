@@ -58,7 +58,7 @@ export class ClanIndexComponent implements OnInit {
     })
     this.api.getClanMembers(this.id).pipe(map(content => Object.keys(content).map(value => content[value])), mergeMap(member => member)).subscribe({
       next: content => {
-        let player: Player = new Player({ id: content['member']['destinyUserInfo']['membershipId'], name: content['member']['destinyUserInfo']['displayName'], stats: [] })
+        let player: Player = new Player({ id: content['member']['destinyUserInfo']['membershipId'], name: content['member']['destinyUserInfo']['displayName'] })
         this.state.modes.map(mode => {
           const target = content['stats'][mode.id]
           let stat: Stat = new Stat

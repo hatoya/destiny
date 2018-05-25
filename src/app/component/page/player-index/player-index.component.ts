@@ -33,6 +33,7 @@ export class PlayerIndexComponent implements OnInit {
     this.getActivity()
     this.getGgHistory()
     this.getTrackerHistory()
+    this.api.getProgress(this.player.id).subscribe(content => console.log(content))
   }
 
   getPlayer() {
