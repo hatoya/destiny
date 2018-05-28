@@ -1,4 +1,5 @@
-import { Subscription } from 'rxjs'
+import { Subscription, merge } from 'rxjs'
+import { map, mergeMap, filter, share, partition, tap } from 'rxjs/operators'
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, NavigationEnd } from '@angular/router'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
@@ -10,7 +11,7 @@ import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
 import { Stat } from '../../../model/stat.model'
 import { Bread } from '../../../model/bread.model'
-import { map, mergeMap, filter, share, partition, tap } from 'rxjs/operators';
+import { Progress } from '../../../model/progress.model';
 
 @Component({
   selector: 'app-clan-index',
@@ -75,13 +76,20 @@ export class ClanIndexComponent implements OnInit {
       error: () => this.state.is_load = false,
       complete: () => {
         this.state.is_load = false
+        this.getStep()
         this.changeMode()
       }
     })
   }
 
   sort() {
-    this.members = this.members.sort((member1, member2) => (member1.stats[this.mode_id][this.target] < member2.stats[this.mode_id][this.target] ? 1 : -1) * (this.order === 'desc' ? 1 : -1))
+    this.members = this.members.sort((member1, member2) => {
+      if (this.target === 'glory' || this.target === 'valor') {
+        return (member1[this.target].currentProgress < member2[this.target].currentProgress ? 1 : -1) * (this.order === 'desc' ? 1 : -1)
+      } else {
+        return (member1.stats[this.mode_id][this.target] < member2.stats[this.mode_id][this.target] ? 1 : -1) * (this.order === 'desc' ? 1 : -1)
+      }
+    })
   }
 
   getDiff() {
@@ -106,6 +114,15 @@ export class ClanIndexComponent implements OnInit {
       this.api.getGg(member.id).subscribe({
         next: content => member.stats[this.mode_id].rank_gg = content['playerRanks'][this.mode_id],
         complete: () => member
+      })
+    })
+  }
+
+  getStep() {
+    this.members.map(member => {
+      this.api.getProgress(member.id).subscribe(content => {
+        member.glory = new Progress(content['2679551909'])
+        member.valor = new Progress(content['3882308435'])
       })
     })
   }
