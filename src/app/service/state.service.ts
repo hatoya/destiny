@@ -35,6 +35,7 @@ export class StateService {
     { id: 19, name: 'Iron Banner', color: '#000000' },
     { id: 15, name: 'Double', color: '#000000' }
   ]
+  public ranks: string[] = ['gurdian', 'brave', 'heroic', 'fabled', 'mythic', 'legend']
 
   constructor(private router: Router) {
     this.routerObserver$ = this.router.events.pipe(filter(event => event instanceof NavigationEnd), share())

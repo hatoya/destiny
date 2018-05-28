@@ -1,3 +1,5 @@
+$shadowColor: 0 3px 1px -2px rgba(black, 0.2), 0 2px 2px 0 rgba(black, 0.14), 0 1px 5px 0 rgba(black, 0.12);
+
 @mixin pc-only() {
   @media only screen and (min-width: 980px) {
     @content;

@@ -35,6 +35,15 @@ export class ApiService {
     return merge(success.pipe(map(content => content['Response']['profile']['data'])), failed.pipe(map(content => { throw content['ErrorStatus'] })))
   }
 
+  getProgress(player_id: string): Observable<any> {
+    return this.http.get('/Destiny2/2/Profile/' + player_id + '/?components=202').pipe(map(content => {
+      const answers: any[] = []
+      const target = content['Response']['characterProgressions']['data']
+      for (let key in target) answers.push(target[key])
+      return answers[0]['progressions']
+    }))
+  }
+
   getClanMembers(clan_id: string): Observable<any> {
     return this.http.get('https://api.guardian.gg/v2/clan/' + clan_id + '/members?lc=ja')
   }

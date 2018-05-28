@@ -10,7 +10,7 @@ import { MetaService } from '../../../service/meta.service'
 import { Player } from '../../../model/player.model'
 import { Stat } from '../../../model/stat.model'
 import { Bread } from '../../../model/bread.model'
-import { map, mergeMap, filter, share, partition } from 'rxjs/operators';
+import { map, mergeMap, filter, share, partition, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-clan-index',
@@ -19,15 +19,15 @@ import { map, mergeMap, filter, share, partition } from 'rxjs/operators';
 })
 export class ClanIndexComponent implements OnInit {
 
-  public routerSubscription: Subscription
-  public formGroup: FormGroup
-  public id: string = ''
-  public clan: any = {}
-  public members: Player[] = []
-  public mode_id: number = 39
-  public target: string = 'elo_gg'
-  public order: string = 'desc'
-  public breads: Bread[] = []
+  routerSubscription: Subscription = new Subscription
+  formGroup: FormGroup
+  id: string = ''
+  clan: any = {}
+  members: Player[] = []
+  mode_id: number = 39
+  target: string = 'elo_gg'
+  order: string = 'desc'
+  breads: Bread[] = []
 
   constructor(private formBuilder: FormBuilder, private router: Router, public state: StateService, private api: ApiService, private meta: MetaService) {
     library.add(faSortUp, faSortDown)
@@ -44,10 +44,8 @@ export class ClanIndexComponent implements OnInit {
   }
 
   init() {
-    this.state.heading = ''
-    this.members = []
     this.id = location.pathname.split('/')[2]
-    this.api.getClan(this.id).pipe(map(content => content['Response']['detail'])).subscribe({
+    this.api.getClan(this.id).pipe(tap(() => this.state.heading = ''), map(content => content['Response']['detail'])).subscribe({
       next: content => {
         this.meta.setTitle(content['name'] + ' | Clan')
         this.meta.setDescription('Tracking ' + content['name'] + ' Clan\'s Tracker elo and GG elo in Destiny2.')
@@ -56,9 +54,9 @@ export class ClanIndexComponent implements OnInit {
       error: error => console.log(error),
       complete: () => this.state.postGoogle()
     })
-    this.api.getClanMembers(this.id).pipe(map(content => Object.keys(content).map(value => content[value])), mergeMap(member => member)).subscribe({
+    this.api.getClanMembers(this.id).pipe(tap(() => this.members = []), map(content => Object.keys(content).map(value => content[value])), mergeMap(member => member)).subscribe({
       next: content => {
-        let player: Player = new Player({ id: content['member']['destinyUserInfo']['membershipId'], name: content['member']['destinyUserInfo']['displayName'], stats: [] })
+        let player: Player = new Player({ id: content['member']['destinyUserInfo']['membershipId'], name: content['member']['destinyUserInfo']['displayName'] })
         this.state.modes.map(mode => {
           const target = content['stats'][mode.id]
           let stat: Stat = new Stat
