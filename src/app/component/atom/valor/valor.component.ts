@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core'
+import { Progress } from '../../../model/progress.model'
 
 @Component({
   selector: 'app-valor',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./valor.component.scss']
 })
 export class ValorComponent implements OnInit {
+
+  @Input() progress: Progress = new Progress
 
   constructor() { }
 

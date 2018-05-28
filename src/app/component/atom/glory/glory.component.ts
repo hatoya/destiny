@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core'
-import { Progress } from '../../../model/progress.model';
+import { Progress } from '../../../model/progress.model'
 
 @Component({
   selector: 'app-glory',

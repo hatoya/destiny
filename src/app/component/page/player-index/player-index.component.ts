@@ -9,6 +9,7 @@ import { Player } from '../../../model/player.model'
 import { Stat } from '../../../model/stat.model'
 import { Bread } from '../../../model/bread.model'
 import { Activity } from '../../../model/activity.model'
+import { Progress } from '../../../model/progress.model';
 
 @Component({
   selector: 'app-player-index',
@@ -33,7 +34,10 @@ export class PlayerIndexComponent implements OnInit {
     this.getActivity()
     this.getGgHistory()
     this.getTrackerHistory()
-    this.api.getProgress(this.player.id).subscribe(content => console.log(content))
+    this.api.getProgress(this.player.id).subscribe(content => {
+      this.player.glory = new Progress(content['2679551909'])
+      this.player.valor = new Progress(content['3882308435'])
+    })
   }
 
   getPlayer() {

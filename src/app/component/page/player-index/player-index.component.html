@@ -2,11 +2,27 @@
 <ul class="rank">
   <li class="rank__list">
     <p class="rank__list__heading">GLORY</p>
-    <div class="rank__list__icon"><app-glory></app-glory></div>
+    <div class="rank__list__wrapper">
+      <div class="rank__list__wrapper__content">
+        <div class="rank__list__wrapper__content__icon"><app-glory [progress]="player.glory"></app-glory></div>
+      </div>
+      <div class="rank__list__wrapper__content">
+        <p class="rank__list__wrapper__content__name">{{state.ranks[player.glory.level] | uppercase}}</p>
+        <p class="rank__list__wrapper__content__value">{{player.glory.currentProgress | number:'1.0-0'}}</p>
+      </div>
+    </div>
   </li>
   <li class="rank__list">
     <p class="rank__list__heading">VALOR</p>
-    <div class="rank__list__icon"><app-valor></app-valor></div>
+    <div class="rank__list__wrapper">
+      <div class="rank__list__wrapper__content">
+        <div class="rank__list__wrapper__content__icon"><app-valor [(progress)]="player.valor"></app-valor></div>
+      </div>
+      <div class="rank__list__wrapper__content">
+        <p class="rank__list__wrapper__content__name">{{state.ranks[player.valor.level] | uppercase}}</p>
+        <p class="rank__list__wrapper__content__value">{{player.valor.currentProgress | number:'1.0-0'}}</p>
+      </div>
+    </div>
   </li>
 </ul>
 <div class="table">
@@ -38,6 +54,8 @@
   <li class="activity__list" [ngClass]="{'-win': activity.standing === 0, '-lose': activity.standing === 1}" *ngFor="let activity of activities">
     <p class="activity__list__data">{{activity.mode_name}}<br /><span>{{activity.date | date:'yyyy/MM/dd HH:mm:ss'}}・{{activity.location}}</span></p>
     <p class="activity__list__data"><span>KD</span><br />{{activity.kill / activity.death | number:'1.2-2'}}</p>
+    <p class="activity__list__data"><span>KDA</span><br />{{(activity.kill + (activity.assist / 2)) / activity.death | number:'1.2-2'}}</p>
+    <p class="activity__list__data"><span>KA/D</span><br />{{(activity.kill + activity.assist) / activity.death | number:'1.2-2'}}</p>
     <p class="activity__list__data"><span>KILL</span><br />{{activity.kill}}</p>
     <p class="activity__list__data"><span>ASSIST</span><br />{{activity.assist}}</p>
     <p class="activity__list__data"><span>DEATH</span><br />{{activity.death}}</p>
