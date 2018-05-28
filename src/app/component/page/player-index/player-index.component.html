@@ -39,8 +39,8 @@
       </tr>
       <tr *ngFor="let mode of state.modes">
         <td>{{mode.name}}</td>
-        <td><app-gg [elo]="player.stats[mode.id].elo_gg" [rank]="player.stats[mode.id].rank_gg"></app-gg>{{player.stats[mode.id].elo_gg | number:'1.0-0'}}<app-diff [elo]="player.stats[mode.id].diff_gg"></app-diff></td>
-        <td><app-tracker [elo]="player.stats[mode.id].elo_tracker" [rank]="player.stats[mode.id].rank_tracker"></app-tracker>{{player.stats[mode.id].elo_tracker | number:'1.0-0'}}<app-diff [elo]="player.stats[mode.id].diff_tracker"></app-diff></td>
+        <td><a [attr.href]="'https://guardian.gg/2/profile/' + player.id + '/' + player.name" target="_blank"><app-gg [elo]="player.stats[mode.id].elo_gg" [rank]="player.stats[mode.id].rank_gg"></app-gg>{{player.stats[mode.id].elo_gg | number:'1.0-0'}}<app-diff [elo]="player.stats[mode.id].diff_gg"></app-diff></a></td>
+        <td><a [attr.href]="'https://destinytracker.com/d2/profile/psn/' + player.name" target="_blank"><app-tracker [elo]="player.stats[mode.id].elo_tracker" [rank]="player.stats[mode.id].rank_tracker"></app-tracker>{{player.stats[mode.id].elo_tracker | number:'1.0-0'}}<app-diff [elo]="player.stats[mode.id].diff_tracker"></app-diff></a></td>
         <td>{{player.stats[mode.id].kill / player.stats[mode.id].death | number:'1.2-2'}}</td>
         <td>{{player.stats[mode.id].win | number:'1.0-0'}}</td>
         <td>{{player.stats[mode.id].match | number:'1.0-0'}}</td>
