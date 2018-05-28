@@ -9,7 +9,7 @@ import { Player } from '../../../model/player.model'
 import { Stat } from '../../../model/stat.model'
 import { Bread } from '../../../model/bread.model'
 import { Activity } from '../../../model/activity.model'
-import { Progress } from '../../../model/progress.model';
+import { Progress } from '../../../model/progress.model'
 
 @Component({
   selector: 'app-player-index',
