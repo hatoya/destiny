@@ -38,9 +38,9 @@ export class ApiService {
   getProgress(player_id: string): Observable<any> {
     return this.http.get('/Destiny2/2/Profile/' + player_id + '/?components=202').pipe(map(content => {
       const answers: any[] = []
-      const target = content['Response']['characterProgressions']['data']
+      const target = content['Response'] ? content['Response']['characterProgressions']['data'] : {}
       for (let key in target) answers.push(target[key])
-      return answers[0]['progressions']
+      return answers.length ? answers[0]['progressions'] : {}
     }))
   }
 
