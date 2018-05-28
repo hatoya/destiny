@@ -83,7 +83,13 @@ export class ClanIndexComponent implements OnInit {
   }
 
   sort() {
-    this.members = this.members.sort((member1, member2) => (member1.stats[this.mode_id][this.target] < member2.stats[this.mode_id][this.target] ? 1 : -1) * (this.order === 'desc' ? 1 : -1))
+    this.members = this.members.sort((member1, member2) => {
+      if (this.target === 'glory' || this.target === 'valor') {
+        return (member1[this.target].currentProgress < member2[this.target].currentProgress ? 1 : -1) * (this.order === 'desc' ? 1 : -1)
+      } else {
+        return (member1.stats[this.mode_id][this.target] < member2.stats[this.mode_id][this.target] ? 1 : -1) * (this.order === 'desc' ? 1 : -1)
+      }
+    })
   }
 
   getDiff() {

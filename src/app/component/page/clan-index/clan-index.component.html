@@ -10,8 +10,8 @@
       <tr>
         <th></th>
         <th>Name</th>
-        <th>Glory</th>
-        <th>Valor</th>
+        <th class="-active" (click)="changeOrder('glory')">Glory<fa-icon icon="sort-down" *ngIf="target === 'glory' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'glory' && order === 'asc'"></fa-icon></th>
+        <th class="-active" (click)="changeOrder('valor')">Valor<fa-icon icon="sort-down" *ngIf="target === 'valor' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'valor' && order === 'asc'"></fa-icon></th>
         <th class="-active" (click)="changeOrder('elo_gg')">GG elo<fa-icon icon="sort-down" *ngIf="target === 'elo_gg' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'elo_gg' && order === 'asc'"></fa-icon></th>
         <th class="-active" (click)="changeOrder('elo_tracker')">Tracker elo<fa-icon icon="sort-down" *ngIf="target === 'elo_tracker' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'elo_tracker' && order === 'asc'"></fa-icon></th>
         <th class="-active" (click)="changeOrder('kd')">KD<fa-icon icon="sort-down" *ngIf="target === 'kd' && order === 'desc'"></fa-icon><fa-icon icon="sort-up" *ngIf="target === 'kd' && order === 'asc'"></fa-icon></th>
