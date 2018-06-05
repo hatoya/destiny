@@ -46,6 +46,7 @@ export class ClanIndexComponent implements OnInit {
 
   init() {
     this.id = location.pathname.split('/')[2]
+    this.target = 'elo_gg'
     this.api.getClan(this.id).pipe(tap(() => this.state.heading = ''), map(content => content['Response']['detail'])).subscribe({
       next: content => {
         this.meta.setTitle(content['name'] + ' | Clan')
